@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{5D88A799-6B7C-D295-1209-34226DFDB324}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Dynamics.cs">
+    <Files>
+      <File FileName="Assets/Dynamics.cs" Line="175" Column="41" />
+      <File FileName="Assets/Director.cs" />
+      <File FileName="Assets/VehicleTrigger.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="VV Sim_GL" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Dynamics.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="620d4de2-6e5d-468d-aa44-be96754636df" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

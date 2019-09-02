@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{A8B1A6D4-076A-A1D9-700E-816F4E9C3062}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Director.cs">
+    <Files>
+      <File FileName="Assets/Director.cs" Line="77" Column="30" />
+      <File FileName="Assets/Dynamics.cs" Line="172" Column="53" />
+      <File FileName="Assets/Param.cs" Line="11" Column="42" />
+      <File FileName="Assets/VehicleTrigger.cs" Line="15" Column="39" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="VV Sim" expanded="True" selected="True" />
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="VV Sim" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="51c863b6-b1fd-466f-b838-2e6dbc4f079d" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
