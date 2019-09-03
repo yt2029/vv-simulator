@@ -158,7 +158,7 @@ public class Dynamics : MonoBehaviour
             vv_vel_hill_x0 += (deltav_cmd_xp * val_dv_const + (-1) * deltav_cmd_xm * val_dv_const) * Time.timeScale;
             vv_vel_hill_y0 += (deltav_cmd_yp * val_dv_const + (-1) * deltav_cmd_ym * val_dv_const) * Time.timeScale;
             vv_vel_hill_z0 += 0;
-            total_delta_V += (deltav_cmd_xp * val_dv_const + (1) * deltav_cmd_xm * val_dv_const) * Director.val_sim_speed + (deltav_cmd_yp * val_dv_const + (1) * deltav_cmd_ym * val_dv_const) * Director.val_sim_speed;
+            total_delta_V += (deltav_cmd_xp * val_dv_const + (1) * deltav_cmd_xm * val_dv_const) + (deltav_cmd_yp * val_dv_const + (1) * deltav_cmd_ym * val_dv_const);
 
 
 
@@ -169,15 +169,14 @@ public class Dynamics : MonoBehaviour
             vv_vel_hill_x0 += (input_vertical * val_dv_const) * Time.timeScale;
             vv_vel_hill_y0 += (-input_horizontal * val_dv_const) * Time.timeScale;
             vv_vel_hill_z0 += 0;
-            total_delta_V += (Mathf.Abs(input_vertical) * val_dv_const) * Director.val_sim_speed + (Mathf.Abs(input_horizontal) * val_dv_const ) * Director.val_sim_speed;
+            total_delta_V += (Mathf.Abs(input_vertical) * val_dv_const) + (Mathf.Abs(input_horizontal) * val_dv_const );
 
 
             // Delta V induce (virtual joystick input)
             vv_vel_hill_x0 += (joystick.Direction.y * val_dv_const) * Time.timeScale;
             vv_vel_hill_y0 += (-joystick.Direction.x * val_dv_const) * Time.timeScale;
             vv_vel_hill_z0 += 0;
-            total_delta_V += (Mathf.Abs(joystick.Direction.y) * val_dv_const)* Director.val_sim_speed + (Mathf.Abs(joystick.Direction.x) * val_dv_const) * Director.val_sim_speed;
-
+            total_delta_V += (joystick.Direction.y * val_dv_const + (1) * joystick.Direction.y * val_dv_const) + (joystick.Direction.x * val_dv_const + (1) * joystick.Direction.x * val_dv_const);
 
 
             // CW equation

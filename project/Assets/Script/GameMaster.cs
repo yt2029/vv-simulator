@@ -15,7 +15,6 @@ public class GameMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
@@ -27,15 +26,13 @@ public class GameMaster : MonoBehaviour
     public void mode_select_1()
     {
         game_scene = 1;
-        //SceneManager.LoadScene("GameRbar");
-        FadeManager.Instance.LoadScene("GameRbar", 0.5f);
+        SceneManager.LoadScene("GameRbar");
     }
 
 
     public void mode_select_2()
     {
         game_scene = 2;
-        //SceneManager.LoadScene("GameProx");
-        FadeManager.Instance.LoadScene("GameProx", 0.5f);
+        SceneManager.LoadScene("GameProx");
     }
 }
