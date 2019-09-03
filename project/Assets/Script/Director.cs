@@ -19,12 +19,13 @@ public class Director : MonoBehaviour
     GameObject info_val_x, info_val_y, info_val_z, info_val_vx, info_val_vy, info_val_vz, info_val_attitude, info_message, info_val_total_dv, game_status_capture_timer;
     GameObject game_status_result, game_status_failure;
     GameObject game_status_result_duration, game_status_result_dv, game_status_result_relative_v,game_status_result_score;
+    GameObject game_status_vv_propellant_val, game_status_vv_propellant_gage;
 
     float result_dv, result_duration, result_relative_v, result_score;
 
     public static float elappsedTime, timer_capture, timer_capture_clear;
     public static int game_submode;
-    public static int flag_250m_HP, flag_100m_HP, flag_30m_HP, flag_10m_HP, flag_collision, flag_KOS, flag_clear, flag_10m_HP_stay;
+    public static int flag_250m_HP, flag_100m_HP, flag_30m_HP, flag_10m_HP, flag_collision, flag_KOS, flag_clear, flag_10m_HP_stay, flag_no_propellant;
     public static float val_sim_speed;
     public static int sound_flag;
 
@@ -47,6 +48,9 @@ public class Director : MonoBehaviour
 	private int flag_pressed;
 	public float cam_time_offset;
     float capture_duration = 10 * 60;
+    float vv_propellant_max = 1000;
+    float vv_propellant_now;
+    float vv_propellant_coefficient = 300;
 
 
     private Vector3 delta_newAngle = new Vector3(0, 0, 0);
@@ -83,13 +87,16 @@ public class Director : MonoBehaviour
         this.info_val_vz = GameObject.Find("Val-Vz");
         this.info_val_attitude = GameObject.Find("Attitude");
         this.info_message = GameObject.Find("Message");
-        this.info_val_total_dv = GameObject.Find("Val-total-dV");
+        //this.info_val_total_dv = GameObject.Find("Val-total-dV");
 
         this.game_status_result_duration = GameObject.Find("result_duration");
         this.game_status_result_dv = GameObject.Find("result_dv");
         this.game_status_result_relative_v = GameObject.Find("result_relativeV");
         this.game_status_result_score = GameObject.Find("result_score");
         this.game_status_capture_timer = GameObject.Find("Capture-Timer");
+
+        this.game_status_vv_propellant_val = GameObject.Find("Val-total-dV");
+        this.game_status_vv_propellant_gage = GameObject.Find("dv-gage");
 
         time_medium();
         Time.timeScale = val_sim_speed;
@@ -148,6 +155,7 @@ public class Director : MonoBehaviour
             flag_KOS = 0;
             flag_collision = 0;
             flag_clear = 0;
+            flag_no_propellant = 0;
             timer_capture = 0f;
             timer_capture_clear = 0f;
             flag_10m_HP_stay = 0;
@@ -172,6 +180,7 @@ public class Director : MonoBehaviour
             flag_KOS = 0;
             flag_collision = 0;
             flag_clear = 0;
+            flag_no_propellant = 0;
             timer_capture = 0f;
             timer_capture_clear = 0f;
             flag_10m_HP_stay = 0;
@@ -305,6 +314,10 @@ public class Director : MonoBehaviour
             {
                 game_submode = 10;
             }
+            if (flag_no_propellant == 1)
+            {
+                game_submode = 11;
+            }
 
 
             // ゲームモードごとのメッセージ生成
@@ -402,6 +415,15 @@ public class Director : MonoBehaviour
             {
                 this.info_message.GetComponent<Text>().text = "[注意] 宇宙ステーションに接近しています。";
             }
+            else if (game_submode == 11)
+            {
+                this.info_message.GetComponent<Text>().text = "[ミッション失敗] 燃料切れです。";
+                this.game_status_failure.SetActive(true);
+                this.game_status_capture_timer.SetActive(false);
+                Time.timeScale = 0.01f;
+                sound_failure();
+                sound_flag = 0;
+            }
         }
 
         if (GameMaster.game_scene == 2)
@@ -437,7 +459,19 @@ public class Director : MonoBehaviour
             this.info_val_vx.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_xd);
             this.info_val_vy.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_yd);
             this.info_val_vz.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_zd);
-            this.info_val_total_dv.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.total_delta_V);
+            //this.info_val_total_dv.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.total_delta_V);
+
+            vv_propellant_now = (vv_propellant_max - vv_propellant_coefficient * Dynamics.total_delta_V) / vv_propellant_max;
+
+            if (vv_propellant_now < 0)
+            {
+                vv_propellant_now = 0.0f;
+                flag_no_propellant = 1;
+            }
+
+            this.game_status_vv_propellant_val.GetComponent<Text>().text = string.Format("{0:0.0} %", vv_propellant_now * 100);
+            this.game_status_vv_propellant_gage.GetComponent<Image>().fillAmount = vv_propellant_now * 0.9f;
+
         }
 
         //this.info_val_attitude.GetComponent<Text>().text = string.Format("{0:0.0} degree", Dynamics.attitude_cmd_yaw);
@@ -686,17 +720,30 @@ public class Director : MonoBehaviour
     {
         if (GameMaster.game_scene == 1)
         {
+            Time.timeScale = 1.0f;
             SceneManager.LoadScene("GameRbar");
+            //val_sim_speed = 1.0f;
+            //Time.timeScale = val_sim_speed;
+            //FadeManager.Instance.LoadScene("GameRbar", 0.3f);
         }
         else if (GameMaster.game_scene == 2)
         {
+            Time.timeScale = 1.0f;
             SceneManager.LoadScene("GameProx");
+            //val_sim_speed = 1.0f;
+            //Time.timeScale = val_sim_speed;
+            //FadeManager.Instance.LoadScene("GameProx", 0.3f);
         }
     }
 
     public void title_scene()
     {
+
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("TitleScene");
+        //val_sim_speed = 1.0f;
+        //Time.timeScale = val_sim_speed;
+        //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
     }
     
 
