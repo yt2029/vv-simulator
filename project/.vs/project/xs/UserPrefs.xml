@@ -3,7 +3,7 @@
     <Files>
       <File FileName="Assets/Script/GameMaster.cs" Line="18" Column="31" />
       <File FileName="Assets/Script/Director.cs" Line="353" Column="43" />
-      <File FileName="Assets/Script/Dynamics.cs" Line="161" Column="218" />
+      <File FileName="Assets/Script/Dynamics.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -28,16 +28,11 @@
           </Node>
         </State>
       </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="project" expanded="True" selected="True" />
-        </State>
-      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="77f66220-5a9e-4a58-ad3b-13a18c1c0456" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="026a9e97-6c5f-4c1e-acbf-e708849c92d8" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -17,6 +17,7 @@ public class Director : MonoBehaviour
     GameObject slider;
     GameObject sim_timer;
     GameObject info_val_x, info_val_y, info_val_z, info_val_vx, info_val_vy, info_val_vz, info_val_attitude, info_message, info_val_total_dv, game_status_capture_timer;
+    GameObject info_val_vx_slider, info_val_vy_slider;
     GameObject game_status_result, game_status_failure;
     GameObject game_status_result_duration, game_status_result_dv, game_status_result_relative_v,game_status_result_score;
     GameObject game_status_vv_propellant_val, game_status_vv_propellant_gage;
@@ -81,13 +82,16 @@ public class Director : MonoBehaviour
 
         this.info_val_x = GameObject.Find("Val-X");
         this.info_val_y = GameObject.Find("Val-Y");
-        this.info_val_z = GameObject.Find("Val-Z");
+        //this.info_val_z = GameObject.Find("Val-Z");
         this.info_val_vx = GameObject.Find("Val-Vx");
         this.info_val_vy = GameObject.Find("Val-Vy");
-        this.info_val_vz = GameObject.Find("Val-Vz");
+        //this.info_val_vz = GameObject.Find("Val-Vz");
         this.info_val_attitude = GameObject.Find("Attitude");
         this.info_message = GameObject.Find("Message");
         //this.info_val_total_dv = GameObject.Find("Val-total-dV");
+
+        this.info_val_vx_slider = GameObject.Find("Vx-slider");
+        this.info_val_vy_slider = GameObject.Find("Vy-slider");
 
         this.game_status_result_duration = GameObject.Find("result_duration");
         this.game_status_result_dv = GameObject.Find("result_dv");
@@ -354,7 +358,7 @@ public class Director : MonoBehaviour
                 result_duration = timer_after_scale / 60f;
                 result_dv = Dynamics.total_delta_V;
                 result_relative_v = Mathf.Sqrt(Mathf.Pow(Dynamics.vv_vel_hill_xd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_yd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_zd, 2));
-                result_score = (1 / result_duration + 1 / (result_dv * 30f) + 1 / (result_relative_v * 120f)) * 100f + 50f;
+                result_score = (1 / result_duration + 2　/ (result_dv * 30f) + 2 / (result_relative_v * 120f)) * 100f + 50f;
             }
             else if (game_submode == 54)
             {
@@ -452,14 +456,17 @@ public class Director : MonoBehaviour
         //}
         if (cam_mode ==1 || cam_mode == 2)
         {
-            this.info_val_x.GetComponent<Text>().text = string.Format("{0:0.00} m", Dynamics.vv_pos_hill_x);
-            this.info_val_y.GetComponent<Text>().text = string.Format("{0:0.00} m", Dynamics.vv_pos_hill_y);
-            this.info_val_z.GetComponent<Text>().text = string.Format("{0:0.00} m", Dynamics.vv_pos_hill_z);
+            this.info_val_x.GetComponent<Text>().text = string.Format("{0:0.00}", Dynamics.vv_pos_hill_x);
+            this.info_val_y.GetComponent<Text>().text = string.Format("{0:0.00}", Dynamics.vv_pos_hill_y);
+            //this.info_val_z.GetComponent<Text>().text = string.Format("{0:0.00} m", Dynamics.vv_pos_hill_z);
 
-            this.info_val_vx.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_xd);
-            this.info_val_vy.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_yd);
-            this.info_val_vz.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_zd);
+            this.info_val_vx.GetComponent<Text>().text = string.Format("{0:0.000}", Dynamics.vv_vel_hill_xd);
+            this.info_val_vy.GetComponent<Text>().text = string.Format("{0:0.000}", Dynamics.vv_vel_hill_yd);
+            //this.info_val_vz.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_zd);
             //this.info_val_total_dv.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.total_delta_V);
+
+            this.info_val_vx_slider.GetComponent<Slider>().value = Dynamics.vv_vel_hill_xd * 1.3f + 0.5f;
+            this.info_val_vy_slider.GetComponent<Slider>().value = Dynamics.vv_vel_hill_yd * 1.3f + 0.5f;
 
             vv_propellant_now = (vv_propellant_max - vv_propellant_coefficient * Dynamics.total_delta_V) / vv_propellant_max;
 
@@ -523,9 +530,9 @@ public class Director : MonoBehaviour
                     {
                         cam_time_offset = 100000;
                     }
-                    else if (cam_time_offset <= 30000)
+                    else if (cam_time_offset <= 10000)
                     {
-                        cam_time_offset = 30000;
+                        cam_time_offset = 10000;
                     }
                     //GameObject.Find("Cam_Offset").GetComponent<Slider>().value = cam_time_offset;
 
@@ -563,9 +570,9 @@ public class Director : MonoBehaviour
                 {
                     cam_time_offset = 100000;
                 }
-                else if (cam_time_offset <= 30000)
+                else if (cam_time_offset <= 10000)
                 {
-                    cam_time_offset = 30000;
+                    cam_time_offset = 10000;
                 }
                 //GameObject.Find("Cam_Offset").GetComponent<Slider>().value = cam_time_offset;
 
