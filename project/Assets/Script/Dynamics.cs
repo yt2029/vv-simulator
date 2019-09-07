@@ -235,7 +235,7 @@ public class Dynamics : MonoBehaviour
             renderer_orbit_station_vertical.SetVertexCount(2); // 頂点の数
             plot_point_line_orbit_station_vertical = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 0) * Director.prox_model_scale;
             renderer_orbit_station_vertical.SetPosition(0, plot_point_line_orbit_station_vertical);
-            plot_point_line_orbit_station_vertical = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 500) * Director.prox_model_scale;
+            plot_point_line_orbit_station_vertical = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 1000) * Director.prox_model_scale;
             renderer_orbit_station_vertical.SetPosition(1, plot_point_line_orbit_station_vertical);
 
 

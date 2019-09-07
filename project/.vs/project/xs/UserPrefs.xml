@@ -2,42 +2,13 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Director.cs">
     <Files>
       <File FileName="Assets/Script/GameMaster.cs" Line="53" Column="24" />
-      <File FileName="Assets/Script/Dynamics.cs" Line="254" Column="1" />
-      <File FileName="Assets/Script/Director.cs" Line="632" Column="30" />
+      <File FileName="Assets/Script/Dynamics.cs" Line="238" Column="139" />
+      <File FileName="Assets/Script/Director.cs" Line="549" Column="37" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="project" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Assets" expanded="True">
-                <Node name="Unity-FadeManager-master" expanded="True">
-                  <Node name="Assets" expanded="True">
-                    <Node name="naichilab" expanded="True">
-                      <Node name="FadeManager" expanded="True">
-                        <Node name="Scripts" expanded="True" />
-                      </Node>
-                    </Node>
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Script" expanded="True">
-                <Node name="Director.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="project" expanded="True" selected="True" />
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="3bebcc87-80ec-4c1f-b725-0203ac803dab" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="9807fa04-fce3-49ef-9a15-c676b5143bc2" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

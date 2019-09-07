@@ -546,7 +546,7 @@ public class Director : MonoBehaviour
                 this.info_message.GetComponent<Text>().text = "[ミッション失敗] アプローチ・コリドー逸脱を検知。\nアボートしました。";
                 this.game_status_failure.SetActive(true);
                 this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 0.1f;
+                Time.timeScale = 1.5f;
 
                 if (flag_cam == 0)
                 {
@@ -629,6 +629,16 @@ public class Director : MonoBehaviour
             if (cam_mode == 1) // VV中心のビュー
             {
 
+                ////はじめにカメラをまわす
+                //if (cam_initial_rotate == 0)
+                //{
+                //    cam_initial_rotate_val += 1f;
+                //}
+                //if (cam_initial_rotate_val > 90)
+                //{
+                //    cam_initial_rotate = 1;
+                //}
+
                 //はじめにカメラをまわす
                 if (cam_initial_rotate == 0)
                 {
@@ -639,13 +649,27 @@ public class Director : MonoBehaviour
                     cam_initial_rotate = 1;
                 }
 
-                GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(-60 +( 90 - cam_initial_rotate_val), 45, 25) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
-                Vector3 cam_pos_offset = new Vector3(-45000 / 100, 50000 / 100, -1 * cam_time_offset * prox_model_scale / 800);
-                GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset;
+                GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(5 - (90 - cam_initial_rotate_val), 70, 5) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
+                Vector3 cam_pos_offset_2 = new Vector3(-45000 / 100, 50000 / 100, -1 * cam_time_offset * prox_model_scale / 70 * ((Mathf.Abs(Dynamics.vv_pos_hill_xd) + 30 )/ 250));
+                GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset_2;
+
+                ////はじめにカメラをまわす
+                //if (cam_initial_rotate == 0)
+                //{
+                //    cam_initial_rotate_val += 1f;
+                //}
+                //if (cam_initial_rotate_val > 90)
+                //{
+                //    cam_initial_rotate = 1;
+                //}
+
+                //GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(-60 +( 90 - cam_initial_rotate_val), 45, 25) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
+                //Vector3 cam_pos_offset = new Vector3(-45000 / 100, 50000 / 100, -1 * cam_time_offset * prox_model_scale / 800);
+                //GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset;
 
                 // Sub Cameraの視点
-                GameObject.Find("Sub Camera").transform.rotation = GameObject.Find("Station").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(55, 155, 15);
-                Vector3 cam_pos_offset_sub = new Vector3(-500, -1000, -1 * cam_time_offset * prox_model_scale / 550);
+                GameObject.Find("Sub Camera").transform.rotation = GameObject.Find("Station").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(65, 155, 15);
+                Vector3 cam_pos_offset_sub = new Vector3(-500, -1000, -1 * cam_time_offset * prox_model_scale /1000);
                 GameObject.Find("Sub Camera").transform.position = GameObject.Find("Station").transform.position + GameObject.Find("Sub Camera").transform.rotation * cam_pos_offset_sub;
             }
 
