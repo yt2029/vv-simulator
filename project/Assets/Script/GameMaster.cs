@@ -16,6 +16,7 @@ public class GameMaster : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1.0f;
+        game_scene = 0;
     }
 
     // Update is called once per frame
@@ -38,4 +39,23 @@ public class GameMaster : MonoBehaviour
         //SceneManager.LoadScene("GameProx");
         FadeManager.Instance.LoadScene("GameProx", 0.5f);
     }
+
+    public void mode_select_3()
+    {
+        game_scene = 9;
+        //SceneManager.LoadScene("GameProx");
+        FadeManager.Instance.LoadScene("HowToPlay", 0.2f);
+    }
+
+    public void title_scene()
+    {
+
+        game_scene = 0;
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("TitleScene");
+        //val_sim_speed = 1.0f;
+        //Time.timeScale = val_sim_speed;
+        //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
+    }
+
 }

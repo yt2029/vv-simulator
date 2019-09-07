@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GameRbar.unity
     guid: 64f40e8ed2681462db0b3f594441a521
+  - enabled: 1
+    path: Assets/HowToPlay.unity
+    guid: e7a8145e1b6ed490ba2b4d0dfc256578
   m_configObjects: {}

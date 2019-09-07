@@ -81,6 +81,7 @@
     <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+    <None Include="Assets\Font\Orbitron\OFL.txt" />
     <None Include="Assets\Assets\Unity-FadeManager-master\ProjectSettings\ProjectVersion.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/yuki/Documents/programming/git/vv-simulator/project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
