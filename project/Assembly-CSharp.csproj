@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Assets\EarthRendering Free\CameraCtrl.cs" />
     <Compile Include="Assets\Assets\UITween\Prefabs\Click Effect Pref\ClickedWaveAnimation.cs" />
     <Compile Include="Assets\Assets\UITween\ScenesExamplesScripts\ActivateOnEnable.cs" />
     <Compile Include="Assets\Assets\UITween\ScenesExamplesScripts\CreateAnimImage.cs" />
@@ -82,7 +83,9 @@
     <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
     <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+    <None Include="Assets\Assets\EarthRendering Free\Earth.shader" />
     <None Include="Assets\Font\Orbitron\OFL.txt" />
+    <None Include="Assets\Assets\EarthRendering Free\Atmosphere.shader" />
     <None Include="Assets\Assets\Unity-FadeManager-master\ProjectSettings\ProjectVersion.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/yuki/Documents/programming/git/vv-simulator/project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

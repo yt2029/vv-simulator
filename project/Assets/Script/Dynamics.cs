@@ -62,8 +62,8 @@ public class Dynamics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ISS Position Calc [meter]
-        iss_velocity_scalar = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + Param.Co.STATION_ALTITUDE / 1000))) * 1000 * Param.Co.TIME_SCALE_COMMON;      // [meter/sec]
+        // ISS Position Calc [meter](なぜか回転スピードが３倍くらい早いので割る３＊＊要調査)
+        iss_velocity_scalar = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + Param.Co.STATION_ALTITUDE / 1000))) * 1000 * Param.Co.TIME_SCALE_COMMON /3f;      // [meter/sec]
         
         iss_orbital_period = (float)(2 * Mathf.PI * (Param.Co.EARTH_RADIOUS + Param.Co.STATION_ALTITUDE) / iss_velocity_scalar);            // [sec/orbit]
         iss_rotation_speed = 360 / iss_orbital_period;
