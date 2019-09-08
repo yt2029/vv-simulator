@@ -23,7 +23,7 @@ public class Director : MonoBehaviour
     GameObject game_status_vv_propellant_val, game_status_vv_propellant_gage;
     GameObject plane_movie_capture, video_capture;
 
-    float result_dv, result_duration, result_relative_v, result_score;
+    public static float result_dv, result_duration, result_relative_v, result_score;
 
     public static float elappsedTime, timer_capture, timer_capture_clear, timer_hold_clear_250m, timer_hold_clear_100m, timer_hold_clear_30m, timer_hold_250m, timer_hold_100m, timer_hold_30m, timer_hold_clear;
     public static int game_submode;
@@ -468,7 +468,7 @@ public class Director : MonoBehaviour
                 result_duration = timer_after_scale / 60f;
                 result_dv = Dynamics.total_delta_V;
                 result_relative_v = Mathf.Sqrt(Mathf.Pow(Dynamics.vv_vel_hill_xd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_yd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_zd, 2));
-                result_score = (1 / result_duration /60f　* 4000f + 1　/ (result_dv) * 100f + 1 / (result_relative_v)) * 2.8f + 50f;
+                result_score = (1 / result_duration /60f　* 5000f + 1　/ (result_dv) * 250f + 1 / (result_relative_v + 0.01f)) * 2.8f + 50f;
             }
             else if (game_submode == 54)
             {
@@ -951,7 +951,16 @@ public class Director : MonoBehaviour
         //Time.timeScale = val_sim_speed;
         //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
     }
-    
+
+    public void ranking_scene()
+    {
+
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("ShowRank");
+        //val_sim_speed = 1.0f;
+        //Time.timeScale = val_sim_speed;
+        //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
+    }
 
 
 }

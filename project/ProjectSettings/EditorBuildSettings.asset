@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/HowToPlay.unity
     guid: e7a8145e1b6ed490ba2b4d0dfc256578
+  - enabled: 1
+    path: Assets/ShowRank.unity
+    guid: d1eea801adb4443ebbefea1bc3f5c091
   m_configObjects: {}

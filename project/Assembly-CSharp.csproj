@@ -74,6 +74,7 @@
     <Compile Include="Assets\Script\Dynamics.cs" />
     <Compile Include="Assets\Script\GameMaster.cs" />
     <Compile Include="Assets\Script\Param.cs" />
+    <Compile Include="Assets\Script\Ranking.cs" />
     <Compile Include="Assets\UI\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\UI\Joystick Pack\Examples\JoystickSetterExample.cs" />
     <Compile Include="Assets\UI\Joystick Pack\Scripts\Base\Joystick.cs" />
