@@ -13,7 +13,7 @@ public class Director : MonoBehaviour
 {
 
     Text timeText;
-    float timer, timer_after_scale;
+    public static float timer, timer_after_scale;
     GameObject slider;
     GameObject sim_timer;
     GameObject info_val_x, info_val_y, info_val_z, info_val_vx, info_val_vy, info_val_vz, info_val_attitude, info_message, info_val_total_dv, game_status_capture_timer, game_status_hold_timer;
@@ -31,8 +31,10 @@ public class Director : MonoBehaviour
     public static int flag_250m_HP_stay, flag_100m_HP_stay, flag_30m_HP_stay;
     public static float val_sim_speed;
     public static int sound_flag, flag_cam;
+    public static float TimedeltaCommon;
 
-	public static int cam_mode;      //カメラモード
+
+    public static int cam_mode;      //カメラモード
 	float cam_coord_pos_x;
 	float cam_coord_pos_y;
 	float cam_coord_pos_z;
@@ -54,7 +56,7 @@ public class Director : MonoBehaviour
 	public float cam_time_offset;
     float capture_duration = 10 * 60;
     float hold_duration = 5 * 60;
-    float vv_propellant_max = 1000;
+    float vv_propellant_max = 1050;
     float vv_propellant_now;
     float vv_propellant_coefficient = 300;
 
@@ -115,6 +117,8 @@ public class Director : MonoBehaviour
         time_medium();
         Time.timeScale = val_sim_speed;
         timer = 0;
+        TimedeltaCommon = 0;
+        timer_after_scale = 0;
         elappsedTime = 0;
         Dynamics.total_delta_V = 0;
 
@@ -223,20 +227,12 @@ public class Director : MonoBehaviour
         ///
         if (GameMaster.game_scene == 1)
         {
-            Dynamics.vv_pos_hill_x0 = -489.58f;
-            Dynamics.vv_pos_hill_y0 = -245.44f;
+            Dynamics.vv_pos_hill_x0 = -745.80f + Random.Range(-0.25f, +0.25f);
+            Dynamics.vv_pos_hill_y0 = -309.09f + Random.Range(-0.25f, +0.25f);
             Dynamics.vv_pos_hill_z0 = 0f;
 
-            Dynamics.vv_vel_hill_x0 = 0.516f;      // [meter/sec]
-            Dynamics.vv_vel_hill_y0 = 0.653f;
-            Dynamics.vv_vel_hill_z0 = 0f;
-
-            Dynamics.vv_pos_hill_x0 = -812.9f;
-            Dynamics.vv_pos_hill_y0 = -441.0f;
-            Dynamics.vv_pos_hill_z0 = 0f;
-
-            Dynamics.vv_vel_hill_x0 = 0.882f;      // [meter/sec]
-            Dynamics.vv_vel_hill_y0 = 1.236f;
+            Dynamics.vv_vel_hill_x0 = 0.904f + Random.Range(-0.04f, +0.04f);      // [meter/sec]
+            Dynamics.vv_vel_hill_y0 = 1.041f + Random.Range(-0.04f, +0.04f);
             Dynamics.vv_vel_hill_z0 = 0f;
 
             Dynamics.vv_pos_hill_xd = Dynamics.vv_pos_hill_x0;
@@ -245,12 +241,12 @@ public class Director : MonoBehaviour
         }
         else if (GameMaster.game_scene == 2)
         {
-            Dynamics.vv_pos_hill_x0 = -150f;
-            Dynamics.vv_pos_hill_y0 = -2000f;
+            Dynamics.vv_pos_hill_x0 = -2.93f;
+            Dynamics.vv_pos_hill_y0 = -2011.41f;
             Dynamics.vv_pos_hill_z0 = 0f;
 
-            Dynamics.vv_vel_hill_x0 = 0.28f;      // [meter/sec]
-            Dynamics.vv_vel_hill_y0 = 0.2f;
+            Dynamics.vv_vel_hill_x0 = 0.009f;      // [meter/sec]
+            Dynamics.vv_vel_hill_y0 = 0.006f;
             Dynamics.vv_vel_hill_z0 = 0f;
 
             Dynamics.vv_pos_hill_xd = Dynamics.vv_pos_hill_x0;
@@ -270,10 +266,11 @@ public class Director : MonoBehaviour
         //////////////////////////////////////////////////////
         ///
         // Time Controller
-        elappsedTime += Time.deltaTime; //[sec]
         Time.timeScale = val_sim_speed;
+        //elappsedTime += Time.deltaTime; //[sec]
         timer += Time.deltaTime;
         timer_after_scale = timer * Param.Co.TIME_SCALE_COMMON;
+        //timer_after_scale += Time.deltaTime * Param.Co.TIME_SCALE_COMMON;
 
         // Time View
         int days = Mathf.FloorToInt(timer_after_scale / 60F / 60F/ 24F);
@@ -546,7 +543,7 @@ public class Director : MonoBehaviour
                 this.info_message.GetComponent<Text>().text = "[ミッション失敗] アプローチ・コリドー逸脱を検知。\nアボートしました。";
                 this.game_status_failure.SetActive(true);
                 this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 1.5f;
+                Time.timeScale = 0.5f;
 
                 if (flag_cam == 0)
                 {
@@ -914,7 +911,7 @@ public class Director : MonoBehaviour
     }
     public void time_medium()
     {
-        val_sim_speed = 1.0f;
+        val_sim_speed = 0.8f;
     }
     public void time_high()
     {

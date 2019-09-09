@@ -17,6 +17,9 @@ public class Dynamics : MonoBehaviour
     float iss_orbital_period;
     float iss_rotation_speed;
     float vv_rotation_speed;
+
+    float TimeNow, TimeLast, TimeDelta;
+
     public static float iss_coord_pos_x;
     public static float iss_coord_pos_y;
     public static float iss_coord_pos_z;
@@ -35,7 +38,7 @@ public class Dynamics : MonoBehaviour
     public static float total_delta_V;
 
     //float val_dv_const = 0.005f;  // iPhone
-    float val_dv_const = 0.008f;  // WebGL
+    float val_dv_const = 0.018f;  // WebGL
 
 
 
@@ -63,12 +66,16 @@ public class Dynamics : MonoBehaviour
     void Start()
     {
         // ISS Position Calc [meter](なぜか回転スピードが３倍くらい早いので割る３＊＊要調査)
-        iss_velocity_scalar = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + Param.Co.STATION_ALTITUDE / 1000))) * 1000 * Param.Co.TIME_SCALE_COMMON /3f;      // [meter/sec]
-        
+        iss_velocity_scalar = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + Param.Co.STATION_ALTITUDE / 1000))) * 1000 ;      // [meter/sec]
+        Debug.Log(iss_velocity_scalar);
         iss_orbital_period = (float)(2 * Mathf.PI * (Param.Co.EARTH_RADIOUS + Param.Co.STATION_ALTITUDE) / iss_velocity_scalar);            // [sec/orbit]
-        iss_rotation_speed = 360 / iss_orbital_period;
-        iss_coord_pos = new Vector3(Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS, 0, 0);                                                     // [deg/sec]
-        
+        iss_rotation_speed = 360f / iss_orbital_period;                                                     // [deg/sec]
+        iss_coord_pos = new Vector3(Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS, 0, 0);
+
+        TimeNow = 0;
+        TimeLast = 0;
+        TimeDelta = 0;
+
         debug_mode = 2;
         
 
@@ -81,25 +88,28 @@ public class Dynamics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TimeNow = Director.timer_after_scale;
+        TimeDelta = TimeNow - TimeLast;
+
 
         //********************************************
         //************** Earth Dynamics **************
         //********************************************
-        GameObject.Find("Earth").transform.Rotate(new Vector3(0, 0, -Param.Co.ROTATE_SPEED_EARTH * Param.Co.TIME_SCALE_COMMON) * Time.deltaTime, Space.World);
+        GameObject.Find("Earth").transform.Rotate(new Vector3(0, 0, -Param.Co.ROTATE_SPEED_EARTH * Param.Co.TIME_SCALE_COMMON) * Director.TimedeltaCommon, Space.World);
 
 
         //********************************************
         //************** ISS Dynamics ****************
         //********************************************
-        iss_coord_pos_x = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Cos(-iss_rotation_speed * Director.elappsedTime * Mathf.Deg2Rad));
-        iss_coord_pos_y = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * Director.elappsedTime * Mathf.Deg2Rad)) * (float)(Mathf.Cos(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
-        iss_coord_pos_z = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * Director.elappsedTime * Mathf.Deg2Rad)) * (float)(Mathf.Sin(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
+        iss_coord_pos_x = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Cos(-iss_rotation_speed * Director.timer_after_scale * Mathf.Deg2Rad));
+        iss_coord_pos_y = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * Director.timer_after_scale * Mathf.Deg2Rad)) * (float)(Mathf.Cos(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
+        iss_coord_pos_z = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * Director.timer_after_scale * Mathf.Deg2Rad)) * (float)(Mathf.Sin(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
         iss_coord_pos = new Vector3(iss_coord_pos_x, iss_coord_pos_y, iss_coord_pos_z);
         //iss_coord_pos = Quaternion.Euler(0f, 90f, 0f) * iss_coord_pos;
         GameObject.Find("Station").transform.position = iss_coord_pos;
 
         // ISS Attitude Calc [degree at ISS]
-        ISS_attitude_q = Quaternion.Euler(Param.Co.ISS_INC_ANG, 0, 0) * Quaternion.Euler(0, 0, -iss_rotation_speed * Director.elappsedTime);
+        ISS_attitude_q = Quaternion.Euler(Param.Co.ISS_INC_ANG, 0, 0) * Quaternion.Euler(0, 0, -iss_rotation_speed * Director.timer_after_scale);
         GameObject.Find("Station").transform.rotation = ISS_attitude_q * Quaternion.Euler(0, -90, 90);
 
 
@@ -110,9 +120,9 @@ public class Dynamics : MonoBehaviour
         if (debug_mode == 1)  // Vehicle motion with an orbit kinematic equation
         {
             // VV Position Calc [meter]
-            vv_coord_pos_x = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Cos(-iss_rotation_speed * (Director.elappsedTime - vv_time_offset) * Mathf.Deg2Rad));
-            vv_coord_pos_y = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * (Director.elappsedTime - vv_time_offset) * Mathf.Deg2Rad)) * (float)(Mathf.Cos(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
-            vv_coord_pos_z = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * (Director.elappsedTime - vv_time_offset) * Mathf.Deg2Rad)) * (float)(Mathf.Sin(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
+            vv_coord_pos_x = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Cos(-iss_rotation_speed * (Director.timer_after_scale - vv_time_offset) * Mathf.Deg2Rad));
+            vv_coord_pos_y = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * (Director.timer_after_scale - vv_time_offset) * Mathf.Deg2Rad)) * (float)(Mathf.Cos(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
+            vv_coord_pos_z = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * (Director.timer_after_scale - vv_time_offset) * Mathf.Deg2Rad)) * (float)(Mathf.Sin(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
             vv_coord_pos = new Vector3(vv_coord_pos_x, vv_coord_pos_y, vv_coord_pos_z);
             //iss_coord_pos = Quaternion.Euler(0f, 90f, 0f) * iss_coord_pos;
             GameObject.Find("Vehicle").transform.position = vv_coord_pos;
@@ -171,6 +181,8 @@ public class Dynamics : MonoBehaviour
             vv_vel_hill_z0 += 0;
             total_delta_V += (Mathf.Abs(input_vertical) * val_dv_const) * Director.val_sim_speed + (Mathf.Abs(input_horizontal) * val_dv_const ) * Director.val_sim_speed;
 
+            GameObject.Find("Joy-Handle2").GetComponent<RectTransform>().localPosition = new Vector3(80f* input_horizontal, 80f* input_vertical, 0);
+
 
             // Delta V induce (virtual joystick input)
             vv_vel_hill_x0 += (joystick.Direction.y * val_dv_const) * Time.timeScale;
@@ -181,13 +193,13 @@ public class Dynamics : MonoBehaviour
 
 
             // CW equation
-            float mu = Param.Co.GRAVITY_CONST * 1000000000;
-            float n_cw = Mathf.Sqrt(mu / (float)(Mathf.Pow(Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS, 3)));
-            float s_cw0 = Mathf.Sin(n_cw * Time.deltaTime * Param.Co.TIME_SCALE_COMMON);
-            float c_cw0 = Mathf.Cos(n_cw * Time.deltaTime * Param.Co.TIME_SCALE_COMMON);
+            float mu = Param.Co.GRAVITY_CONST * 1000000000f;
+            float n_cw = (float)(Mathf.Sqrt(mu / (float)(Mathf.Pow(Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS, 3))));
+            float s_cw0 = Mathf.Sin(n_cw * TimeDelta);
+            float c_cw0 = Mathf.Cos(n_cw * TimeDelta);
 
             vv_pos_hill_xd = -(3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * c_cw0 + (vv_vel_hill_x0 / n_cw) * s_cw0 + 2 * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw);
-            vv_pos_hill_yd = (2 * vv_vel_hill_x0 / n_cw) * c_cw0 + 2 * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0 - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw) * Time.deltaTime * Param.Co.TIME_SCALE_COMMON + (vv_pos_hill_y0 - 2 * vv_vel_hill_x0 / n_cw);
+            vv_pos_hill_yd = (2 * vv_vel_hill_x0 / n_cw) * c_cw0 + 2 * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0 - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw) * TimeDelta  + (vv_pos_hill_y0 - 2 * vv_vel_hill_x0 / n_cw);
             vv_pos_hill_zd = 0;
 
             vv_vel_hill_xd = vv_vel_hill_x0*c_cw0 + n_cw*(3*vv_pos_hill_x0+2*vv_vel_hill_y0/n_cw)*s_cw0;
@@ -202,9 +214,6 @@ public class Dynamics : MonoBehaviour
 
             
             // VV Position Calc and plot [meter]
-            vv_coord_pos_x = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Cos(-iss_rotation_speed * (Director.elappsedTime) * Mathf.Deg2Rad));
-            vv_coord_pos_y = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * (Director.elappsedTime) * Mathf.Deg2Rad)) * (float)(Mathf.Cos(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
-            vv_coord_pos_z = (Param.Co.STATION_ALTITUDE + Param.Co.EARTH_RADIOUS) * (float)(Mathf.Sin(-iss_rotation_speed * (Director.elappsedTime) * Mathf.Deg2Rad)) * (float)(Mathf.Sin(Param.Co.ISS_INC_ANG * Mathf.Deg2Rad));
             vv_coord_pos = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-vv_pos_hill_y, -vv_pos_hill_z,  - vv_pos_hill_x) * Director.prox_model_scale;
             //iss_coord_pos = Quaternion.Euler(0f, 90f, 0f) * iss_coord_pos;
             GameObject.Find("Vehicle").transform.position = vv_coord_pos;
@@ -249,7 +258,7 @@ public class Dynamics : MonoBehaviour
             {
                 renderer_orbit.SetWidth(300f, 300f); // 線の幅
             }
-            float max_point_line_orbit = 250;
+            float max_point_line_orbit = 500;
             renderer_orbit.SetVertexCount((int)(max_point_line_orbit+1)); // 頂点の数
 
             float time_step_line_orbit;
@@ -262,9 +271,9 @@ public class Dynamics : MonoBehaviour
 
             for (int i_temp = 0; i_temp < max_point_line_orbit + 1; ++i_temp)
             {
-                time_step_line_orbit = 60 * 180 * (float)(i_temp)/ (float)(max_point_line_orbit);
-                s_cw0_render = Mathf.Sin(n_cw * (2+time_step_line_orbit));
-                c_cw0_render = Mathf.Cos(n_cw * (2+time_step_line_orbit));
+                time_step_line_orbit =  iss_orbital_period * 3 * (float)(i_temp)/ (float)(max_point_line_orbit);
+                s_cw0_render = Mathf.Sin(n_cw * (0+time_step_line_orbit));
+                c_cw0_render = Mathf.Cos(n_cw * (0+time_step_line_orbit));
                 vv_pos_hill_x_render = -(3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * c_cw0_render + (vv_vel_hill_x0 / n_cw) * s_cw0_render + 2 * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw);
                 vv_pos_hill_y_render = (2 * vv_vel_hill_x0 / n_cw) * c_cw0_render + 2 * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0_render - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw) * time_step_line_orbit + (vv_pos_hill_y0 - 2 * vv_vel_hill_x0 / n_cw);
                 vv_pos_hill_z_render = 0;
@@ -284,7 +293,7 @@ public class Dynamics : MonoBehaviour
 
 
         // VV Attitude Calc [degree at VV]
-        vv_rotation_speed = 360 / iss_orbital_period;   // [deg/sec]　軌道レートピッチ補正
+        vv_rotation_speed = iss_rotation_speed;   // [deg/sec]　軌道レートピッチ補正
         float attitude_delta = attitude_now - attitude_cmd_yaw;
         if (attitude_delta > 1) //差分が正(+)の場合
         {
@@ -295,7 +304,7 @@ public class Dynamics : MonoBehaviour
             attitude_now += 1.0f * Time.timeScale;
         }
 
-        vv_attitude_q = Quaternion.Euler(Param.Co.ISS_INC_ANG, 0, 0) * Quaternion.Euler(0, 0, -vv_rotation_speed * Director.elappsedTime);
+        vv_attitude_q = Quaternion.Euler(Param.Co.ISS_INC_ANG, 0, 0) * Quaternion.Euler(0, 0, -vv_rotation_speed * Director.timer_after_scale);
         GameObject.Find("Vehicle").transform.rotation = vv_attitude_q * Quaternion.Euler(0, -90, 90) * Quaternion.Euler(0, 0, attitude_now);
 
 
@@ -329,6 +338,8 @@ public class Dynamics : MonoBehaviour
         //        }
         //    }
         //}
+
+        TimeLast = TimeNow;
 
     }
 
