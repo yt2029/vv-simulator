@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{7CA597AC-799E-2D81-E8A0-0EA9A568434E}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Dynamics.cs">
     <Files>
-      <File FileName="Assets/Script/GameMaster.cs" Line="38" Column="24" />
-      <File FileName="Assets/Script/Dynamics.cs" Line="41" Column="31" />
-      <File FileName="Assets/Script/Director.cs" Line="546" Column="37" />
+      <File FileName="Assets/Script/GameMaster.cs" Line="54" Column="14" />
+      <File FileName="Assets/Script/Director.cs" Line="568" Column="51" />
       <File FileName="Assets/Script/Param.cs" />
+      <File FileName="Assets/Script/Dynamics.cs" Line="42" Column="11" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.UnitTesting.TestPad">
@@ -16,7 +16,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1a70317d-530f-4b2c-afe0-974970bbcc7b" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="76fed815-c8d5-4d4a-97e8-9a1d591bd63b" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

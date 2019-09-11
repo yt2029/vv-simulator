@@ -19,57 +19,57 @@ public class Director : MonoBehaviour
     GameObject info_val_x, info_val_y, info_val_z, info_val_vx, info_val_vy, info_val_vz, info_val_attitude, info_message, info_val_total_dv, game_status_capture_timer, game_status_hold_timer;
     GameObject info_val_vx_slider, info_val_vy_slider;
     GameObject game_status_result, game_status_failure;
-    GameObject game_status_result_duration, game_status_result_dv, game_status_result_relative_v,game_status_result_score;
+    GameObject game_status_result_duration, game_status_result_dv, game_status_result_relative_v, game_status_result_score;
     GameObject game_status_vv_propellant_val, game_status_vv_propellant_gage;
     GameObject plane_movie_capture, video_capture;
 
     public static float result_dv, result_duration, result_relative_v, result_score;
 
-    public static float elappsedTime, timer_capture, timer_capture_clear, timer_hold_clear_250m, timer_hold_clear_100m, timer_hold_clear_30m, timer_hold_250m, timer_hold_100m, timer_hold_30m, timer_hold_clear;
+    public static float elappsedTime, timer_capture, timer_capture_clear, timer_hold_clear_500m, timer_hold_clear_250m, timer_hold_clear_100m, timer_hold_clear_30m, timer_hold_500m, timer_hold_250m, timer_hold_100m, timer_hold_30m, timer_hold_clear;
     public static int game_submode;
-    public static int flag_250m_HP, flag_100m_HP, flag_30m_HP, flag_10m_HP, flag_collision, flag_KOS, flag_clear, flag_10m_HP_stay, flag_no_propellant;
-    public static int flag_250m_HP_stay, flag_100m_HP_stay, flag_30m_HP_stay;
+    public static int flag_500m_HP, flag_250m_HP, flag_100m_HP, flag_30m_HP, flag_10m_HP, flag_collision, flag_KOS, flag_clear, flag_10m_HP_stay, flag_no_propellant;
+    public static int flag_500m_HP_stay, flag_250m_HP_stay, flag_100m_HP_stay, flag_30m_HP_stay;
     public static float val_sim_speed;
     public static int sound_flag, flag_cam;
     public static float TimedeltaCommon;
 
 
     public static int cam_mode;      //カメラモード
-	float cam_coord_pos_x;
-	float cam_coord_pos_y;
-	float cam_coord_pos_z;
-	GameObject cam_targetObj;
-	Vector3 cam_targetPos;
+    float cam_coord_pos_x;
+    float cam_coord_pos_y;
+    float cam_coord_pos_z;
+    GameObject cam_targetObj;
+    Vector3 cam_targetPos;
     int cam_initial_rotate = 0;
     float cam_initial_rotate_val = 0;
 
-	public static float prox_model_scale = 100;  //カメラとモデルが接近しているときにモデル表示が不安定となるのを防ぐ
-//	private float val_scale_vehicle_0 = 50f; // 地球座標系
-	private float val_scale_vehicle_1 = 0.001f; // 近傍
-//	private float val_scale_station_0 = 1.5f; // 地球座標系
-	private float val_scale_station_1 = 0.0001f; // 近傍
+    public static float prox_model_scale = 100;  //カメラとモデルが接近しているときにモデル表示が不安定となるのを防ぐ
+                                                 //	private float val_scale_vehicle_0 = 50f; // 地球座標系
+    private float val_scale_vehicle_1 = 0.001f; // 近傍
+                                                //	private float val_scale_station_0 = 1.5f; // 地球座標系
+    private float val_scale_station_1 = 0.0001f; // 近傍
 
-	private float backDist;
-	private float cam_scroll;
-	public float cam_speed = 1000f;
-	private int flag_pressed;
-	public float cam_time_offset;
-    float capture_duration = 10 * 60;
-    float hold_duration = 5 * 60;
-    float vv_propellant_max = 1050;
+    private float backDist;
+    private float cam_scroll;
+    public float cam_speed = 1000f;
+    private int flag_pressed;
+    public float cam_time_offset;
+    float capture_duration = 0 * 60;
+    float hold_duration = 0 * 60;
+    float vv_propellant_max = 3300;
     float vv_propellant_now;
     float vv_propellant_coefficient = 300;
 
 
     private Vector3 delta_newAngle = new Vector3(0, 0, 0);
-	Vector2 rotationSpeed = new Vector2(0.25f, 0.25f);       // カメラの回転速度を格納する変数
-	private Vector2 lastMousePosition;  // マウス座標を格納する変数
-	private Vector3 newAngle = new Vector3(0, -90, -90);   // カメラの角度を格納する変数（初期値に0,0を代入）
-	private Vector3 newPosition = new Vector3(2.2e+07f, 0, 0);
+    Vector2 rotationSpeed = new Vector2(0.25f, 0.25f);       // カメラの回転速度を格納する変数
+    private Vector2 lastMousePosition;  // マウス座標を格納する変数
+    private Vector3 newAngle = new Vector3(0, -90, -90);   // カメラの角度を格納する変数（初期値に0,0を代入）
+    private Vector3 newPosition = new Vector3(2.2e+07f, 0, 0);
 
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
     {
 
         ////////////////////////////////
@@ -115,7 +115,7 @@ public class Director : MonoBehaviour
 
 
         time_medium();
-        Time.timeScale = val_sim_speed;
+        Time.timeScale = 0.6f;
         timer = 0;
         TimedeltaCommon = 0;
         timer_after_scale = 0;
@@ -166,6 +166,7 @@ public class Director : MonoBehaviour
             this.game_status_failure = GameObject.Find("Failure");
 
             game_submode = 0;
+            flag_500m_HP = 0;
             flag_250m_HP = 0;
             flag_100m_HP = 0;
             flag_30m_HP = 0;
@@ -179,9 +180,11 @@ public class Director : MonoBehaviour
             timer_hold_100m = 0f;
             timer_hold_30m = 0f;
             timer_capture_clear = 0f;
+            timer_hold_clear_500m = 0f;
             timer_hold_clear_250m = 0f;
             timer_hold_clear_100m = 0f;
             timer_hold_clear_30m = 0f;
+            flag_500m_HP_stay = 0;
             flag_250m_HP_stay = 0;
             flag_100m_HP_stay = 0;
             flag_30m_HP_stay = 0;
@@ -203,6 +206,7 @@ public class Director : MonoBehaviour
         if (GameMaster.game_scene == 2)
         {
             game_submode = 0;
+            flag_500m_HP = 0;
             flag_250m_HP = 0;
             flag_100m_HP = 0;
             flag_30m_HP = 0;
@@ -227,12 +231,20 @@ public class Director : MonoBehaviour
         ///
         if (GameMaster.game_scene == 1)
         {
-            Dynamics.vv_pos_hill_x0 = -745.80f + Random.Range(-0.25f, +0.25f);
-            Dynamics.vv_pos_hill_y0 = -309.09f + Random.Range(-0.25f, +0.25f);
+            //Dynamics.vv_pos_hill_x0 = -745.80f + Random.Range(-0.25f, +0.25f);
+            //Dynamics.vv_pos_hill_y0 = -309.09f + Random.Range(-0.25f, +0.25f);
+            //Dynamics.vv_pos_hill_z0 = 0f;
+
+            //Dynamics.vv_vel_hill_x0 = 0.904f + Random.Range(-0.04f, +0.04f);      // [meter/sec]
+            //Dynamics.vv_vel_hill_y0 = 1.041f + Random.Range(-0.04f, +0.04f);
+            //Dynamics.vv_vel_hill_z0 = 0f;
+
+            Dynamics.vv_pos_hill_x0 = -800.00f + Random.Range(-0.25f, +0.25f);
+            Dynamics.vv_pos_hill_y0 = -234.11f + Random.Range(-0.25f, +0.25f);
             Dynamics.vv_pos_hill_z0 = 0f;
 
-            Dynamics.vv_vel_hill_x0 = 0.904f + Random.Range(-0.04f, +0.04f);      // [meter/sec]
-            Dynamics.vv_vel_hill_y0 = 1.041f + Random.Range(-0.04f, +0.04f);
+            Dynamics.vv_vel_hill_x0 = 0.921f + Random.Range(-0.04f, +0.04f);      // [meter/sec]
+            Dynamics.vv_vel_hill_y0 = 0.788f + Random.Range(-0.04f, +0.04f);
             Dynamics.vv_vel_hill_z0 = 0f;
 
             Dynamics.vv_pos_hill_xd = Dynamics.vv_pos_hill_x0;
@@ -266,17 +278,16 @@ public class Director : MonoBehaviour
         //////////////////////////////////////////////////////
         ///
         // Time Controller
-        Time.timeScale = val_sim_speed;
         //elappsedTime += Time.deltaTime; //[sec]
         timer += Time.deltaTime;
         timer_after_scale = timer * Param.Co.TIME_SCALE_COMMON;
         //timer_after_scale += Time.deltaTime * Param.Co.TIME_SCALE_COMMON;
-
+        float timer_after_scale_offset = timer_after_scale + 60 * 60 * 10;
         // Time View
-        int days = Mathf.FloorToInt(timer_after_scale / 60F / 60F/ 24F);
-        int hours = Mathf.FloorToInt(timer_after_scale / 60F / 60F - days *24);
-        int minutes = Mathf.FloorToInt(timer_after_scale / 60f - hours * 60 - days * 24 * 60);
-        int seconds = Mathf.FloorToInt(timer_after_scale - minutes * 60 - hours * 60 * 60 - days * 24 * 60 * 60);
+        int days = Mathf.FloorToInt(timer_after_scale_offset / 60F / 60F / 24F);
+        int hours = Mathf.FloorToInt(timer_after_scale_offset / 60F / 60F - days * 24);
+        int minutes = Mathf.FloorToInt(timer_after_scale_offset / 60f - hours * 60 - days * 24 * 60);
+        int seconds = Mathf.FloorToInt(timer_after_scale_offset - minutes * 60 - hours * 60 * 60 - days * 24 * 60 * 60);
         string niceTime = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
         this.sim_timer.GetComponent<Text>().text = "" + niceTime;
 
@@ -287,12 +298,13 @@ public class Director : MonoBehaviour
         ///
         if (GameMaster.game_scene == 1)
         {
+            Time.timeScale = 0.6f;
             // ゲーム中は結果画面を非表示設定
             this.game_status_result.SetActive(false);
             this.game_status_failure.SetActive(false);
             this.plane_movie_capture.SetActive(false);
 
-            if (-Dynamics.vv_pos_hill_xd < 360f && Dynamics.vv_pos_hill_xd <100f)
+            if (-Dynamics.vv_pos_hill_xd < 360f && Dynamics.vv_pos_hill_xd < 100f)
             {
                 GameObject.Find("map-vv").GetComponent<RawImage>().enabled = true;
                 Vector3 pos_ss_map = GameObject.Find("map-ss").GetComponent<RectTransform>().localPosition;
@@ -306,16 +318,24 @@ public class Director : MonoBehaviour
 
 
             // ゲームサブモードの遷移
-            if (game_submode == 0 && Mathf.Abs(Dynamics.vv_pos_hill_yd) < 800)
+            if (game_submode == 0 && Mathf.Abs(Dynamics.vv_pos_hill_yd) < 1000)
             {
                 game_submode = 1;
                 this.game_status_capture_timer.SetActive(false);
                 this.game_status_hold_timer.SetActive(false);
             }
-            if (game_submode == 1 && Mathf.Abs(Dynamics.vv_pos_hill_yd) < 500)
+            if (game_submode == 1 && Mathf.Abs(Dynamics.vv_pos_hill_yd) < 800)
+            {
+                game_submode = 12;
+                this.info_message.GetComponent<Text>().text = "RIポイントを\n目指してください。";
+            }
+            if (flag_500m_HP == 1 && flag_500m_HP_stay == 1)
+            {
+                game_submode = 21;
+            }
+            if (timer_hold_clear_500m > hold_duration)
             {
                 game_submode = 2;
-                this.info_message.GetComponent<Text>().text = "軌道に沿って２５０ｍ下方を目指してください。";
             }
             if (flag_250m_HP == 1 && flag_250m_HP_stay == 1)
             {
@@ -329,9 +349,9 @@ public class Director : MonoBehaviour
             {
                 game_submode = 3;
             }
-            if (game_submode == 3 && flag_100m_HP == 1 && flag_100m_HP_stay == 1)
+            if (flag_100m_HP == 1 && flag_100m_HP_stay == 1)
             {
-                game_submode =34;
+                game_submode = 34;
             }
             if (flag_100m_HP == 1 && flag_100m_HP_stay == 0)
             {
@@ -341,7 +361,7 @@ public class Director : MonoBehaviour
             {
                 game_submode = 4;
             }
-            if (game_submode == 4 && flag_30m_HP == 1 && flag_30m_HP_stay == 1)
+            if (flag_30m_HP == 1 && flag_30m_HP_stay == 1)
             {
                 game_submode = 451;
             }
@@ -353,11 +373,11 @@ public class Director : MonoBehaviour
             {
                 game_submode = 51;
             }
-            if (game_submode == 51 && flag_10m_HP == 1 && flag_30m_HP == 1 && flag_100m_HP == 1 && flag_250m_HP == 1 && flag_10m_HP_stay == 1)
+            if (flag_10m_HP_stay == 1)
             {
                 game_submode = 5;
             }
-            if (flag_10m_HP == 1 && flag_30m_HP == 1 && flag_100m_HP == 1 && flag_250m_HP == 1 && flag_10m_HP_stay == 0)
+            if (flag_10m_HP == 1 && flag_10m_HP_stay == 0)
             {
                 game_submode = 54;
             }
@@ -365,15 +385,15 @@ public class Director : MonoBehaviour
             {
                 game_submode = 55;
             }
-            if (flag_10m_HP == 1 && flag_30m_HP == 0)
-            {
-                game_submode = 6;
-            }
+            //if (flag_10m_HP == 1 && flag_30m_HP == 0)
+            //{
+            //    game_submode = 6;
+            //}
             if (flag_collision == 1)
             {
                 game_submode = 7;
             }
-            if (Mathf.Abs(Dynamics.vv_pos_hill_yd) > 500)
+            if (Mathf.Abs(Dynamics.vv_pos_hill_yd) > 1000)
             {
                 game_submode = 8;
             }
@@ -389,7 +409,7 @@ public class Director : MonoBehaviour
             {
                 game_submode = 11;
             }
-            if (Mathf.Abs(Dynamics.vv_pos_hill_xd -28f) * (float)(Mathf.Tan(16f / 180f * Mathf.PI))　< (Mathf.Abs(Dynamics.vv_pos_hill_yd -6.5f)))
+            if (Mathf.Abs(Dynamics.vv_pos_hill_xd - 28f) * (float)(Mathf.Tan(16f / 180f * Mathf.PI)) < (Mathf.Abs(Dynamics.vv_pos_hill_yd - 6.5f)))
             {
                 game_submode = 99;
             }
@@ -404,72 +424,79 @@ public class Director : MonoBehaviour
             {
                 this.info_message.GetComponent<Text>().text = "宇宙ステーションの１ｋｍ範囲内です。";
             }
+            else if (game_submode == 21)
+            {
+                this.info_message.GetComponent<Text>().text = "RIポイント。\nそのまま位置を保って！";
+                timer_hold_clear_500m = timer_after_scale - timer_hold_500m;
+                this.game_status_hold_timer.GetComponent<Text>().text = string.Format("RI Departure - {0:0.0}", hold_duration - timer_hold_clear_500m) + "秒";
+            }
             else if (game_submode == 2)
             {
-                this.info_message.GetComponent<Text>().text = "軌道に沿って２５０ｍ下方を目指してください。";
+                this.info_message.GetComponent<Text>().text = "２５０ｍ下方を\n目指してください。";
+                this.game_status_hold_timer.GetComponent<Text>().text = "RI Depature, Go HTV!!";
             }
             else if (game_submode == 23)
             {
-                this.info_message.GetComponent<Text>().text = "250mホールドポイント。そのままの位置を保って！";
+                this.info_message.GetComponent<Text>().text = "250mホールドポイント。\nそのまま位置を保って！";
                 timer_hold_clear_250m = timer_after_scale - timer_hold_250m;
                 this.game_status_hold_timer.GetComponent<Text>().text = string.Format("250m Departure - {0:0.0}", hold_duration - timer_hold_clear_250m) + "秒";
             }
             else if (game_submode == 3)
             {
-                this.info_message.GetComponent<Text>().text = "２５０ｍ出発可能。上昇してください。";
+                this.info_message.GetComponent<Text>().text = "２５０ｍ出発可能。\n上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "250m Depature, Go HTV!!";
             }
             else if (game_submode == 32)
             {
-                this.info_message.GetComponent<Text>().text = "250mホールドポイントにもどって！";
+                this.info_message.GetComponent<Text>().text = "250mホールドポイントに\nもどって！";
                 timer_hold_250m = 0;
             }
             else if (game_submode == 34)
             {
-                this.info_message.GetComponent<Text>().text = "100mホールドポイント。そのままの位置を保って！";
+                this.info_message.GetComponent<Text>().text = "100mホールドポイント。\nそのまま位置を保って！";
                 timer_hold_clear_100m = timer_after_scale - timer_hold_100m;
                 this.game_status_hold_timer.GetComponent<Text>().text = string.Format("100m Departure - {0:0.0}", hold_duration - timer_hold_clear_100m) + "秒";
             }
             else if (game_submode == 4)
             {
-                this.info_message.GetComponent<Text>().text = "１００ｍ出発可能。さらに上昇してください。";
+                this.info_message.GetComponent<Text>().text = "１００ｍ出発可能。\nさらに上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "100m Depature, Go HTV!!";
             }
             else if (game_submode == 43)
             {
-                this.info_message.GetComponent<Text>().text = "100mホールドポイントにもどって！";
+                this.info_message.GetComponent<Text>().text = "100mホールドポイントに\nもどって！";
                 timer_hold_100m = 0;
             }
             else if (game_submode == 451)
             {
-                this.info_message.GetComponent<Text>().text = "30mホールドポイント。そのままの位置を保って！";
+                this.info_message.GetComponent<Text>().text = "30mホールドポイント。\nそのまま位置を保って！";
                 timer_hold_clear_30m = timer_after_scale - timer_hold_30m;
                 this.game_status_hold_timer.GetComponent<Text>().text = string.Format("30m Departure - {0:0.0}", hold_duration - timer_hold_clear_30m) + "秒";
             }
             else if (game_submode == 51)
             {
-                this.info_message.GetComponent<Text>().text = "3０ｍ出発可能。キャプチャー点まで上昇してください。";
+                this.info_message.GetComponent<Text>().text = "3０ｍ出発可能。\nキャプチャー点まで\n上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "30m Depature, Go for Final Approach!!";
             }
             else if (game_submode == 541)
             {
-                this.info_message.GetComponent<Text>().text = "30mホールドポイントにもどって！";
+                this.info_message.GetComponent<Text>().text = "30mホールドポイントに\nもどって！";
                 timer_hold_30m = 0;
             }
             else if (game_submode == 5)
             {
-                this.info_message.GetComponent<Text>().text = "キャプチャー点到着、そのままの位置を保って！";
+                this.info_message.GetComponent<Text>().text = "キャプチャー点到着、\nそのままの位置を保って！";
                 timer_capture_clear = timer_after_scale - timer_capture;
 
-                this.game_status_capture_timer.GetComponent<Text>().text = string.Format("Capture - {0:0.0}", capture_duration-timer_capture_clear) + "秒";
+                this.game_status_capture_timer.GetComponent<Text>().text = string.Format("Capture - {0:0.0}", capture_duration - timer_capture_clear) + "秒";
                 result_duration = timer_after_scale / 60f;
                 result_dv = Dynamics.total_delta_V;
                 result_relative_v = Mathf.Sqrt(Mathf.Pow(Dynamics.vv_vel_hill_xd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_yd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_zd, 2));
-                result_score = (1 / result_duration /60f　* 5000f + 1　/ (result_dv) * 250f + 1 / (result_relative_v + 0.01f)) * 2.8f + 50f;
+                result_score = (6.0f - result_dv) * 16f + (80f - result_duration) * 1.2f + (0.1f - result_relative_v) * 1300f + 200.0f + flag_30m_HP * 50f + flag_100m_HP * 40f + flag_250m_HP * 30f + flag_500m_HP * 20f;
             }
             else if (game_submode == 54)
             {
-                this.info_message.GetComponent<Text>().text = "キャプチャー点にもどって！";
+                this.info_message.GetComponent<Text>().text = "キャプチャー点に\nもどって！";
                 timer_capture = 0;
             }
             else if (game_submode == 55)
@@ -482,7 +509,7 @@ public class Director : MonoBehaviour
                 this.game_status_result_relative_v.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", result_relative_v);
                 this.game_status_result_score.GetComponent<Text>().text = string.Format("{0:0.0} points", result_score);
 
-                this.info_message.GetComponent<Text>().text = "[ミッション成功] 宇宙飛行士がキャプチャー完了！";
+                this.info_message.GetComponent<Text>().text = "[ミッション成功] \n宇宙飛行士がキャプチャー完了！";
                 Time.timeScale = 0.01f;
                 this.game_status_capture_timer.SetActive(false);
                 this.game_status_result.SetActive(true);
@@ -491,7 +518,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 6)
             {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] 安全な経路で飛行しよう。";
+                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \n安全な経路で飛行しよう。";
                 this.game_status_failure.SetActive(true);
                 this.game_status_capture_timer.SetActive(false);
                 Time.timeScale = 0.01f;
@@ -500,7 +527,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 7)
             {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] 宇宙ステーションに衝突しました。";
+                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \n宇宙ステーションに衝突しました。";
                 this.game_status_failure.SetActive(true);
                 this.game_status_capture_timer.SetActive(false);
                 Time.timeScale = 0.01f;
@@ -509,7 +536,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 8)
             {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗]ステーションから500ｍ離れてしまった。";
+                this.info_message.GetComponent<Text>().text = "[ミッション失敗]\nステーションから離れてしまった。";
                 this.game_status_failure.SetActive(true);
                 this.game_status_capture_timer.SetActive(false);
                 Time.timeScale = 0.01f;
@@ -518,7 +545,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 9)
             {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] 時間を使いすぎました。";
+                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \n時間を使いすぎました。";
                 this.game_status_failure.SetActive(true);
                 this.game_status_capture_timer.SetActive(false);
                 Time.timeScale = 0.01f;
@@ -527,30 +554,30 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 10)
             {
-                this.info_message.GetComponent<Text>().text = "[注意] 宇宙ステーションに接近しています。";
+                this.info_message.GetComponent<Text>().text = "[注意] \n宇宙ステーションに接近しています。";
             }
             else if (game_submode == 11)
             {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] 燃料切れです。";
+                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \n燃料切れです。";
                 this.game_status_failure.SetActive(true);
                 this.game_status_capture_timer.SetActive(false);
                 Time.timeScale = 0.01f;
                 sound_failure();
                 sound_flag = 0;
             }
-            else if (game_submode == 99 && flag_250m_HP == 1)
+            else if (game_submode == 99 && flag_500m_HP == 1)
             {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] アプローチ・コリドー逸脱を検知。\nアボートしました。";
+                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \nアプローチ・コリドー逸脱を検知。\nアボートしました。";
                 this.game_status_failure.SetActive(true);
                 this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 0.5f;
+                Time.timeScale = 0.3f;
 
                 if (flag_cam == 0)
                 {
                     Dynamics.vv_vel_hill_y0 += 1.1f;
                 }
                 flag_cam = 1;
-                
+
                 sound_failure();
                 sound_flag = 0;
             }
@@ -558,11 +585,12 @@ public class Director : MonoBehaviour
 
         if (GameMaster.game_scene == 2)
         {
+            Time.timeScale = val_sim_speed;
 
         }
 
 
-        
+
         //////////////////////////////////////////////////////
         // カメラの位置の調整
         //////////////////////////////////////////////////////
@@ -580,10 +608,10 @@ public class Director : MonoBehaviour
         //    this.info_val_vz.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_zd);
         //    Debug.Log(GameObject.Find("Vehicle").GetComponent<Rigidbody>().velocity.x);
         //}
-        if (cam_mode ==1 || cam_mode == 2)
+        if (cam_mode == 1 || cam_mode == 2)
         {
             this.info_val_x.GetComponent<Text>().text = string.Format("{0:0.00}", -Dynamics.vv_pos_hill_x);
-            this.info_val_y.GetComponent<Text>().text = string.Format("{0:0.00}", Dynamics.vv_pos_hill_y-8f);
+            this.info_val_y.GetComponent<Text>().text = string.Format("{0:0.00}", Dynamics.vv_pos_hill_y - 8f);
             //this.info_val_z.GetComponent<Text>().text = string.Format("{0:0.00} m", Dynamics.vv_pos_hill_z);
 
             this.info_val_vx.GetComponent<Text>().text = string.Format("{0:0.000}", -Dynamics.vv_vel_hill_xd);
@@ -636,7 +664,8 @@ public class Director : MonoBehaviour
                 //    cam_initial_rotate = 1;
                 //}
 
-                //はじめにカメラをまわす
+                //はじめにカメラをまわす/カメラをとおざけうる
+
                 if (cam_initial_rotate == 0)
                 {
                     cam_initial_rotate_val += 1f;
@@ -646,8 +675,8 @@ public class Director : MonoBehaviour
                     cam_initial_rotate = 1;
                 }
 
-                GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(5 - (90 - cam_initial_rotate_val), 70, 5) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
-                Vector3 cam_pos_offset_2 = new Vector3(-45000 / 100, 50000 / 100, -1 * cam_time_offset * prox_model_scale / 70 * ((Mathf.Abs(Dynamics.vv_pos_hill_xd) + 30 )/ 250));
+                GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(5 - (90 - cam_initial_rotate_val), 120 + ((Dynamics.vv_pos_hill_xd) - 150f) / 13, 0) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
+                Vector3 cam_pos_offset_2 = new Vector3(-45000 / 100, 50000 / 100, -1 * (cam_time_offset -(90 - cam_initial_rotate_val)*160f) * prox_model_scale / 80 * ((Mathf.Abs(Dynamics.vv_pos_hill_xd) + 30) / 250));
                 GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset_2;
 
                 ////はじめにカメラをまわす
@@ -666,7 +695,7 @@ public class Director : MonoBehaviour
 
                 // Sub Cameraの視点
                 GameObject.Find("Sub Camera").transform.rotation = GameObject.Find("Station").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(65, 155, 15);
-                Vector3 cam_pos_offset_sub = new Vector3(-500, -1000, -1 * cam_time_offset * prox_model_scale /1000);
+                Vector3 cam_pos_offset_sub = new Vector3(-500, -1000, -1 * cam_time_offset * prox_model_scale / 1000);
                 GameObject.Find("Sub Camera").transform.position = GameObject.Find("Station").transform.position + GameObject.Find("Sub Camera").transform.rotation * cam_pos_offset_sub;
             }
 
@@ -686,9 +715,9 @@ public class Director : MonoBehaviour
                     //cam_time_offset = GameObject.Find("Cam_Offset").GetComponent<Slider>().value;
                     cam_scroll = Input.GetAxis("Mouse ScrollWheel");
                     cam_time_offset -= cam_scroll * cam_speed;
-                    if (cam_time_offset >= 100000)
+                    if (cam_time_offset >= 150000)
                     {
-                        cam_time_offset = 100000;
+                        cam_time_offset = 150000;
                     }
                     else if (cam_time_offset <= 10000)
                     {
@@ -700,7 +729,7 @@ public class Director : MonoBehaviour
 
 
                 GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(-10, 45, 25) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
-                Vector3 cam_pos_offset_2 = new Vector3(-45000 / 100, 50000 / 100, -1 * cam_time_offset * prox_model_scale /300);
+                Vector3 cam_pos_offset_2 = new Vector3(-45000 / 100, 50000 / 100, -1 * cam_time_offset * prox_model_scale / 300);
                 GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset_2;
 
                 if ((Input.mousePosition.y < Screen.height - Screen.height * 0.3) && (Input.mousePosition.x > Screen.width * 0.3))
@@ -727,9 +756,9 @@ public class Director : MonoBehaviour
                 //cam_time_offset = GameObject.Find("Cam_Offset").GetComponent<Slider>().value;
                 cam_scroll = Input.GetAxis("Mouse ScrollWheel");
                 cam_time_offset -= cam_scroll * cam_speed;
-                if (cam_time_offset >= 100000)
+                if (cam_time_offset >= 150000)
                 {
-                    cam_time_offset = 100000;
+                    cam_time_offset = 150000;
                 }
                 else if (cam_time_offset <= 10000)
                 {
@@ -792,6 +821,15 @@ public class Director : MonoBehaviour
         if (GameMaster.game_scene == 1)
         {
 
+            if (other.gameObject.gameObject.tag == "500mHP")
+            {
+                Debug.Log("500m");
+                flag_500m_HP = 1;
+                flag_500m_HP_stay = 1;
+                this.game_status_hold_timer.SetActive(true);
+                GameObject.Find("500mHP").GetComponent<AudioSource>().Play();
+                timer_hold_250m = timer_after_scale;
+            }
             if (other.gameObject.gameObject.tag == "250mHP")
             {
                 Debug.Log("250m");
@@ -845,7 +883,7 @@ public class Director : MonoBehaviour
                 flag_KOS = 0;
             }
         }
-    }   
+    }
 
 
     void OnTriggerExit(Collider other2)
@@ -887,31 +925,40 @@ public class Director : MonoBehaviour
                 this.game_status_hold_timer.SetActive(false);
             }
         }
+        if (GameMaster.game_scene == 1)
+        {
+            if (other2.gameObject.gameObject.tag != "500mHPC")
+            {
+                flag_500m_HP_stay = 0;
+                timer_hold_500m = 0;
+                this.game_status_hold_timer.SetActive(false);
+            }
+        }
     }
 
 
     public void vehicle_view()
-	{
-		cam_mode = 1;
-		//orbital_plane.SetActive(false);
-		//GameObject.Find("Coordinate").GetComponent<Text>().text = string.Format("HILL");
-		//orbital_plane.SetActive(true);
-	}
-	public void station_view()
-	{
-		cam_mode = 2;
-		//orbital_plane.SetActive(false);
-		//GameObject.Find("Coordinate").GetComponent<Text>().text = string.Format("HILL");
-	}
+    {
+        cam_mode = 1;
+        //orbital_plane.SetActive(false);
+        //GameObject.Find("Coordinate").GetComponent<Text>().text = string.Format("HILL");
+        //orbital_plane.SetActive(true);
+    }
+    public void station_view()
+    {
+        cam_mode = 2;
+        //orbital_plane.SetActive(false);
+        //GameObject.Find("Coordinate").GetComponent<Text>().text = string.Format("HILL");
+    }
 
 
-	public void time_low()
+    public void time_low()
     {
         val_sim_speed = 0.1f;
     }
     public void time_medium()
     {
-        val_sim_speed = 0.8f;
+        val_sim_speed = 1.0f;
     }
     public void time_high()
     {

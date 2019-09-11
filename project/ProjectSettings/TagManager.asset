@@ -13,6 +13,7 @@ TagManager:
   - 30mHP
   - 10mHPC
   - cone
+  - 500mHP
   layers:
   - Default
   - TransparentFX

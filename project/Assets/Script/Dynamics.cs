@@ -38,7 +38,8 @@ public class Dynamics : MonoBehaviour
     public static float total_delta_V;
 
     //float val_dv_const = 0.005f;  // iPhone
-    float val_dv_const = 0.018f;  // WebGL
+    float val_dv_const = 0.02f;  // WebGL
+    //float val_dv_const = 0.03f;  // debug
 
 
 
@@ -66,7 +67,7 @@ public class Dynamics : MonoBehaviour
     void Start()
     {
         // ISS Position Calc [meter](なぜか回転スピードが３倍くらい早いので割る３＊＊要調査)
-        iss_velocity_scalar = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + Param.Co.STATION_ALTITUDE / 1000))) * 1000 ;      // [meter/sec]
+        iss_velocity_scalar = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + Param.Co.STATION_ALTITUDE / 1000))) * 1000;      // [meter/sec]
         Debug.Log(iss_velocity_scalar);
         iss_orbital_period = (float)(2 * Mathf.PI * (Param.Co.EARTH_RADIOUS + Param.Co.STATION_ALTITUDE) / iss_velocity_scalar);            // [sec/orbit]
         iss_rotation_speed = 360f / iss_orbital_period;                                                     // [deg/sec]
@@ -77,7 +78,7 @@ public class Dynamics : MonoBehaviour
         TimeDelta = 0;
 
         debug_mode = 2;
-        
+
 
     }
 
@@ -179,16 +180,16 @@ public class Dynamics : MonoBehaviour
             vv_vel_hill_x0 += (input_vertical * val_dv_const) * Time.timeScale;
             vv_vel_hill_y0 += (-input_horizontal * val_dv_const) * Time.timeScale;
             vv_vel_hill_z0 += 0;
-            total_delta_V += (Mathf.Abs(input_vertical) * val_dv_const) * Director.val_sim_speed + (Mathf.Abs(input_horizontal) * val_dv_const ) * Director.val_sim_speed;
+            total_delta_V += (Mathf.Abs(input_vertical) * val_dv_const) * Director.val_sim_speed + (Mathf.Abs(input_horizontal) * val_dv_const) * Director.val_sim_speed;
 
-            GameObject.Find("Joy-Handle2").GetComponent<RectTransform>().localPosition = new Vector3(80f* input_horizontal, 80f* input_vertical, 0);
+            GameObject.Find("Joy-Handle2").GetComponent<RectTransform>().localPosition = new Vector3(80f * input_horizontal, 80f * input_vertical, 0);
 
 
             // Delta V induce (virtual joystick input)
             vv_vel_hill_x0 += (joystick.Direction.y * val_dv_const) * Time.timeScale;
             vv_vel_hill_y0 += (-joystick.Direction.x * val_dv_const) * Time.timeScale;
             vv_vel_hill_z0 += 0;
-            total_delta_V += (Mathf.Abs(joystick.Direction.y) * val_dv_const)* Director.val_sim_speed + (Mathf.Abs(joystick.Direction.x) * val_dv_const) * Director.val_sim_speed;
+            total_delta_V += (Mathf.Abs(joystick.Direction.y) * val_dv_const) * Director.val_sim_speed + (Mathf.Abs(joystick.Direction.x) * val_dv_const) * Director.val_sim_speed;
 
 
 
@@ -199,10 +200,10 @@ public class Dynamics : MonoBehaviour
             float c_cw0 = Mathf.Cos(n_cw * TimeDelta);
 
             vv_pos_hill_xd = -(3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * c_cw0 + (vv_vel_hill_x0 / n_cw) * s_cw0 + 2 * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw);
-            vv_pos_hill_yd = (2 * vv_vel_hill_x0 / n_cw) * c_cw0 + 2 * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0 - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw) * TimeDelta  + (vv_pos_hill_y0 - 2 * vv_vel_hill_x0 / n_cw);
+            vv_pos_hill_yd = (2 * vv_vel_hill_x0 / n_cw) * c_cw0 + 2 * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0 - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw) * TimeDelta + (vv_pos_hill_y0 - 2 * vv_vel_hill_x0 / n_cw);
             vv_pos_hill_zd = 0;
 
-            vv_vel_hill_xd = vv_vel_hill_x0*c_cw0 + n_cw*(3*vv_pos_hill_x0+2*vv_vel_hill_y0/n_cw)*s_cw0;
+            vv_vel_hill_xd = vv_vel_hill_x0 * c_cw0 + n_cw * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0;
             vv_vel_hill_yd = 2 * n_cw * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * c_cw0 - 2 * vv_vel_hill_x0 * s_cw0 - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw);
             vv_vel_hill_zd = 0;
 
@@ -212,9 +213,9 @@ public class Dynamics : MonoBehaviour
             vv_pos_hill_y = vv_pos_hill_yd;
             vv_pos_hill_z = vv_pos_hill_zd;
 
-            
+
             // VV Position Calc and plot [meter]
-            vv_coord_pos = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-vv_pos_hill_y, -vv_pos_hill_z,  - vv_pos_hill_x) * Director.prox_model_scale;
+            vv_coord_pos = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-vv_pos_hill_y, -vv_pos_hill_z, -vv_pos_hill_x) * Director.prox_model_scale;
             //iss_coord_pos = Quaternion.Euler(0f, 90f, 0f) * iss_coord_pos;
             GameObject.Find("Vehicle").transform.position = vv_coord_pos;
 
@@ -259,7 +260,7 @@ public class Dynamics : MonoBehaviour
                 renderer_orbit.SetWidth(300f, 300f); // 線の幅
             }
             float max_point_line_orbit = 500;
-            renderer_orbit.SetVertexCount((int)(max_point_line_orbit+1)); // 頂点の数
+            renderer_orbit.SetVertexCount((int)(max_point_line_orbit + 1)); // 頂点の数
 
             float time_step_line_orbit;
             float s_cw0_render;
@@ -271,19 +272,19 @@ public class Dynamics : MonoBehaviour
 
             for (int i_temp = 0; i_temp < max_point_line_orbit + 1; ++i_temp)
             {
-                time_step_line_orbit =  iss_orbital_period * 3 * (float)(i_temp)/ (float)(max_point_line_orbit);
-                s_cw0_render = Mathf.Sin(n_cw * (0+time_step_line_orbit));
-                c_cw0_render = Mathf.Cos(n_cw * (0+time_step_line_orbit));
+                time_step_line_orbit = iss_orbital_period * 3 * (float)(i_temp) / (float)(max_point_line_orbit);
+                s_cw0_render = Mathf.Sin(n_cw * (0 + time_step_line_orbit));
+                c_cw0_render = Mathf.Cos(n_cw * (0 + time_step_line_orbit));
                 vv_pos_hill_x_render = -(3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * c_cw0_render + (vv_vel_hill_x0 / n_cw) * s_cw0_render + 2 * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw);
                 vv_pos_hill_y_render = (2 * vv_vel_hill_x0 / n_cw) * c_cw0_render + 2 * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0_render - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw) * time_step_line_orbit + (vv_pos_hill_y0 - 2 * vv_vel_hill_x0 / n_cw);
                 vv_pos_hill_z_render = 0;
                 plot_point_line_orbit = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-vv_pos_hill_y_render, -vv_pos_hill_z_render, -vv_pos_hill_x_render) * Director.prox_model_scale;
                 renderer_orbit.SetPosition(i_temp, plot_point_line_orbit);
-        }
+            }
 
 
-        // 更新
-        vv_pos_hill_x0 = vv_pos_hill_xd;
+            // 更新
+            vv_pos_hill_x0 = vv_pos_hill_xd;
             vv_pos_hill_y0 = vv_pos_hill_yd;
             vv_pos_hill_z0 = vv_pos_hill_zd;
             vv_vel_hill_x0 = vv_vel_hill_xd;
@@ -393,7 +394,7 @@ public class Dynamics : MonoBehaviour
     }
     public void deltaV_ym_off()
     {
-        deltav_cmd_ym = 0; 
+        deltav_cmd_ym = 0;
     }
 
 
