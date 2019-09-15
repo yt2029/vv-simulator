@@ -54,9 +54,9 @@ public class Director : MonoBehaviour
     public float cam_speed = 1000f;
     private int flag_pressed;
     public float cam_time_offset;
-    float capture_duration = 0 * 60;
+    float capture_duration = 8 * 60;
     float hold_duration = 0 * 60;
-    float vv_propellant_max = 3300;
+    float vv_propellant_max = 3500;
     float vv_propellant_now;
     float vv_propellant_coefficient = 300;
 
@@ -134,7 +134,7 @@ public class Director : MonoBehaviour
         else if (GameMaster.game_scene == 2)
         {
             cam_mode = 1;
-            cam_time_offset = 100000f;
+            cam_time_offset = 200000f;
         }
 
         //if (cam_mode == 0)
@@ -243,8 +243,8 @@ public class Director : MonoBehaviour
             Dynamics.vv_pos_hill_y0 = -234.11f + Random.Range(-0.25f, +0.25f);
             Dynamics.vv_pos_hill_z0 = 0f;
 
-            Dynamics.vv_vel_hill_x0 = 0.921f + Random.Range(-0.04f, +0.04f);      // [meter/sec]
-            Dynamics.vv_vel_hill_y0 = 0.788f + Random.Range(-0.04f, +0.04f);
+            Dynamics.vv_vel_hill_x0 = 0.921f + Random.Range(-0.02f, +0.02f);      // [meter/sec]
+            Dynamics.vv_vel_hill_y0 = 0.788f + Random.Range(-0.02f, +0.02f);
             Dynamics.vv_vel_hill_z0 = 0f;
 
             Dynamics.vv_pos_hill_xd = Dynamics.vv_pos_hill_x0;
@@ -254,12 +254,25 @@ public class Director : MonoBehaviour
         else if (GameMaster.game_scene == 2)
         {
             Dynamics.vv_pos_hill_x0 = -2.93f;
-            Dynamics.vv_pos_hill_y0 = -2011.41f;
+            Dynamics.vv_pos_hill_y0 = -2500.41f;
             Dynamics.vv_pos_hill_z0 = 0f;
 
             Dynamics.vv_vel_hill_x0 = 0.009f;      // [meter/sec]
             Dynamics.vv_vel_hill_y0 = 0.006f;
             Dynamics.vv_vel_hill_z0 = 0f;
+
+            ////// 共軌道
+            //Dynamics.vv_pos_hill_x0 = -1200f;
+            //Dynamics.vv_pos_hill_y0 = -5000.00f;
+            //Dynamics.vv_pos_hill_z0 = 0f;
+
+
+            //float iss_velocity_scalar_co = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + (Param.Co.STATION_ALTITUDE) / 1000))) * 1000;      // [meter/sec]
+            //float vv_velocity_scalar_co = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + (Param.Co.STATION_ALTITUDE + Dynamics.vv_pos_hill_x0) / 1000))) * 1000;      // [meter/sec]
+
+            //Dynamics.vv_vel_hill_x0 = 0.000f;      // [meter/sec]
+            //Dynamics.vv_vel_hill_y0 = (vv_velocity_scalar_co - iss_velocity_scalar_co) * 3f;
+            //Dynamics.vv_vel_hill_z0 = 0f;
 
             Dynamics.vv_pos_hill_xd = Dynamics.vv_pos_hill_x0;
             Dynamics.vv_pos_hill_yd = Dynamics.vv_pos_hill_y0;
@@ -298,7 +311,7 @@ public class Director : MonoBehaviour
         ///
         if (GameMaster.game_scene == 1)
         {
-            Time.timeScale = 0.6f;
+            Time.timeScale = 0.5f;
             // ゲーム中は結果画面を非表示設定
             this.game_status_result.SetActive(false);
             this.game_status_failure.SetActive(false);
@@ -432,7 +445,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 2)
             {
-                this.info_message.GetComponent<Text>().text = "２５０ｍ下方を\n目指してください。";
+                this.info_message.GetComponent<Text>().text = "250ｍ下方を\n目指して上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "RI Depature, Go HTV!!";
             }
             else if (game_submode == 23)
@@ -443,7 +456,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 3)
             {
-                this.info_message.GetComponent<Text>().text = "２５０ｍ出発可能。\n上昇してください。";
+                this.info_message.GetComponent<Text>().text = "250ｍ出発可能。\n上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "250m Depature, Go HTV!!";
             }
             else if (game_submode == 32)
@@ -485,14 +498,14 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 5)
             {
-                this.info_message.GetComponent<Text>().text = "キャプチャー点到着、\nそのままの位置を保って！";
+                this.info_message.GetComponent<Text>().text = "キャプチャー点到着、\nそのままの位置で静止しよう！";
                 timer_capture_clear = timer_after_scale - timer_capture;
 
                 this.game_status_capture_timer.GetComponent<Text>().text = string.Format("Capture - {0:0.0}", capture_duration - timer_capture_clear) + "秒";
                 result_duration = timer_after_scale / 60f;
                 result_dv = Dynamics.total_delta_V;
                 result_relative_v = Mathf.Sqrt(Mathf.Pow(Dynamics.vv_vel_hill_xd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_yd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_zd, 2));
-                result_score = (6.0f - result_dv) * 16f + (80f - result_duration) * 1.2f + (0.1f - result_relative_v) * 1300f + 200.0f + flag_30m_HP * 50f + flag_100m_HP * 40f + flag_250m_HP * 30f + flag_500m_HP * 20f;
+                result_score = ((6.0f - result_dv) * 16f + (80f - result_duration) * 1.2f + (0.1f - result_relative_v) * 1300f + 200.0f + flag_30m_HP * 50f + flag_100m_HP * 40f + flag_250m_HP * 30f + flag_500m_HP * 20f)*2f;
             }
             else if (game_submode == 54)
             {
@@ -708,6 +721,35 @@ public class Director : MonoBehaviour
         ///
         if (GameMaster.game_scene == 2)
         {
+
+            //Station
+            LineRenderer renderer_orbit_station = GameObject.Find("Station").GetComponent<LineRenderer>();
+            LineRenderer renderer_orbit_station_vertical = GameObject.Find("10mHP").GetComponent<LineRenderer>();
+            if (Director.cam_mode == 1)
+            {
+                renderer_orbit_station.SetWidth(100f, 100f); // 線の幅
+                renderer_orbit_station_vertical.SetWidth(100f, 100f); // 線の幅
+            }
+            else if (Director.cam_mode == 2)
+            {
+                renderer_orbit_station.SetWidth(300f, 300f); // 線の幅
+                renderer_orbit_station_vertical.SetWidth(300f, 300f); // 線の幅
+            }
+            Vector3 plot_point_line_orbit_station;
+            renderer_orbit_station.SetVertexCount(2); // 頂点の数
+            plot_point_line_orbit_station = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-2500, 0, 0) * Director.prox_model_scale;
+            renderer_orbit_station.SetPosition(0, plot_point_line_orbit_station);
+            plot_point_line_orbit_station = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(2500, 0, 0) * Director.prox_model_scale;
+            renderer_orbit_station.SetPosition(1, plot_point_line_orbit_station);
+
+            Vector3 plot_point_line_orbit_station_vertical;
+            renderer_orbit_station_vertical.SetVertexCount(2); // 頂点の数
+            plot_point_line_orbit_station_vertical = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 0) * Director.prox_model_scale;
+            renderer_orbit_station_vertical.SetPosition(0, plot_point_line_orbit_station_vertical);
+            plot_point_line_orbit_station_vertical = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 1000) * Director.prox_model_scale;
+            renderer_orbit_station_vertical.SetPosition(1, plot_point_line_orbit_station_vertical);
+
+
             if (cam_mode == 1) // VV中心のビュー
             {
                 if (Input.mousePosition.y < Screen.height - Screen.height * 0.3)
@@ -715,9 +757,9 @@ public class Director : MonoBehaviour
                     //cam_time_offset = GameObject.Find("Cam_Offset").GetComponent<Slider>().value;
                     cam_scroll = Input.GetAxis("Mouse ScrollWheel");
                     cam_time_offset -= cam_scroll * cam_speed;
-                    if (cam_time_offset >= 150000)
+                    if (cam_time_offset >= 200000)
                     {
-                        cam_time_offset = 150000;
+                        cam_time_offset = 200000;
                     }
                     else if (cam_time_offset <= 10000)
                     {
@@ -756,9 +798,9 @@ public class Director : MonoBehaviour
                 //cam_time_offset = GameObject.Find("Cam_Offset").GetComponent<Slider>().value;
                 cam_scroll = Input.GetAxis("Mouse ScrollWheel");
                 cam_time_offset -= cam_scroll * cam_speed;
-                if (cam_time_offset >= 150000)
+                if (cam_time_offset >= 200000)
                 {
-                    cam_time_offset = 150000;
+                    cam_time_offset = 200000;
                 }
                 else if (cam_time_offset <= 10000)
                 {

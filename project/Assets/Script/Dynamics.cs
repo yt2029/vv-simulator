@@ -58,6 +58,7 @@ public class Dynamics : MonoBehaviour
 
 
     public GameObject orbital_plane;
+    public GameObject thruster_pX, thruster_mX, thruster_pZ, thruster_mZ;
     GameObject slider2;
 
 
@@ -66,7 +67,7 @@ public class Dynamics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ISS Position Calc [meter](なぜか回転スピードが３倍くらい早いので割る３＊＊要調査)
+        // ISS Position Calc [meter]
         iss_velocity_scalar = Mathf.Sqrt((float)(Param.Co.GRAVITY_CONST / (Param.Co.EARTH_RADIOUS / 1000 + Param.Co.STATION_ALTITUDE / 1000))) * 1000;      // [meter/sec]
         Debug.Log(iss_velocity_scalar);
         iss_orbital_period = (float)(2 * Mathf.PI * (Param.Co.EARTH_RADIOUS + Param.Co.STATION_ALTITUDE) / iss_velocity_scalar);            // [sec/orbit]
@@ -184,6 +185,37 @@ public class Dynamics : MonoBehaviour
 
             GameObject.Find("Joy-Handle2").GetComponent<RectTransform>().localPosition = new Vector3(80f * input_horizontal, 80f * input_vertical, 0);
 
+            if (input_vertical < 0f)
+            {
+                thruster_mZ.SetActive(false);
+                thruster_pZ.SetActive(true);
+            }
+            else if(input_vertical > 0f)
+            {
+                thruster_mZ.SetActive(true);
+                thruster_pZ.SetActive(false);
+            }
+            else
+            {
+                thruster_mZ.SetActive(false);
+                thruster_pZ.SetActive(false);
+            }
+
+            if (input_horizontal < 0f)
+            {
+                thruster_mX.SetActive(false);
+                thruster_pX.SetActive(true);
+            }
+            else if (input_horizontal > 0f)
+            {
+                thruster_mX.SetActive(true);
+                thruster_pX.SetActive(false);
+            }
+            else
+            {
+                thruster_mX.SetActive(false);
+                thruster_pX.SetActive(false);
+            }
 
             // Delta V induce (virtual joystick input)
             vv_vel_hill_x0 += (joystick.Direction.y * val_dv_const) * Time.timeScale;
@@ -221,34 +253,6 @@ public class Dynamics : MonoBehaviour
 
 
             //// 軌道軌跡の描画
-            //Station
-            LineRenderer renderer_orbit_station = GameObject.Find("Station").GetComponent<LineRenderer>();
-            LineRenderer renderer_orbit_station_vertical = GameObject.Find("10mHP").GetComponent<LineRenderer>();
-            if (Director.cam_mode == 1)
-            {
-                renderer_orbit_station.SetWidth(100f, 100f); // 線の幅
-                renderer_orbit_station_vertical.SetWidth(100f, 100f); // 線の幅
-            }
-            else if (Director.cam_mode == 2)
-            {
-                renderer_orbit_station.SetWidth(300f, 300f); // 線の幅
-                renderer_orbit_station_vertical.SetWidth(300f, 300f); // 線の幅
-            }
-            Vector3 plot_point_line_orbit_station;
-            renderer_orbit_station.SetVertexCount(2); // 頂点の数
-            plot_point_line_orbit_station = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-2500, 0, 0) * Director.prox_model_scale;
-            renderer_orbit_station.SetPosition(0, plot_point_line_orbit_station);
-            plot_point_line_orbit_station = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(2500, 0, 0) * Director.prox_model_scale;
-            renderer_orbit_station.SetPosition(1, plot_point_line_orbit_station);
-
-            Vector3 plot_point_line_orbit_station_vertical;
-            renderer_orbit_station_vertical.SetVertexCount(2); // 頂点の数
-            plot_point_line_orbit_station_vertical = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 0) * Director.prox_model_scale;
-            renderer_orbit_station_vertical.SetPosition(0, plot_point_line_orbit_station_vertical);
-            plot_point_line_orbit_station_vertical = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 1000) * Director.prox_model_scale;
-            renderer_orbit_station_vertical.SetPosition(1, plot_point_line_orbit_station_vertical);
-
-
             // Vehicle
             LineRenderer renderer_orbit = GameObject.Find("OrbitalLine").GetComponent<LineRenderer>();
             if (Director.cam_mode == 1)

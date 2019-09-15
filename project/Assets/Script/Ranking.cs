@@ -35,7 +35,7 @@ public class Ranking : MonoBehaviour
         top_name = PlayerPrefs.GetString("1st_NAME", "NO NAME");
 
         second_score = PlayerPrefs.GetFloat("2nd_SCORE", 0f);
-        second_duration = PlayerPrefs.GetFloat("1nd_DURATION", 0f);
+        second_duration = PlayerPrefs.GetFloat("2nd_DURATION", 0f);
         second_dv = PlayerPrefs.GetFloat("2nd_DV", 0f);
         second_relative_v = PlayerPrefs.GetFloat("2nd_REL_V", 0f);
         second_name = PlayerPrefs.GetString("2nd_NAME", "NO NAME");
@@ -52,10 +52,31 @@ public class Ranking : MonoBehaviour
         GameObject.Find("1st_point").GetComponent<Text>().text = string.Format("{0:0.0}", top_score);
         GameObject.Find("2nd_point").GetComponent<Text>().text = string.Format("{0:0.0}", second_score);
         GameObject.Find("3rd_point").GetComponent<Text>().text = string.Format("{0:0.0}", third_score);
+        GameObject.Find("1st_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", top_relative_v);
+        GameObject.Find("2nd_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", second_relative_v);
+        GameObject.Find("3rd_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", third_relative_v);
+        GameObject.Find("1st_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", top_duration);
+        GameObject.Find("2nd_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", second_duration);
+        GameObject.Find("3rd_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", third_duration);
+        GameObject.Find("1st_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", top_dv);
+        GameObject.Find("2nd_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", second_dv);
+        GameObject.Find("3rd_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", third_dv);
+
 
         GameObject.Find("your_point").GetComponent<Text>().text = string.Format("{0:0.0}", Director.result_score);
+        GameObject.Find("your_dv").GetComponent<Text>().text = string.Format("{0:0.0}", Director.result_dv);
+        GameObject.Find("your_duration").GetComponent<Text>().text = string.Format("{0:0.0}", Director.result_duration);
+        GameObject.Find("your_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", Director.result_relative_v);
     }
 
+    void Update()
+    {
+        //Detect when the Return key is pressed down
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            InputButtonRegister();
+        }
+    }
 
     public void InputButtonRegister()
     {
@@ -168,7 +189,7 @@ public class Ranking : MonoBehaviour
             top_name = PlayerPrefs.GetString("1st_NAME", "NO NAME");
 
             second_score = PlayerPrefs.GetFloat("2nd_SCORE", 0f);
-            second_duration = PlayerPrefs.GetFloat("1nd_DURATION", 0f);
+            second_duration = PlayerPrefs.GetFloat("2nd_DURATION", 0f);
             second_dv = PlayerPrefs.GetFloat("2nd_DV", 0f);
             second_relative_v = PlayerPrefs.GetFloat("2nd_REL_V", 0f);
             second_name = PlayerPrefs.GetString("2nd_NAME", "NO NAME");
@@ -185,6 +206,15 @@ public class Ranking : MonoBehaviour
             GameObject.Find("1st_point").GetComponent<Text>().text = string.Format("{0:0.0}", top_score);
             GameObject.Find("2nd_point").GetComponent<Text>().text = string.Format("{0:0.0}", second_score);
             GameObject.Find("3rd_point").GetComponent<Text>().text = string.Format("{0:0.0}", third_score);
+            GameObject.Find("1st_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", top_relative_v);
+            GameObject.Find("2nd_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", second_relative_v);
+            GameObject.Find("3rd_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", third_relative_v);
+            GameObject.Find("1st_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", top_duration);
+            GameObject.Find("2nd_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", second_duration);
+            GameObject.Find("3rd_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", third_duration);
+            GameObject.Find("1st_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", top_dv);
+            GameObject.Find("2nd_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", second_dv);
+            GameObject.Find("3rd_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", third_dv);
         }
     }
 
@@ -198,7 +228,7 @@ public class Ranking : MonoBehaviour
         top_name = PlayerPrefs.GetString("1st_NAME", "NO DATA");
 
         second_score = PlayerPrefs.GetFloat("2nd_SCORE", 0f);
-        second_duration = PlayerPrefs.GetFloat("1nd_DURATION", 0f);
+        second_duration = PlayerPrefs.GetFloat("2nd_DURATION", 0f);
         second_dv = PlayerPrefs.GetFloat("2nd_DV", 0f);
         second_relative_v = PlayerPrefs.GetFloat("2nd_REL_V", 0f);
         second_name = PlayerPrefs.GetString("2nd_NAME", "NO DATA");
@@ -240,7 +270,7 @@ public class Ranking : MonoBehaviour
         top_name = PlayerPrefs.GetString("1st_NAME", "NO DATA");
 
         second_score = PlayerPrefs.GetFloat("2nd_SCORE", 0f);
-        second_duration = PlayerPrefs.GetFloat("1nd_DURATION", 0f);
+        second_duration = PlayerPrefs.GetFloat("2nd_DURATION", 0f);
         second_dv = PlayerPrefs.GetFloat("2nd_DV", 0f);
         second_relative_v = PlayerPrefs.GetFloat("2nd_REL_V", 0f);
         second_name = PlayerPrefs.GetString("2nd_NAME", "NO DATA");
@@ -257,6 +287,15 @@ public class Ranking : MonoBehaviour
         GameObject.Find("1st_point").GetComponent<Text>().text = string.Format("{0:0.0}", top_score);
         GameObject.Find("2nd_point").GetComponent<Text>().text = string.Format("{0:0.0}", second_score);
         GameObject.Find("3rd_point").GetComponent<Text>().text = string.Format("{0:0.0}", third_score);
+        GameObject.Find("1st_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", top_relative_v);
+        GameObject.Find("2nd_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", second_relative_v);
+        GameObject.Find("3rd_sub_relativeV").GetComponent<Text>().text = string.Format("{0:0.000}", third_relative_v);
+        GameObject.Find("1st_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", top_duration);
+        GameObject.Find("2nd_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", second_duration);
+        GameObject.Find("3rd_sub_duration").GetComponent<Text>().text = string.Format("{0:0.0}", third_duration);
+        GameObject.Find("1st_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", top_dv);
+        GameObject.Find("2nd_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", second_dv);
+        GameObject.Find("3rd_sub_dv").GetComponent<Text>().text = string.Format("{0:0.0}", third_dv);
     }
 
 

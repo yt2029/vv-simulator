@@ -61,6 +61,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Assets\EarthRendering Free\CameraCtrl.cs" />
+    <Compile Include="Assets\Assets\UI\Joystick Pack\Examples\JoystickPlayerExample.cs" />
+    <Compile Include="Assets\Assets\UI\Joystick Pack\Examples\JoystickSetterExample.cs" />
+    <Compile Include="Assets\Assets\UI\Joystick Pack\Scripts\Base\Joystick.cs" />
+    <Compile Include="Assets\Assets\UI\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
+    <Compile Include="Assets\Assets\UI\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
+    <Compile Include="Assets\Assets\UI\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
+    <Compile Include="Assets\Assets\UI\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\Assets\UITween\Prefabs\Click Effect Pref\ClickedWaveAnimation.cs" />
     <Compile Include="Assets\Assets\UITween\ScenesExamplesScripts\ActivateOnEnable.cs" />
     <Compile Include="Assets\Assets\UITween\ScenesExamplesScripts\CreateAnimImage.cs" />
@@ -76,13 +83,6 @@
     <Compile Include="Assets\Script\GameMaster.cs" />
     <Compile Include="Assets\Script\Param.cs" />
     <Compile Include="Assets\Script\Ranking.cs" />
-    <Compile Include="Assets\UI\Joystick Pack\Examples\JoystickPlayerExample.cs" />
-    <Compile Include="Assets\UI\Joystick Pack\Examples\JoystickSetterExample.cs" />
-    <Compile Include="Assets\UI\Joystick Pack\Scripts\Base\Joystick.cs" />
-    <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
-    <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
-    <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
-    <Compile Include="Assets\UI\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <None Include="Assets\Assets\EarthRendering Free\Earth.shader" />
     <None Include="Assets\Font\Orbitron\OFL.txt" />
     <None Include="Assets\Assets\EarthRendering Free\Atmosphere.shader" />
