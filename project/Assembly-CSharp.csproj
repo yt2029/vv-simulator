@@ -80,10 +80,12 @@
      <Compile Include="Assets\Script\Capture\Bone4IK.cs" />
      <Compile Include="Assets\Script\Capture\Bone4IKx.cs" />
      <Compile Include="Assets\Script\Capture\BoneSize.cs" />
+     <Compile Include="Assets\Script\Capture\Cameracollider.cs" />
      <Compile Include="Assets\Script\Capture\CameraLookat.cs" />
      <Compile Include="Assets\Script\Capture\CameraMove.cs" />
      <Compile Include="Assets\Script\Capture\Collisioncanadarm.cs" />
      <Compile Include="Assets\Script\Capture\DirectorCapture.cs" />
+     <Compile Include="Assets\Script\Capture\DirectorCapture2.cs" />
      <Compile Include="Assets\Script\Capture\HTVTransform.cs" />
      <Compile Include="Assets\Script\Capture\IKtest.cs" />
      <Compile Include="Assets\Script\Capture\Lookat.cs" />

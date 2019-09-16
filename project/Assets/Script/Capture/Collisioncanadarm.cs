@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Collisioncanadarm : MonoBehaviour
 {
@@ -17,10 +19,11 @@ public class Collisioncanadarm : MonoBehaviour
     
     if(objectName == "FRGF v4")
     {
+      FadeManager.Instance.LoadScene("GameCapture2", 0.5f);
 
-      Result.text = ("3秒間維持しよう！");
+      //Result.text = ("3秒間維持しよう！");
       //Debug.Log("keep the position!"); // ログを表示する          
-      StartCoroutine("Time");
+      //StartCoroutine("Time");
 
     }
   
@@ -36,19 +39,21 @@ public class Collisioncanadarm : MonoBehaviour
 
       Result.text = "もう一度!";
       //Debug.Log("Try again");
-      StopCoroutine("Time");
+      //StopCoroutine("Time");
 
     }
 
   }
 
-  IEnumerator Time()
+  /*IEnumerator Time()
   {
 
-    yield return new WaitForSeconds(3);
+    
+    
     Result.text = "Clear!\nHTVキャプチャに成功！";
+    yield return new WaitForSeconds(3);
     //Debug.Log("Clear!");
 
-  }
+  }*/
 
 }
