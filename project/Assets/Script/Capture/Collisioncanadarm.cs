@@ -29,7 +29,7 @@ public class Collisioncanadarm : MonoBehaviour
   
   
   }
-  void OnCollisionExit(Collision collision)
+  /*void OnCollisionExit(Collision collision)
   {
     
     string objectName = collision.collider.gameObject.name;
@@ -43,7 +43,7 @@ public class Collisioncanadarm : MonoBehaviour
 
     }
 
-  }
+  }*/
 
   /*IEnumerator Time()
   {

@@ -10,6 +10,9 @@ public class DirectorCapture2 : MonoBehaviour
     GameObject sim_timer;
     public static float timer, timer_after_scale;
 
+    Slider _slider;//Batteryゲージの操作
+
+     float _Battery = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +21,11 @@ public class DirectorCapture2 : MonoBehaviour
         timer = 0;
         //TimedeltaCommon = 0;
         timer_after_scale = 0;
+
+       
+        _slider = GameObject.Find("Frame/BatteryFrame/BatterySlider").GetComponent<Slider>();//sliderの取得
+        _Battery = DirectorCapture.getBattery();
+
     }
 
     // Update is called once per frame
@@ -37,6 +45,14 @@ public class DirectorCapture2 : MonoBehaviour
         int seconds = Mathf.FloorToInt(timer_after_scale_offset - minutes * 60 - hours * 60 * 60 - days * 24 * 60 * 60);
         string niceTime = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
         this.sim_timer.GetComponent<Text>().text = "" + niceTime;
+
+        _Battery -= 0.001f;
+        if(_Battery < 0)
+        {
+            _Battery = 1;
+        }
+
+        _slider.value = _Battery;
 
 
     }
