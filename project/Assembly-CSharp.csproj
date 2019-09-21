@@ -74,10 +74,9 @@
      <Compile Include="Assets\Assets\Unity-FadeManager-master\Assets\naichilab\FadeManager\Sample\FadeSample.cs" />
      <Compile Include="Assets\Assets\Unity-FadeManager-master\Assets\naichilab\FadeManager\Scripts\FadeManager.cs" />
      <Compile Include="Assets\Script\Capture\Bone1.cs" />
-     <Compile Include="Assets\Script\Capture\Bone3.cs" />
-     <Compile Include="Assets\Script\Capture\Bone3IK.cs" />
+     <Compile Include="Assets\Script\Capture\Bone2IKy.cs" />
      <Compile Include="Assets\Script\Capture\Bone3IKx.cs" />
-     <Compile Include="Assets\Script\Capture\Bone4IK.cs" />
+     <Compile Include="Assets\Script\Capture\Bone3IKxy.cs" />
      <Compile Include="Assets\Script\Capture\Bone4IKx.cs" />
      <Compile Include="Assets\Script\Capture\BoneSize.cs" />
      <Compile Include="Assets\Script\Capture\Cameracollider.cs" />
