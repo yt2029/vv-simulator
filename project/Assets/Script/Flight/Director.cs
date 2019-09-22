@@ -20,13 +20,14 @@ public class Director : MonoBehaviour
     GameObject info_val_vx_slider, info_val_vy_slider;
     GameObject game_status_result, game_status_failure;
     GameObject game_status_result_duration, game_status_result_dv, game_status_result_relative_v, game_status_result_score;
-    GameObject game_status_vv_propellant_val, game_status_vv_propellant_gage;
+    GameObject game_status_vv_propellant_val, game_status_vv_propellant_gage, game_status_vv_propellant_gage_caution, game_status_vv_propellant_gage_warning;
     GameObject plane_movie_capture, video_capture;
+    GameObject guide_right, guide_left, guide_down;
 
     public static float result_dv, result_duration, result_relative_v, result_score;
 
     public static float elappsedTime, timer_capture, timer_capture_clear, timer_hold_clear_500m, timer_hold_clear_250m, timer_hold_clear_100m, timer_hold_clear_30m, timer_hold_500m, timer_hold_250m, timer_hold_100m, timer_hold_30m, timer_hold_clear;
-    public static int game_submode;
+    public static int game_submode, last_game_submode;
     public static int flag_500m_HP, flag_250m_HP, flag_100m_HP, flag_30m_HP, flag_10m_HP, flag_collision, flag_KOS, flag_clear, flag_10m_HP_stay, flag_no_propellant;
     public static int flag_500m_HP_stay, flag_250m_HP_stay, flag_100m_HP_stay, flag_30m_HP_stay;
     public static float val_sim_speed;
@@ -41,7 +42,7 @@ public class Director : MonoBehaviour
     GameObject cam_targetObj;
     Vector3 cam_targetPos;
     int cam_initial_rotate = 0;
-    float cam_initial_rotate_val = 0;
+    float cam_initial_rotate_val = 0, cam_initial_rotate_val_temp = 0;
 
     public static float prox_model_scale = 100;  //カメラとモデルが接近しているときにモデル表示が不安定となるのを防ぐ
                                                  //	private float val_scale_vehicle_0 = 50f; // 地球座標系
@@ -54,11 +55,12 @@ public class Director : MonoBehaviour
     public float cam_speed = 1000f;
     private int flag_pressed;
     public float cam_time_offset;
-    float capture_duration = 8 * 60;
+    float capture_duration = 5 * 60;
     float hold_duration = 0 * 60;
-    float vv_propellant_max = 3500;
-    float vv_propellant_now;
+    float vv_propellant_max = 12000;
+    float vv_propellant_now, vv_propellant_deviation;
     float vv_propellant_coefficient = 300;
+
 
 
     private Vector3 delta_newAngle = new Vector3(0, 0, 0);
@@ -109,13 +111,18 @@ public class Director : MonoBehaviour
 
         this.game_status_vv_propellant_val = GameObject.Find("Val-total-dV");
         this.game_status_vv_propellant_gage = GameObject.Find("dv-gage");
+        this.game_status_vv_propellant_gage_caution = GameObject.Find("dv-gage-caution");
+        this.game_status_vv_propellant_gage_warning = GameObject.Find("dv-gage-warning");
 
         this.plane_movie_capture = GameObject.Find("CaptureVideoPlane");
         this.video_capture = GameObject.Find("VideoCapture");
 
+        this.guide_right = GameObject.Find("GuideRight");
+        this.guide_left = GameObject.Find("GuideLeft");
+        this.guide_down = GameObject.Find("GuideDown");
 
         time_medium();
-        Time.timeScale = 0.6f;
+        Time.timeScale = 0.5f;
         timer = 0;
         TimedeltaCommon = 0;
         timer_after_scale = 0;
@@ -196,6 +203,8 @@ public class Director : MonoBehaviour
             flag_cam = 0;
             cam_initial_rotate = 0;
             cam_initial_rotate_val = 0f;
+            cam_initial_rotate_val_temp = 0f;
+            vv_propellant_deviation = 0f;
         }
 
 
@@ -239,13 +248,22 @@ public class Director : MonoBehaviour
             //Dynamics.vv_vel_hill_y0 = 1.041f + Random.Range(-0.04f, +0.04f);
             //Dynamics.vv_vel_hill_z0 = 0f;
 
-            Dynamics.vv_pos_hill_x0 = -800.00f + Random.Range(-0.25f, +0.25f);
-            Dynamics.vv_pos_hill_y0 = -234.11f + Random.Range(-0.25f, +0.25f);
+            Dynamics.vv_pos_hill_x0 = -905.61f + Random.Range(-0.1f, +0.1f);
+            Dynamics.vv_pos_hill_y0 = -227.73f + Random.Range(-0.1f, +0.1f);
             Dynamics.vv_pos_hill_z0 = 0f;
 
-            Dynamics.vv_vel_hill_x0 = 0.921f + Random.Range(-0.02f, +0.02f);      // [meter/sec]
-            Dynamics.vv_vel_hill_y0 = 0.788f + Random.Range(-0.02f, +0.02f);
+            Dynamics.vv_vel_hill_x0 = 1.148f + Random.Range(-0.01f, +0.01f);      // [meter/sec]
+            Dynamics.vv_vel_hill_y0 = 0.955f + Random.Range(-0.01f, +0.01f);
             Dynamics.vv_vel_hill_z0 = 0f;
+
+            //Dynamics.vv_pos_hill_x0 = -743.41f + Random.Range(-0.1f, +0.1f);
+            //Dynamics.vv_pos_hill_y0 = -115.74f + Random.Range(-0.1f, +0.1f);
+            //Dynamics.vv_pos_hill_z0 = 0f;
+
+            //Dynamics.vv_vel_hill_x0 = 0.913f + Random.Range(-0.01f, +0.01f);      // [meter/sec]
+            //Dynamics.vv_vel_hill_y0 = 0.594f + Random.Range(-0.01f, +0.01f);
+            //Dynamics.vv_vel_hill_z0 = 0f;
+
 
             Dynamics.vv_pos_hill_xd = Dynamics.vv_pos_hill_x0;
             Dynamics.vv_pos_hill_yd = Dynamics.vv_pos_hill_y0;
@@ -311,7 +329,7 @@ public class Director : MonoBehaviour
         ///
         if (GameMaster.game_scene == 1)
         {
-            Time.timeScale = 0.5f;
+            Time.timeScale = 0.3f;
             // ゲーム中は結果画面を非表示設定
             this.game_status_result.SetActive(false);
             this.game_status_failure.SetActive(false);
@@ -340,7 +358,7 @@ public class Director : MonoBehaviour
             if (game_submode == 1 && Mathf.Abs(Dynamics.vv_pos_hill_yd) < 800)
             {
                 game_submode = 12;
-                this.info_message.GetComponent<Text>().text = "RIポイントを\n目指してください。";
+                this.info_message.GetComponent<Text>().text = "宇宙ステーションに向かって、飛行を進めよう。";
             }
             if (flag_500m_HP == 1 && flag_500m_HP_stay == 1)
             {
@@ -406,7 +424,7 @@ public class Director : MonoBehaviour
             {
                 game_submode = 7;
             }
-            if (Mathf.Abs(Dynamics.vv_pos_hill_yd) > 1000)
+            if (Mathf.Abs(Dynamics.vv_pos_hill_yd) > 1000 || Mathf.Abs(Dynamics.vv_pos_hill_xd) > 1000)
             {
                 game_submode = 8;
             }
@@ -424,7 +442,17 @@ public class Director : MonoBehaviour
             }
             if (Mathf.Abs(Dynamics.vv_pos_hill_xd - 28f) * (float)(Mathf.Tan(16f / 180f * Mathf.PI)) < (Mathf.Abs(Dynamics.vv_pos_hill_yd - 6.5f)))
             {
-                game_submode = 99;
+                if (game_submode != 11)
+                {
+                    if (game_submode != 99)
+                    {
+                        last_game_submode = game_submode;
+                        vv_propellant_deviation += 4f;
+                        GameObject.Find("corridor").GetComponent<AudioSource>().Play();
+                    }
+
+                    game_submode = 99;
+                }
             }
 
 
@@ -445,7 +473,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 2)
             {
-                this.info_message.GetComponent<Text>().text = "250ｍ下方を\n目指して上昇してください。";
+                this.info_message.GetComponent<Text>().text = "スラスタを使って、250ｍポイントに向かって\n目指して上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "RI Depature, Go HTV!!";
             }
             else if (game_submode == 23)
@@ -456,7 +484,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 3)
             {
-                this.info_message.GetComponent<Text>().text = "250ｍ出発可能。\n上昇してください。";
+                this.info_message.GetComponent<Text>().text = "250mホールドポイントを出発しよう。\nISSに向かって上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "250m Depature, Go HTV!!";
             }
             else if (game_submode == 32)
@@ -472,7 +500,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 4)
             {
-                this.info_message.GetComponent<Text>().text = "１００ｍ出発可能。\nさらに上昇してください。";
+                this.info_message.GetComponent<Text>().text = "100mポイントに到着。\nさらに上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "100m Depature, Go HTV!!";
             }
             else if (game_submode == 43)
@@ -488,7 +516,7 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 51)
             {
-                this.info_message.GetComponent<Text>().text = "3０ｍ出発可能。\nキャプチャー点まで\n上昇してください。";
+                this.info_message.GetComponent<Text>().text = "30ｍホールドポイント出発可能。\nキャプチャー点まで\nあと少し上昇してください。";
                 this.game_status_hold_timer.GetComponent<Text>().text = "30m Depature, Go for Final Approach!!";
             }
             else if (game_submode == 541)
@@ -498,14 +526,14 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 5)
             {
-                this.info_message.GetComponent<Text>().text = "キャプチャー点到着、\nそのままの位置で静止しよう！";
+                this.info_message.GetComponent<Text>().text = "キャプチャー点到着！\nそのままの位置でキャプチャーに向けて静止しよう！";
                 timer_capture_clear = timer_after_scale - timer_capture;
 
                 this.game_status_capture_timer.GetComponent<Text>().text = string.Format("Capture - {0:0.0}", capture_duration - timer_capture_clear) + "秒";
                 result_duration = timer_after_scale / 60f;
                 result_dv = Dynamics.total_delta_V;
                 result_relative_v = Mathf.Sqrt(Mathf.Pow(Dynamics.vv_vel_hill_xd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_yd, 2) + Mathf.Pow(Dynamics.vv_vel_hill_zd, 2));
-                result_score = ((6.0f - result_dv) * 16f + (80f - result_duration) * 1.2f + (0.1f - result_relative_v) * 1300f + 200.0f + flag_30m_HP * 50f + flag_100m_HP * 40f + flag_250m_HP * 30f + flag_500m_HP * 20f)*2f;
+                result_score = ((6.0f - result_dv) * 16f + (80f - result_duration) * 1.2f + (0.1f - result_relative_v) * 1300f + 200.0f + flag_30m_HP * 50f + flag_100m_HP * 40f + flag_250m_HP * 30f + flag_500m_HP * 20f) * 2f;
             }
             else if (game_submode == 54)
             {
@@ -578,22 +606,27 @@ public class Director : MonoBehaviour
                 sound_failure();
                 sound_flag = 0;
             }
-            else if (game_submode == 99 && flag_500m_HP == 1)
+            else if (game_submode == 99)
             {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \nアプローチ・コリドー逸脱を検知。\nアボートしました。";
-                this.game_status_failure.SetActive(true);
-                this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 0.3f;
+                this.info_message.GetComponent<Text>().text = "[安全機能作動] \nアプローチ・コリドー逸脱を検知。\n自動で軌道を修正します。";
+                //this.game_status_failure.SetActive(true);
+                //this.game_status_capture_timer.SetActive(false);
 
-                if (flag_cam == 0)
-                {
-                    Dynamics.vv_vel_hill_y0 += 1.1f;
-                }
-                flag_cam = 1;
 
-                sound_failure();
-                sound_flag = 0;
+                Dynamics.vv_vel_hill_y0 = 0;
+                Dynamics.vv_vel_hill_x0 = 0;
+
+                Dynamics.vv_pos_hill_y0 -= Mathf.Sign(Dynamics.vv_pos_hill_yd) * 0.05f;
+                Dynamics.vv_vel_hill_y0 -= Mathf.Sign(Dynamics.vv_pos_hill_yd) * 0.05f;
+
+                game_submode = last_game_submode;
+                //sound_failure();
+                //sound_flag = 0;
             }
+
+
+            guide_notice();
+
         }
 
         if (GameMaster.game_scene == 2)
@@ -632,10 +665,12 @@ public class Director : MonoBehaviour
             //this.info_val_vz.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.vv_vel_hill_zd);
             //this.info_val_total_dv.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", Dynamics.total_delta_V);
 
-            this.info_val_vx_slider.GetComponent<Slider>().value = -Dynamics.vv_vel_hill_xd * 1.3f + 0.5f;
-            this.info_val_vy_slider.GetComponent<Slider>().value = Dynamics.vv_vel_hill_yd * 1.3f + 0.5f;
+            this.info_val_vx_slider.GetComponent<Slider>().value = Dynamics.vv_vel_hill_xd * 1.3f + 0.5f;
+            this.info_val_vy_slider.GetComponent<Slider>().value = -Dynamics.vv_vel_hill_yd * 1.3f + 0.5f;
 
-            vv_propellant_now = (vv_propellant_max - vv_propellant_coefficient * Dynamics.total_delta_V) / vv_propellant_max;
+
+            // 推薬計算
+            vv_propellant_now = (vv_propellant_max - vv_propellant_coefficient * Dynamics.total_delta_V - vv_propellant_coefficient * vv_propellant_deviation) / vv_propellant_max;
 
             if (vv_propellant_now < 0)
             {
@@ -644,7 +679,23 @@ public class Director : MonoBehaviour
             }
 
             this.game_status_vv_propellant_val.GetComponent<Text>().text = string.Format("{0:0.0} %", vv_propellant_now * 100);
-            this.game_status_vv_propellant_gage.GetComponent<Image>().fillAmount = vv_propellant_now * 0.9f;
+            if (vv_propellant_now >= 0.5)
+            {
+                this.game_status_vv_propellant_gage.GetComponent<Image>().fillAmount = vv_propellant_now * 0.9f;
+            }
+            else if (vv_propellant_now < 0.5)
+            {
+                this.game_status_vv_propellant_gage.SetActive(false);
+            }
+            if (vv_propellant_now >= 0.25)
+            {
+                this.game_status_vv_propellant_gage_warning.GetComponent<Image>().fillAmount = vv_propellant_now * 0.9f;
+            }
+            else if (vv_propellant_now < 0.25)
+            {
+                this.game_status_vv_propellant_gage_warning.SetActive(false);
+            }
+            this.game_status_vv_propellant_gage_caution.GetComponent<Image>().fillAmount = vv_propellant_now * 0.9f;
 
         }
 
@@ -664,32 +715,54 @@ public class Director : MonoBehaviour
         ///
         if (GameMaster.game_scene == 1)
         {
+
+
+            //Station
+            LineRenderer renderer_orbit_station = GameObject.Find("Station").GetComponent<LineRenderer>();
+            LineRenderer renderer_orbit_station_vertical = GameObject.Find("10mHP").GetComponent<LineRenderer>();
+            if (Director.cam_mode == 1)
+            {
+                renderer_orbit_station.SetWidth(100f, 100f); // 線の幅
+                renderer_orbit_station_vertical.SetWidth(100f, 100f); // 線の幅
+            }
+            else if (Director.cam_mode == 2)
+            {
+                renderer_orbit_station.SetWidth(300f, 300f); // 線の幅
+                renderer_orbit_station_vertical.SetWidth(300f, 300f); // 線の幅
+            }
+            //Vector3 plot_point_line_orbit_station;
+            //renderer_orbit_station.SetVertexCount(2); // 頂点の数
+            //plot_point_line_orbit_station = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-2500, 0, 0) * Director.prox_model_scale;
+            //renderer_orbit_station.SetPosition(0, plot_point_line_orbit_station);
+            //plot_point_line_orbit_station = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(2500, 0, 0) * Director.prox_model_scale;
+            //renderer_orbit_station.SetPosition(1, plot_point_line_orbit_station);
+
+            Vector3 plot_point_line_orbit_station_vertical;
+            renderer_orbit_station_vertical.SetVertexCount(2); // 頂点の数
+            plot_point_line_orbit_station_vertical = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 0) * Director.prox_model_scale;
+            renderer_orbit_station_vertical.SetPosition(0, plot_point_line_orbit_station_vertical);
+            plot_point_line_orbit_station_vertical = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 1000) * Director.prox_model_scale;
+            renderer_orbit_station_vertical.SetPosition(1, plot_point_line_orbit_station_vertical);
+
             if (cam_mode == 1) // VV中心のビュー
             {
 
-                ////はじめにカメラをまわす
-                //if (cam_initial_rotate == 0)
-                //{
-                //    cam_initial_rotate_val += 1f;
-                //}
-                //if (cam_initial_rotate_val > 90)
-                //{
-                //    cam_initial_rotate = 1;
-                //}
-
                 //はじめにカメラをまわす/カメラをとおざけうる
-
                 if (cam_initial_rotate == 0)
                 {
-                    cam_initial_rotate_val += 1f;
+                    cam_initial_rotate_val_temp += 1f;
+                    if (cam_initial_rotate_val_temp > 75)
+                    {
+                        cam_initial_rotate_val += 1f;
+                    }
                 }
                 if (cam_initial_rotate_val > 90)
                 {
                     cam_initial_rotate = 1;
                 }
 
-                GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(5 - (90 - cam_initial_rotate_val), 120 + ((Dynamics.vv_pos_hill_xd) - 150f) / 13, 0) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
-                Vector3 cam_pos_offset_2 = new Vector3(-45000 / 100, 50000 / 100, -1 * (cam_time_offset -(90 - cam_initial_rotate_val)*160f) * prox_model_scale / 80 * ((Mathf.Abs(Dynamics.vv_pos_hill_xd) + 30) / 250));
+                GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(5 - (90 - cam_initial_rotate_val), 120 + ((Dynamics.vv_pos_hill_xd) - 150f) / 11, 0) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
+                Vector3 cam_pos_offset_2 = new Vector3(-45000 / 100, 50000 / 100, -1 * (cam_time_offset - (90 - cam_initial_rotate_val) * 150f) * prox_model_scale / 80 * ((Mathf.Abs(Dynamics.vv_pos_hill_xd) + 30) / 250));
                 GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset_2;
 
                 ////はじめにカメラをまわす
@@ -707,8 +780,8 @@ public class Director : MonoBehaviour
                 //GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset;
 
                 // Sub Cameraの視点
-                GameObject.Find("Sub Camera").transform.rotation = GameObject.Find("Station").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(65, 155, 15);
-                Vector3 cam_pos_offset_sub = new Vector3(-500, -1000, -1 * cam_time_offset * prox_model_scale / 1000);
+                GameObject.Find("Sub Camera").transform.rotation = GameObject.Find("Station").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(55, 155, 15);
+                Vector3 cam_pos_offset_sub = new Vector3(-500 + -500, -1000 - 500, -1 * cam_time_offset * prox_model_scale / 1000 + 100f);
                 GameObject.Find("Sub Camera").transform.position = GameObject.Find("Station").transform.position + GameObject.Find("Sub Camera").transform.rotation * cam_pos_offset_sub;
             }
 
@@ -1048,5 +1121,81 @@ public class Director : MonoBehaviour
         //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
     }
 
+
+
+    void guide_notice()
+    {
+        if (Mathf.Abs(Dynamics.vv_pos_hill_xd - 28f) * (float)(Mathf.Tan(3.8f / 180f * Mathf.PI)) < (Mathf.Abs(Dynamics.vv_pos_hill_yd - 10f)) && Dynamics.vv_pos_hill_xd >-500f)
+        {
+            this.info_message.GetComponent<Text>().text = "[位置警告]\nアプローチコリドーの限界です。中央に戻ってください。";
+            if (Dynamics.vv_pos_hill_yd - 10f > 0)
+            {
+                this.guide_right.SetActive(true);
+            }
+            if (Dynamics.vv_pos_hill_yd - 10f < 0)
+            {
+                this.guide_left.SetActive(true);
+            }
+        }
+        else
+        {
+            this.guide_right.SetActive(false);
+            this.guide_left.SetActive(false);
+        }
+
+
+        if (Dynamics.vv_vel_hill_xd > 0.5f && Dynamics.vv_pos_hill_xd > -450f && Dynamics.vv_pos_hill_xd < -250f)
+        {
+            this.info_message.GetComponent<Text>().text = "[速度警告]\nステーションに衝突しないために減速してください。";
+            this.guide_down.SetActive(true);
+        }
+        else if (Dynamics.vv_vel_hill_xd > 0.35f && Dynamics.vv_pos_hill_xd > -250f && Dynamics.vv_pos_hill_xd < -30f)
+        {
+            this.info_message.GetComponent<Text>().text = "[速度警告]\nステーションに衝突しないために減速してください。";
+            this.guide_down.SetActive(true);
+        }
+        else if (Dynamics.vv_vel_hill_xd > 0.15f && Dynamics.vv_pos_hill_xd > -30f)
+        {
+            this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。ただちに減速してください。";
+            this.guide_down.SetActive(true);
+        }
+        else if (Dynamics.vv_vel_hill_xd > 0.09f && Dynamics.vv_pos_hill_xd > -15f)
+        {
+            this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。キャプチャーに備えて減速してください。";
+            this.guide_down.SetActive(true);
+        }
+        else
+        {
+            this.guide_down.SetActive(false);
+        }
+
+
+        if (Dynamics.vv_vel_hill_xd > 0.5f && Dynamics.vv_pos_hill_xd > -450f && Dynamics.vv_pos_hill_xd < -250f)
+        {
+            this.info_message.GetComponent<Text>().text = "[速度警告]\nステーションに衝突しないために減速してください。";
+            this.guide_down.SetActive(true);
+        }
+        else if (Dynamics.vv_vel_hill_xd > 0.35f && Dynamics.vv_pos_hill_xd > -250f && Dynamics.vv_pos_hill_xd < -30f)
+        {
+            this.info_message.GetComponent<Text>().text = "[速度警告]\nステーションに衝突しないために減速してください。";
+            this.guide_down.SetActive(true);
+        }
+        else if (Dynamics.vv_vel_hill_xd > 0.15f && Dynamics.vv_pos_hill_xd > -30f)
+        {
+            this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。ただちに減速してください。";
+            this.guide_down.SetActive(true);
+        }
+        else if (Dynamics.vv_pos_hill_xd > -6f)
+        {
+            this.info_message.GetComponent<Text>().text = "[位置警告]\n下降してください。衝突します！";
+            this.guide_down.SetActive(true);
+        }
+        else
+        {
+            this.guide_down.SetActive(false);
+        }
+
+
+    }
 
 }
