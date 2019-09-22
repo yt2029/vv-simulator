@@ -38,7 +38,7 @@ public class Dynamics : MonoBehaviour
     public static float total_delta_V;
 
     //float val_dv_const = 0.005f;  // iPhone
-    float val_dv_const = 0.02f;  // WebGL
+    float val_dv_const = 0.03f;  // WebGL
     //float val_dv_const = 0.03f;  // debug
 
 

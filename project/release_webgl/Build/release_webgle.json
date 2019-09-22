@@ -1,0 +1,16 @@
+{
+"companyName": "yuuki",
+"productName": "VV Sim",
+"productVersion": "0.1",
+"dataUrl": "release_webgle.data.unityweb",
+"wasmCodeUrl": "release_webgle.wasm.code.unityweb",
+"wasmFrameworkUrl": "release_webgle.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.2.5f1"
+}

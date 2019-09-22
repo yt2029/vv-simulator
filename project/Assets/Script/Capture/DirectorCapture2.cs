@@ -7,28 +7,22 @@ using UnityEngine.SceneManagement;
 public class DirectorCapture2 : MonoBehaviour
 {
     Text timeText;
-    Slider _slider;//Batteryゲージの操作
-
     GameObject sim_timer;
-    GameObject Message;
-
-    public GameObject Failure;
     public static float timer, timer_after_scale;
 
-    float _Battery = 0;
+    Slider _slider;//Batteryゲージの操作
+
+     float _Battery = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         this.sim_timer = GameObject.Find("Sim_Time");
-        this.Message = GameObject.Find("Message");
-        
         timer = 0;
         //TimedeltaCommon = 0;
         timer_after_scale = 0;
 
-      　Failure.SetActive(false);
-
+       
         _slider = GameObject.Find("Frame/BatteryFrame/BatterySlider").GetComponent<Slider>();//sliderの取得
         _Battery = DirectorCapture.getBattery();
 
@@ -55,8 +49,7 @@ public class DirectorCapture2 : MonoBehaviour
         _Battery -= 0.001f;
         if(_Battery < 0)
         {
-            this.Message.GetComponent<Text>().text = "HTVのバッテリが尽きてしまった...\nバッテリ残量に気をつけよう。";
-            Failure.SetActive(true);
+            _Battery = 1;
         }
 
         _slider.value = _Battery;
