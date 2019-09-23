@@ -44,7 +44,7 @@ public class Dynamics : MonoBehaviour
 
 
 
-    public static float attitude_cmd_yaw;
+    public static float attitude_cmd_yaw, attitude_cmd_pitch;
     public static float attitude_now;
 
     public static float deltav_cmd_xp, deltav_cmd_xm, deltav_cmd_yp, deltav_cmd_ym;
@@ -309,8 +309,9 @@ public class Dynamics : MonoBehaviour
             attitude_now += 1.0f * Time.timeScale;
         }
 
+
         vv_attitude_q = Quaternion.Euler(Param.Co.ISS_INC_ANG, 0, 0) * Quaternion.Euler(0, 0, -vv_rotation_speed * Director.timer_after_scale);
-        GameObject.Find("Vehicle").transform.rotation = vv_attitude_q * Quaternion.Euler(0, -90, 90) * Quaternion.Euler(0, 0, attitude_now);
+        GameObject.Find("Vehicle").transform.rotation = vv_attitude_q * Quaternion.Euler(0, -90, 90) * Quaternion.Euler(0, attitude_cmd_pitch, attitude_now);
 
 
 

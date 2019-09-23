@@ -48,6 +48,13 @@ public class GameMaster : MonoBehaviour
         FadeManager.Instance.LoadScene("GameCapture", 0.5f);
     }
 
+    public void mode_select_4()
+    {
+        game_scene = 4;
+        //SceneManager.LoadScene("GameCapture");
+        FadeManager.Instance.LoadScene("GameDocking", 0.5f);
+    }
+
 
 
     public void mode_select_9()
