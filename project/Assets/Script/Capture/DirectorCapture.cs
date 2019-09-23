@@ -15,6 +15,7 @@ public class DirectorCapture : MonoBehaviour
     public GameObject Failure;
     public static float timer, timer_after_scale;
     public static float _Battery = 1;
+    //public static int fail_count = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -91,4 +92,6 @@ public class DirectorCapture : MonoBehaviour
         SceneManager.LoadScene("GameCapture");
 
     }
+
+    
 }

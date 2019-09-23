@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 31120520}
   - component: {fileID: 31120519}
   m_Layer: 5
-  m_Name: result_duration
+  m_Name: Iss_score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,7 +412,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 999 mins
+  m_Text: 999 Ah
 --- !u!222 &31120520
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -650,7 +650,7 @@ GameObject:
   - component: {fileID: 157774409}
   - component: {fileID: 157774408}
   m_Layer: 5
-  m_Name: result_relativeV
+  m_Name: Technical_score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -672,7 +672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -103.88452, y: -390.95435}
+  m_AnchoredPosition: {x: -103.88452, y: -400}
   m_SizeDelta: {x: 232.4, y: 95.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &157774408
@@ -706,7 +706,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 999 m/s
+  m_Text: "\xD7 999 point"
 --- !u!222 &157774409
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1168,7 +1168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &249246833
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1568,7 +1568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &339493593
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1910,7 +1910,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &391894135
 Transform:
   m_ObjectHideFlags: 0
@@ -2001,7 +2001,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6D88\u8CBB\u96FB\u529B:\n\u7D4C\u904E\u6642\u9593:\n"
+  m_Text: "HTV\u30D0\u30C3\u30C6\u30EA\u6B8B\u91CF:\nISS\u6D88\u8CBB\u96FB\u529B:\n\u30A2\u30FC\u30E0\u64CD\u4F5C\u30C6\u30AF\u30CB\u30C3\u30AF:"
 --- !u!222 &414711579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2433,7 +2433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &579110501
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4088,7 +4088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1009709933
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4278,7 +4278,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1114364876
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5005,7 +5005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1377436976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5140,7 +5140,7 @@ GameObject:
   - component: {fileID: 1409409710}
   - component: {fileID: 1409409709}
   m_Layer: 5
-  m_Name: result_dv
+  m_Name: Battery_score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5162,7 +5162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -106.88452, y: -319.95435}
+  m_AnchoredPosition: {x: -106.88452, y: -310}
   m_SizeDelta: {x: 232.4, y: 95.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1409409709
@@ -5196,7 +5196,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1.00 Ah
+  m_Text: 999 Ah
 --- !u!222 &1409409710
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5472,7 +5472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1486045443
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5542,7 +5542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1488985489
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5860,7 +5860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1699270199
 Transform:
   m_ObjectHideFlags: 0
@@ -5997,7 +5997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1734683037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6584,7 +6584,7 @@ GameObject:
   - component: {fileID: 1954302591}
   - component: {fileID: 1954302590}
   m_Layer: 5
-  m_Name: result_score
+  m_Name: Capture_score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7645,7 +7645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d36f1739c2b4065a122daab3a52111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.001
+  speed: 0.0005
 --- !u!65 &2111979756
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7671,7 +7671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622f14620aa7345759e4908f58c05174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battery_score: {fileID: 0}
   Result2: {fileID: 368665594}
+  camera_collision: 0
+  Result: {fileID: 1699270198}
 --- !u!1 &2137242921
 GameObject:
   m_ObjectHideFlags: 0
