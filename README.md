@@ -2,10 +2,17 @@
 ## 概要
 宇宙船がステーションまでランデブーし、キャプチャーするまでの運用をシミュレーションするプログラム。
 
-## コミット時の注意
-Unityで生成されるLibrary、Tempフォルダはマスターに含めないこと。
-（TempはUnity起動中のみ存在するフォルダ、Libraryはビルドを高速で進めるための一時ファイルで、容量が100MBを越えるため、GITHUBにPushできなくなる。）
+## コミット時のフォルダ構成
+コンフリクト回避のために、以下の構成に統一する。
+これ以外のファイルはgitignoreでPushを排除する。
+-Assets（フォルダ）
+-Packages（フォルダ）
+-ProjectSettings（フォルダ）
+-DataFile（フォルダ：自由に素材データなどを保存可能）
+-README.md（Readmeファイル）
+-.gitignore(設定ファイル)
 
-## DataFileフォルダ
-このフォルダにはUnityプロジェクトへ取り込み前の各ファイルや参考データを保存する。
-元データを残したいものはいずれもこのフォルダに保存すること。
+参考URL：
+・SourceTreeでのGitIgnore設定方法：https://qiita.com/hainare/items/81435ac6912f2976cc9f
+・Unity開発向けGitIgnore設定ファイル：https://github.com/github/gitignore/blob/master/Unity.gitignore
+
