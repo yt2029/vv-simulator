@@ -15,7 +15,8 @@ public class DirectorCapture2 : MonoBehaviour
     public GameObject Failure;
     public static float timer, timer_after_scale;
 
-    float _Battery = 0;
+    public static int getpause;
+    public static float _Battery = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +36,7 @@ public class DirectorCapture2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         
         // Time Controller
@@ -52,6 +53,11 @@ public class DirectorCapture2 : MonoBehaviour
         string niceTime = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
         this.sim_timer.GetComponent<Text>().text = "" + niceTime;
 
+        getpause = Cameracollider.Pause();
+        if(getpause == 1){
+            Time.timeScale = 0;
+        }
+
         _Battery -= 0.001f;
         if(_Battery < 0)
         {
@@ -64,8 +70,6 @@ public class DirectorCapture2 : MonoBehaviour
 
     }
 
-
-
     public void title_scene()
     {
         SceneManager.LoadScene("TitleScene");
@@ -77,4 +81,11 @@ public class DirectorCapture2 : MonoBehaviour
         SceneManager.LoadScene("GameCapture2");
 
     }
+
+    public static float scoreBattery()
+    {
+        return _Battery;
+
+    }
+
 }
