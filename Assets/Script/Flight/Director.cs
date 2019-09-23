@@ -795,7 +795,7 @@ public class Director : MonoBehaviour
                 this.game_status_result_score.GetComponent<Text>().text = string.Format("{0:0.0} points", result_score);
 
                 this.info_message.GetComponent<Text>().text = "[ミッション成功] \n宇宙ステーションにドッキング完了！";
-                Time.timeScale = 0.01f;
+                Time.timeScale = 0.003f;
                 this.game_status_capture_timer.SetActive(false);
                 this.game_status_result.SetActive(true);
                 sound_success();
@@ -848,6 +848,11 @@ public class Director : MonoBehaviour
 
 
             // 推薬計算
+            if(GameMaster.game_scene == 4)
+            {
+                vv_propellant_max = 6000;
+            }
+
             vv_propellant_now = (vv_propellant_max - vv_propellant_coefficient * Dynamics.total_delta_V - vv_propellant_coefficient * vv_propellant_deviation) / vv_propellant_max;
 
             if (vv_propellant_now < 0)
