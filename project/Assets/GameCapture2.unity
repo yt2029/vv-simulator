@@ -412,7 +412,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 999 Ah
+  m_Text: 999 sec
 --- !u!222 &31120520
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2001,7 +2001,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "HTV\u30D0\u30C3\u30C6\u30EA\u6B8B\u91CF:\nISS\u6D88\u8CBB\u96FB\u529B:\n\u30A2\u30FC\u30E0\u64CD\u4F5C\u30C6\u30AF\u30CB\u30C3\u30AF:"
+  m_Text: "HTV\u30D0\u30C3\u30C6\u30EA\u6B8B\u91CF:\n\u30A2\u30FC\u30E0\u64CD\u4F5C\u6642\u9593:\n\u30C6\u30AF\u30CB\u30C3\u30AF:"
 --- !u!222 &414711579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7671,7 +7671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622f14620aa7345759e4908f58c05174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battery_score: {fileID: 0}
+  battery_score: {fileID: 1409409709}
+  iss_score: {fileID: 31120519}
+  technical_score: {fileID: 157774408}
+  capture_score: {fileID: 1954302590}
   Result2: {fileID: 368665594}
   camera_collision: 0
   Result: {fileID: 1699270198}

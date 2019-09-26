@@ -19,6 +19,7 @@ public class Cameracollider : MonoBehaviour
   public GameObject Result;
 
   public static int pause = 0;
+  public static float miss = 0f;
 
   public static float battery, iss, technical, capture;//各スコア
 
@@ -30,11 +31,7 @@ public class Cameracollider : MonoBehaviour
     Result.SetActive(false);
     pause = 0;
 
-    //インスタンスの影響かこれはうまく行かない。
-    //this.battery_score = GameObject.Find("Battery_score");
-    //this.iss_score = GameObject.Find("Iss_score");
-    //this.technical_score = GameObject.Find("Technical_score");
-    //this.capture_score = GameObject.Find("Capture_score");
+    miss = Collisioncanadarm.get_miss_buf();
 
   }
   
@@ -54,6 +51,12 @@ public class Cameracollider : MonoBehaviour
       StartCoroutine("Clear");
       
 
+    }
+
+    if(objectName == "HTV")
+    {
+      Result2.text = ("HTVに当てちゃダメだぞ！");
+      miss += 1;
     }
   
   
@@ -80,16 +83,15 @@ public class Cameracollider : MonoBehaviour
 
     yield return new WaitForSeconds(2);
     
-    
     Result.SetActive(true);
     pause = 1;
     battery = DirectorCapture2.scoreBattery() * 1850;
-    iss = 0;
-    technical = 0;
-    capture = (battery+iss)*technical;
+    iss = CameraMove.get_arm_move_time();
+    technical = 1 - ( miss * 0.1f );
+    capture = (battery+(3000 - iss)/10)*technical;
     battery_score.text = string.Format("{0:0.0} Ah", battery);
-    iss_score.text = string.Format("{0:0.0} Ah", iss);
-    technical_score.text = string.Format("{0:0.0} point", technical);
+    iss_score.text = string.Format("{0:0.0} sec", iss);
+    technical_score.text = string.Format("× {0:0.0} point", technical);
     capture_score.text = string.Format("{0:0.0} points", capture);
     yield return new WaitForSeconds(1);
     SceneManager.LoadScene("TitleScene");
