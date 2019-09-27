@@ -104,6 +104,26 @@ public class Cameracollider : MonoBehaviour
 
   }
 
+  public static float score_battery()
+  {
+    return battery;
+  }
+
+  public static float score_iss()
+  {
+    return iss;
+  }
+
+  public static float score_tech()
+  {
+    return technical;
+  }
+
+  public static float score_capture()
+  {
+    return capture;
+  }
+
   public static int Pause()
   {
     return pause;

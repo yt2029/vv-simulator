@@ -88,4 +88,14 @@ public class DirectorCapture2 : MonoBehaviour
 
     }
 
+    public void ranking_scene()
+    {
+
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("ShowRankCapture");
+        //val_sim_speed = 1.0f;
+        //Time.timeScale = val_sim_speed;
+        //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
+    }
+
 }
