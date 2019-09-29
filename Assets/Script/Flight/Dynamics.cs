@@ -37,9 +37,7 @@ public class Dynamics : MonoBehaviour
     Vector3 vv_coord_force;
     public static float total_delta_V;
 
-    //float val_dv_const = 0.005f;  // iPhone
-    float val_dv_const = 0.03f;  // WebGL
-    //float val_dv_const = 0.03f;  // debug
+    float val_dv_const = 0.03f * GameMaster.c_dv; 
 
 
 
@@ -190,7 +188,7 @@ public class Dynamics : MonoBehaviour
                 thruster_mZ.SetActive(false);
                 thruster_pZ.SetActive(true);
             }
-            else if(input_vertical > 0f)
+            else if (input_vertical > 0f)
             {
                 thruster_mZ.SetActive(true);
                 thruster_pZ.SetActive(false);
@@ -254,36 +252,39 @@ public class Dynamics : MonoBehaviour
 
             //// 軌道軌跡の描画
             // Vehicle
-            LineRenderer renderer_orbit = GameObject.Find("OrbitalLine").GetComponent<LineRenderer>();
-            if (Director.cam_mode == 1)
+            if (GameMaster.flag_orbital_line == 1)
             {
-                renderer_orbit.SetWidth(100f, 60f); // 線の幅
-            }
-            else if (Director.cam_mode == 2)
-            {
-                renderer_orbit.SetWidth(300f, 300f); // 線の幅
-            }
-            float max_point_line_orbit = 500;
-            renderer_orbit.SetVertexCount((int)(max_point_line_orbit + 1)); // 頂点の数
+                LineRenderer renderer_orbit = GameObject.Find("OrbitalLine").GetComponent<LineRenderer>();
+                if (Director.cam_mode == 1)
+                {
+                    renderer_orbit.SetWidth(100f, 60f); // 線の幅
+                }
+                else if (Director.cam_mode == 2)
+                {
+                    renderer_orbit.SetWidth(300f, 300f); // 線の幅
+                }
+                float max_point_line_orbit = 500;
+                renderer_orbit.SetVertexCount((int)(max_point_line_orbit + 1)); // 頂点の数
 
-            float time_step_line_orbit;
-            float s_cw0_render;
-            float c_cw0_render;
-            float vv_pos_hill_x_render;
-            float vv_pos_hill_y_render;
-            float vv_pos_hill_z_render;
-            Vector3 plot_point_line_orbit;
+                float time_step_line_orbit;
+                float s_cw0_render;
+                float c_cw0_render;
+                float vv_pos_hill_x_render;
+                float vv_pos_hill_y_render;
+                float vv_pos_hill_z_render;
+                Vector3 plot_point_line_orbit;
 
-            for (int i_temp = 0; i_temp < max_point_line_orbit + 1; ++i_temp)
-            {
-                time_step_line_orbit = iss_orbital_period * 3 * (float)(i_temp) / (float)(max_point_line_orbit);
-                s_cw0_render = Mathf.Sin(n_cw * (0 + time_step_line_orbit));
-                c_cw0_render = Mathf.Cos(n_cw * (0 + time_step_line_orbit));
-                vv_pos_hill_x_render = -(3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * c_cw0_render + (vv_vel_hill_x0 / n_cw) * s_cw0_render + 2 * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw);
-                vv_pos_hill_y_render = (2 * vv_vel_hill_x0 / n_cw) * c_cw0_render + 2 * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0_render - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw) * time_step_line_orbit + (vv_pos_hill_y0 - 2 * vv_vel_hill_x0 / n_cw);
-                vv_pos_hill_z_render = 0;
-                plot_point_line_orbit = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-vv_pos_hill_y_render, -vv_pos_hill_z_render, -vv_pos_hill_x_render) * Director.prox_model_scale;
-                renderer_orbit.SetPosition(i_temp, plot_point_line_orbit);
+                for (int i_temp = 0; i_temp < max_point_line_orbit + 1; ++i_temp)
+                {
+                    time_step_line_orbit = iss_orbital_period * 3 * (float)(i_temp) / (float)(max_point_line_orbit);
+                    s_cw0_render = Mathf.Sin(n_cw * (0 + time_step_line_orbit));
+                    c_cw0_render = Mathf.Cos(n_cw * (0 + time_step_line_orbit));
+                    vv_pos_hill_x_render = -(3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * c_cw0_render + (vv_vel_hill_x0 / n_cw) * s_cw0_render + 2 * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw);
+                    vv_pos_hill_y_render = (2 * vv_vel_hill_x0 / n_cw) * c_cw0_render + 2 * (3 * vv_pos_hill_x0 + 2 * vv_vel_hill_y0 / n_cw) * s_cw0_render - 3 * n_cw * (2 * vv_pos_hill_x0 + vv_vel_hill_y0 / n_cw) * time_step_line_orbit + (vv_pos_hill_y0 - 2 * vv_vel_hill_x0 / n_cw);
+                    vv_pos_hill_z_render = 0;
+                    plot_point_line_orbit = iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-vv_pos_hill_y_render, -vv_pos_hill_z_render, -vv_pos_hill_x_render) * Director.prox_model_scale;
+                    renderer_orbit.SetPosition(i_temp, plot_point_line_orbit);
+                }
             }
 
 

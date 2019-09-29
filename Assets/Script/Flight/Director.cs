@@ -29,7 +29,7 @@ public class Director : MonoBehaviour
     public static float elappsedTime, timer_capture, timer_capture_clear, timer_hold_clear_500m, timer_hold_clear_250m, timer_hold_clear_100m, timer_hold_clear_30m, timer_hold_500m, timer_hold_250m, timer_hold_100m, timer_hold_30m, timer_hold_clear;
     public static int game_submode, last_game_submode;
     public static int flag_500m_HP, flag_250m_HP, flag_100m_HP, flag_30m_HP, flag_10m_HP, flag_collision, flag_KOS, flag_clear, flag_10m_HP_stay, flag_no_propellant;
-    public static int flag_500m_HP_stay, flag_250m_HP_stay, flag_100m_HP_stay, flag_30m_HP_stay;
+    public static int flag_500m_HP_stay, flag_250m_HP_stay, flag_100m_HP_stay, flag_30m_HP_stay, flag_success;
     public static int flag_go_for_docking;
     public static float val_sim_speed;
     public static int sound_flag, flag_cam;
@@ -216,6 +216,7 @@ public class Director : MonoBehaviour
             cam_initial_rotate_val_temp = 0f;
             vv_propellant_deviation = 0f;
             flag_go_for_docking = 0;
+            flag_success = 0;
         }
 
 
@@ -288,6 +289,7 @@ public class Director : MonoBehaviour
             cam_initial_rotate_val_temp = 0f;
             vv_propellant_deviation = 0f;
             flag_go_for_docking = 0;
+            flag_success = 0;
         }
 
         //////////////////////////////////////////////////////
@@ -381,7 +383,7 @@ public class Director : MonoBehaviour
         // Time Controller
         //elappsedTime += Time.deltaTime; //[sec]
         timer += Time.deltaTime;
-        timer_after_scale = timer * Param.Co.TIME_SCALE_COMMON;
+        timer_after_scale = timer * Param.Co.TIME_SCALE_COMMON * GameMaster.c_time;
         //timer_after_scale += Time.deltaTime * Param.Co.TIME_SCALE_COMMON;
         float timer_after_scale_offset = timer_after_scale + 60 * 60 * 10;
         // Time View
@@ -785,7 +787,7 @@ public class Director : MonoBehaviour
                     sound_flag = 0;
                 }
 
-                if (Dynamics.vv_vel_hill_yd >= -0.0125f)
+                if (Dynamics.vv_vel_hill_yd >= -0.015f)
                 { 
                 this.plane_movie_capture.SetActive(true);
                 this.video_capture.GetComponent<UnityEngine.Video.VideoPlayer>().Play();
@@ -795,13 +797,14 @@ public class Director : MonoBehaviour
                 this.game_status_result_score.GetComponent<Text>().text = string.Format("{0:0.0} points", result_score);
 
                 this.info_message.GetComponent<Text>().text = "[ミッション成功] \n宇宙ステーションにドッキング完了！";
-                Time.timeScale = 0.003f;
+                Time.timeScale = 0.00f;
                 this.game_status_capture_timer.SetActive(false);
                 this.game_status_result.SetActive(true);
                 sound_success();
+                flag_success = 1;
                 sound_flag = 0;
                 }
-                else if(Dynamics.vv_vel_hill_yd < -0.0125f)
+                else if(Dynamics.vv_vel_hill_yd < -0.015f)
                 {
                     flag_collision = 1;
                 }
@@ -809,8 +812,11 @@ public class Director : MonoBehaviour
 
 
             // 通知
-            notification_docking_guide();
-            notification_docking_failure();
+            if (flag_success ==0)
+            {
+                notification_docking_guide();
+                notification_docking_failure();
+            }
 
         }
 
@@ -1585,7 +1591,7 @@ public class Director : MonoBehaviour
             this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。ただちに減速してください。";
             this.guide_down.SetActive(true);
         }
-        else if (Dynamics.vv_pos_hill_xd > -6f)
+        else if (Dynamics.vv_pos_hill_xd > -7f)
         {
             this.info_message.GetComponent<Text>().text = "[位置警告]\n下降してください。衝突します！";
             this.guide_down.SetActive(true);
@@ -1685,7 +1691,7 @@ public class Director : MonoBehaviour
             this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。ドッキングに備えて減速してください。";
             this.guide_left.SetActive(true);
         }
-        else if (Dynamics.vv_vel_hill_yd < -0.01f && Dynamics.vv_pos_hill_yd < 25f)
+        else if (Dynamics.vv_vel_hill_yd < -0.013f && Dynamics.vv_pos_hill_yd < 25f)
         {
             this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。ドッキングに備えて十分に減速してください。";
             this.guide_left.SetActive(true);

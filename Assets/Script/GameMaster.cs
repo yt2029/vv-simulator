@@ -12,11 +12,18 @@ public class GameMaster : MonoBehaviour
 
     public static int game_scene;
 
+    static public float c_time, c_dv;
+    static public int flag_orbital_line;
+
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1.0f;
         game_scene = 0;
+
+        c_time = PlayerPrefs.GetFloat("C_TIME", 1f);
+        c_dv = PlayerPrefs.GetFloat("C_DV", 1f);
+        flag_orbital_line = PlayerPrefs.GetInt("FLAG_ORBITAL_LINE", 0);
     }
 
     // Update is called once per frame
@@ -62,6 +69,14 @@ public class GameMaster : MonoBehaviour
         game_scene = 9;
         //SceneManager.LoadScene("GameProx");
         FadeManager.Instance.LoadScene("HowToPlay", 0.2f);
+    }
+
+
+    public void mode_select_config()
+    {
+        game_scene = 99;
+        //SceneManager.LoadScene("GameProx");
+        FadeManager.Instance.LoadScene("Config", 0.2f);
     }
 
     public void title_scene()

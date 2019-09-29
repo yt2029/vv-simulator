@@ -14,6 +14,7 @@ TagManager:
   - 10mHPC
   - cone
   - 500mHP
+  - OrbitalLine
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Earth
   - VVmark
   - Cone
-  - 
+  - OrbitalLine
   - 
   - 
   - 

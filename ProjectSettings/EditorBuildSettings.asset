@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GameDocking.unity
     guid: 641caaea3f9024fd284e9cfbdcff8989
+  - enabled: 1
+    path: Assets/Config.unity
+    guid: c289596eab6ba4380a6c2f10fa5a7bc9
   m_configObjects: {}
