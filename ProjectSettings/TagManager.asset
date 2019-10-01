@@ -3,18 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - 250mHP
-  - 100mHP
-  - 10mHP
-  - Station
-  - KOS
-  - Plane
-  - 30mHP
-  - 10mHPC
-  - cone
-  - 500mHP
-  - OrbitalLine
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -24,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - Plane
-  - model
-  - Earth
-  - VVmark
-  - Cone
-  - OrbitalLine
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
