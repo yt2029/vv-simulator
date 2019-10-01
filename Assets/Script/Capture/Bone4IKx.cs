@@ -38,7 +38,7 @@ public class Bone4IKx : MonoBehaviour
 
     void Start(){
         PIdeg = 180 / PIfloat;//rad->deg変換用係数。
-        y = y - 0.25;
+        y = y - 0.35;
         yx = (y*100)/(x*100);
         //Debug.Log (GameObject.Find("bone.003").transform.position);
         //ここからtheta1逆運動の計算。
@@ -71,7 +71,7 @@ public class Bone4IKx : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.UpArrow) && Input.GetKey("left shift")){
+        if((Input.GetKey(KeyCode.UpArrow) && Input.GetKey("left shift"))||((Input.GetAxis("Vertical")>0.1)&& Input.GetButton("Shift"))){
             if(y >= 0.0030){//発散防止のIF。
                 y = y - 0.0015f;
                 yx = (y*100)/(x*100);
@@ -102,7 +102,7 @@ public class Bone4IKx : MonoBehaviour
                 theta2buf = theta2;
             }
         }
-        if(Input.GetKey(KeyCode.DownArrow) && Input.GetKey("left shift")){
+        if(Input.GetKey(KeyCode.DownArrow) && Input.GetKey("left shift")||((Input.GetAxis("Vertical")<-0.1)&& Input.GetButton("Shift"))){
             if(x*x+y*y <= 0.56495*0.56495){//発散防止のIF。
                 y = y + 0.0015f;
                 yx = (y*100)/(x*100);
@@ -133,7 +133,7 @@ public class Bone4IKx : MonoBehaviour
                 theta2buf = theta2;    
             }
         }
-        if(Input.GetKey(KeyCode.LeftArrow)){//エンドエフェクタISS進行方向へ。
+        if(Input.GetKey(KeyCode.LeftArrow)||((Input.GetAxis("Vertical")<-0.1)&& !Input.GetButton("Shift"))){//エンドエフェクタISS進行方向へ。
             if(x*x+y*y <= 0.56495*0.56495){//発散防止のIF。
                 x = x + 0.0015f;//アーム操作速度。
                 yx = (y*100)/(x*100);
@@ -164,7 +164,7 @@ public class Bone4IKx : MonoBehaviour
                 theta2buf = theta2;    
             }
         }
-        if(Input.GetKey(KeyCode.RightArrow)){//エンドエフェクタISS後退方向へ。
+        if(Input.GetKey(KeyCode.RightArrow)||((Input.GetAxis("Vertical")>0.1)&& !Input.GetButton("Shift"))){//エンドエフェクタISS後退方向へ。
             if(x*x+y*y <= 0.56495*0.56495){//発散防止のIF。
                 x = x - 0.0015f;//アーム操作速度。
                 yx = (y*100)/(x*100);
@@ -196,7 +196,7 @@ public class Bone4IKx : MonoBehaviour
             }
         }
 
-        if(Input.GetKey(KeyCode.UpArrow)&& !Input.GetKey("left shift")){//エンドエフェクタISS進行方向へ。
+        if((Input.GetKey(KeyCode.UpArrow)&& !Input.GetKey("left shift"))||((Input.GetAxis("Horizontal")>0.1))){//エンドエフェクタISS進行方向へ。
             if(x*x+y_bias*y_bias <= 0.56495*0.56495){//発散防止のIF。
                 ///////////////////////////////////////////
                 //Bone2の角度。
@@ -245,7 +245,7 @@ public class Bone4IKx : MonoBehaviour
             }
         }
 
-        if(Input.GetKey(KeyCode.DownArrow)&& !Input.GetKey("left shift")){//エンドエフェクタISS後退方向へ。
+        if((Input.GetKey(KeyCode.DownArrow)&& !Input.GetKey("left shift"))||((Input.GetAxis("Horizontal")<-0.1))){//エンドエフェクタISS後退方向へ。
             if(x*x+y_bias*y_bias <= 0.56495*0.56495){//発散防止のIF。
                 ///////////////////////////////////////////
                 //Bone2の角度。

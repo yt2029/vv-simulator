@@ -58,7 +58,7 @@ public class DirectorCapture : MonoBehaviour
         string niceTime = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
         this.sim_timer.GetComponent<Text>().text = "" + niceTime;
 
-        _Battery -= 0.001f;
+        _Battery -= 0.0001f;
         if(_Battery < 0)
         {
             //Debug用。 

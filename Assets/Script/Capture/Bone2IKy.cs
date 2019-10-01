@@ -31,7 +31,7 @@ public class Bone2IKy : MonoBehaviour
         PIdeg = 180 / PIfloat;//rad->deg変換用係数。
 
         //アーム初期位置を設定。
-        y = y - 0.25;//エンドエフェクタ座標の指定。
+        y = y - 0.35;//エンドエフェクタ座標の指定。
         yx = (y*100)/(x*100);
         //Debug.Log (GameObject.Find("bone.003").transform.position);
         //ここから逆運動の計算。
@@ -57,7 +57,7 @@ public class Bone2IKy : MonoBehaviour
     void Update()
     {
         
-        if(Input.GetKey(KeyCode.UpArrow)&& !Input.GetKey("left shift")){//エンドエフェクタISS進行方向へ。
+        if(Input.GetKey(KeyCode.UpArrow)&& !Input.GetKey("left shift")||((Input.GetAxis("Horizontal")<-0.1))){//エンドエフェクタISS進行方向へ。
             //if(x*x+y*y <= 0.56495*0.56495){//発散防止のIF。
                 ///////////////////////////////////////////
                 //縦軸に曲げる。
@@ -90,7 +90,7 @@ public class Bone2IKy : MonoBehaviour
 
             //}
         }
-        if(Input.GetKey(KeyCode.DownArrow)&& !Input.GetKey("left shift")){//エンドエフェクタISS後退方向へ。
+        if(Input.GetKey(KeyCode.DownArrow)&& !Input.GetKey("left shift")||((Input.GetAxis("Horizontal")>0.1))){//エンドエフェクタISS後退方向へ。
             //if(x*x+y*y <= 0.56495*0.56495){//発散防止のIF。
 
                 Vector3 axis1 = -Vector3.right;
