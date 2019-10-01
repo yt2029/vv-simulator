@@ -13,7 +13,7 @@ public class Director : MonoBehaviour
 {
 
     Text timeText;
-    public static float timer, timer_after_scale;
+    public static float timer, timer_after_scale, timer_after_scale_offset, time_end_after_scale;
     GameObject slider;
     GameObject sim_timer;
     GameObject info_val_x, info_val_y, info_val_z, info_val_vx, info_val_vy, info_val_vz, info_val_attitude, info_message, info_val_total_dv, game_status_capture_timer, game_status_hold_timer;
@@ -385,7 +385,7 @@ public class Director : MonoBehaviour
         timer += Time.deltaTime;
         timer_after_scale = timer * Param.Co.TIME_SCALE_COMMON * GameMaster.c_time;
         //timer_after_scale += Time.deltaTime * Param.Co.TIME_SCALE_COMMON;
-        float timer_after_scale_offset = timer_after_scale + 60 * 60 * 10;
+        timer_after_scale_offset = timer_after_scale + 60 * 60 * 10;
         // Time View
         int days = Mathf.FloorToInt(timer_after_scale_offset / 60F / 60F / 24F);
         int hours = Mathf.FloorToInt(timer_after_scale_offset / 60F / 60F - days * 24);
@@ -577,20 +577,23 @@ public class Director : MonoBehaviour
             }
             else if (game_submode == 55)
             {
+                time_end_after_scale = timer_after_scale_offset;
+                Time.timeScale = 1.0f;
+                FadeManager.Instance.LoadScene("GameCapture", 0.05f);
 
-                this.plane_movie_capture.SetActive(true);
-                this.video_capture.GetComponent<UnityEngine.Video.VideoPlayer>().Play();
-                this.game_status_result_dv.GetComponent<Text>().text = string.Format("{0:0.0} m/sec", result_dv);
-                this.game_status_result_duration.GetComponent<Text>().text = string.Format("{0:0.0} mins", result_duration);
-                this.game_status_result_relative_v.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", result_relative_v);
-                this.game_status_result_score.GetComponent<Text>().text = string.Format("{0:0.0} points", result_score);
+                //this.plane_movie_capture.setactive(true);
+                //this.video_capture.getcomponent<unityengine.video.videoplayer>().play();
+                //this.game_status_result_dv.getcomponent<text>().text = string.format("{0:0.0} m/sec", result_dv);
+                //this.game_status_result_duration.getcomponent<text>().text = string.format("{0:0.0} mins", result_duration);
+                //this.game_status_result_relative_v.getcomponent<text>().text = string.format("{0:0.000} m/sec", result_relative_v);
+                //this.game_status_result_score.getcomponent<text>().text = string.format("{0:0.0} points", result_score);
 
-                this.info_message.GetComponent<Text>().text = "[ミッション成功] \n宇宙飛行士がキャプチャー完了！";
-                Time.timeScale = 0.01f;
-                this.game_status_capture_timer.SetActive(false);
-                this.game_status_result.SetActive(true);
-                sound_success();
-                sound_flag = 0;
+                //this.info_message.getcomponent<text>().text = "[ミッション成功] \n宇宙飛行士がキャプチャー完了！";
+                //time.timescale = 0.01f;
+                //this.game_status_capture_timer.setactive(false);
+                //this.game_status_result.setactive(true);
+                //sound_success();
+                //sound_flag = 0;
             }
 
             // 通知

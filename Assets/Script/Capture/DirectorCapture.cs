@@ -35,6 +35,7 @@ public class DirectorCapture : MonoBehaviour
         _slider = GameObject.Find("BatteryFrame/BatterySlider").GetComponent<Slider>();//sliderの取得
     
         _Battery = 1;
+        
     }
 
     
@@ -46,15 +47,15 @@ public class DirectorCapture : MonoBehaviour
 
         // Time Controller
         //elappsedTime += Time.deltaTime; //[sec]
-        timer += Time.deltaTime;
-        timer_after_scale = timer * Param.Co.TIME_SCALE_COMMON;
-        //timer_after_scale += Time.deltaTime * Param.Co.TIME_SCALE_COMMON;
-        float timer_after_scale_offset = timer_after_scale + 60 * 60 * 10;
+        Director.timer += Time.deltaTime;
+        Director.timer_after_scale = Director.timer * Param.Co.TIME_SCALE_COMMON;
+        Director.timer_after_scale_offset = Director.timer_after_scale + 60 * 60 * 10;
+
         // Time View
-        int days = Mathf.FloorToInt(timer_after_scale_offset / 60F / 60F / 24F);
-        int hours = Mathf.FloorToInt(timer_after_scale_offset / 60F / 60F - days * 24);
-        int minutes = Mathf.FloorToInt(timer_after_scale_offset / 60f - hours * 60 - days * 24 * 60);
-        int seconds = Mathf.FloorToInt(timer_after_scale_offset - minutes * 60 - hours * 60 * 60 - days * 24 * 60 * 60);
+        int days = Mathf.FloorToInt(Director.timer_after_scale_offset / 60F / 60F / 24F);
+        int hours = Mathf.FloorToInt(Director.timer_after_scale_offset / 60F / 60F - days * 24);
+        int minutes = Mathf.FloorToInt(Director.timer_after_scale_offset / 60f - hours * 60 - days * 24 * 60);
+        int seconds = Mathf.FloorToInt(Director.timer_after_scale_offset - minutes * 60 - hours * 60 * 60 - days * 24 * 60 * 60);
         string niceTime = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
         this.sim_timer.GetComponent<Text>().text = "" + niceTime;
 

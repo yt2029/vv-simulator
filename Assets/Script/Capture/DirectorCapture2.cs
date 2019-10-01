@@ -13,7 +13,7 @@ public class DirectorCapture2 : MonoBehaviour
     GameObject Message;
 
     public GameObject Failure;
-    public static float timer, timer_after_scale;
+    //public static float timer, timer_after_scale;
 
     public static int getpause;
     public static float _Battery = 0;
@@ -24,9 +24,10 @@ public class DirectorCapture2 : MonoBehaviour
         this.sim_timer = GameObject.Find("Sim_Time");
         this.Message = GameObject.Find("Message");
         
-        timer = 0;
+
+        //timer = 0;
         //TimedeltaCommon = 0;
-        timer_after_scale = 0;
+        //timer_after_scale = 0;
 
       　Failure.SetActive(false);
 
@@ -38,18 +39,18 @@ public class DirectorCapture2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+
         // Time Controller
         //elappsedTime += Time.deltaTime; //[sec]
-        timer += Time.deltaTime;
-        timer_after_scale = timer * Param.Co.TIME_SCALE_COMMON;
-        //timer_after_scale += Time.deltaTime * Param.Co.TIME_SCALE_COMMON;
-        float timer_after_scale_offset = timer_after_scale + 60 * 60 * 10;
+        Director.timer += Time.deltaTime;
+        Director.timer_after_scale = Director.timer * Param.Co.TIME_SCALE_COMMON;
+        Director.timer_after_scale_offset = Director.timer_after_scale + 60 * 60 * 10;
+
         // Time View
-        int days = Mathf.FloorToInt(timer_after_scale_offset / 60F / 60F / 24F);
-        int hours = Mathf.FloorToInt(timer_after_scale_offset / 60F / 60F - days * 24);
-        int minutes = Mathf.FloorToInt(timer_after_scale_offset / 60f - hours * 60 - days * 24 * 60);
-        int seconds = Mathf.FloorToInt(timer_after_scale_offset - minutes * 60 - hours * 60 * 60 - days * 24 * 60 * 60);
+        int days = Mathf.FloorToInt(Director.timer_after_scale_offset / 60F / 60F / 24F);
+        int hours = Mathf.FloorToInt(Director.timer_after_scale_offset / 60F / 60F - days * 24);
+        int minutes = Mathf.FloorToInt(Director.timer_after_scale_offset / 60f - hours * 60 - days * 24 * 60);
+        int seconds = Mathf.FloorToInt(Director.timer_after_scale_offset - minutes * 60 - hours * 60 * 60 - days * 24 * 60 * 60);
         string niceTime = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
         this.sim_timer.GetComponent<Text>().text = "" + niceTime;
 
@@ -92,7 +93,7 @@ public class DirectorCapture2 : MonoBehaviour
     {
 
         Time.timeScale = 1.0f;
-        SceneManager.LoadScene("ShowRankCapture");
+        SceneManager.LoadScene("ShowRankIntegrated");
         //val_sim_speed = 1.0f;
         //Time.timeScale = val_sim_speed;
         //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
