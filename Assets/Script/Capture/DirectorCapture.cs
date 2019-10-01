@@ -64,8 +64,11 @@ public class DirectorCapture : MonoBehaviour
         {
             //Debug用。 
             //_Battery = 1;
+
+            Time.timeScale = 0;
             this.Message.GetComponent<Text>().text = "HTVのバッテリが尽きてしまった...\nバッテリ残量に気をつけよう。";
             Failure.SetActive(true);
+            sound_failure();
         }
 
         _slider.value = _Battery;
@@ -94,5 +97,10 @@ public class DirectorCapture : MonoBehaviour
 
     }
 
-    
+    void sound_failure()
+    {
+        GameObject.Find("SoundFailure").GetComponent<AudioSource>().Play();
+
+    }
+
 }

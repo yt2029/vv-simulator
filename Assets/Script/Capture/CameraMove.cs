@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMove : MonoBehaviour
 {
 
-    public float speed = 0.05f;
+    public float speed = 0.001f;
     public static float arm_move_time = 0f;
 
     // Start is called before the first frame update
@@ -21,32 +21,32 @@ public class CameraMove : MonoBehaviour
     {
         if (((Input.GetKey(KeyCode.UpArrow))&& Input.GetKey("left shift"))||((Input.GetAxis("Vertical")>0.1)&& Input.GetButton("Shift")))//前進
         {
-            transform.position += transform.forward * speed;
+            transform.position += transform.forward * speed * Mathf.Abs(Input.GetAxis("Vertical"));
             arm_move_time += 1;
         }
         if (((Input.GetKey(KeyCode.DownArrow))&& Input.GetKey("left shift"))||((Input.GetAxis("Vertical")<-0.1)&& Input.GetButton("Shift")))//後退
         {
-            transform.position -= transform.forward * speed;
+            transform.position -= transform.forward * speed * Mathf.Abs(Input.GetAxis("Vertical"));
             arm_move_time += 1;
         }
         if ((Input.GetKey(KeyCode.RightArrow))||((Input.GetAxis("Horizontal")>0.1)))//右移動
         {
-            transform.position += transform.right * speed;
+            transform.position += transform.right * speed * Mathf.Abs(Input.GetAxis("Horizontal"));
             arm_move_time += 1;
         }
         if ((Input.GetKey(KeyCode.LeftArrow))||((Input.GetAxis("Horizontal")<-0.1)))//左移動
         {
-            transform.position -= transform.right * speed;
+            transform.position -= transform.right * speed * Mathf.Abs(Input.GetAxis("Horizontal"));
             arm_move_time += 1;
         }
         if (((Input.GetKey(KeyCode.UpArrow))&& !Input.GetKey("left shift"))||((Input.GetAxis("Vertical")>0.1)&& !Input.GetButton("Shift")))//上移動
         {
-            transform.position += transform.up * speed;
+            transform.position += transform.up * speed * Mathf.Abs(Input.GetAxis("Vertical"));
             arm_move_time += 1;
         }
         if (((Input.GetKey(KeyCode.DownArrow)) && !Input.GetKey("left shift"))||((Input.GetAxis("Vertical")<-0.1)&& !Input.GetButton("Shift")))//左移動
         {
-            transform.position -= transform.up * speed;
+            transform.position -= transform.up * speed * Mathf.Abs(Input.GetAxis("Vertical"));
             arm_move_time += 1;
         }
     }

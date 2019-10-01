@@ -204,7 +204,7 @@ public class Bone4IKx : MonoBehaviour
                 thetaBone2 += 0.1;
                 thetaBone2 = thetaBone2 * (Math.PI / 180);
                 //y = L1 * System.Math.Cos((180-theta1buf)* (Math.PI / 180)) + L2 * System.Math.Cos(Math.Abs(-theta2buf+360-theta1buf)* (Math.PI / 180));
-                y_bias = (y + y_offset) / System.Math.Cos(thetaBone2);
+                y_bias =( (y + y_offset) / System.Math.Cos(thetaBone2))-y_offset;
                 //y -= y_offset;
                 yx = (y_bias*100)/(x*100);
                 //Debug.Log (GameObject.Find("bone.003").transform.position);
@@ -253,7 +253,7 @@ public class Bone4IKx : MonoBehaviour
                 thetaBone2 -= 0.1;
                 thetaBone2 = thetaBone2 * (Math.PI / 180);
                 //y = L1 * System.Math.Cos((180-theta1buf)* (Math.PI / 180)) + L2 * System.Math.Cos(Math.Abs(-theta2buf+360-theta1buf)* (Math.PI / 180));
-                y_bias = (y + y_offset) / System.Math.Cos(thetaBone2);
+                y_bias = ((y + y_offset) / System.Math.Cos(thetaBone2))-y_offset;
                 //y -= y_offset;
                 yx = (y_bias*100)/(x*100);
                 //Debug.Log (GameObject.Find("bone.003").transform.position);

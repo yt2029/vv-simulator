@@ -18,9 +18,13 @@ public class DirectorCapture2 : MonoBehaviour
     public static int getpause;
     public static float _Battery = 0;
 
+    int sound_flag_cap = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        sound_flag_cap = 0;
+
         this.sim_timer = GameObject.Find("Sim_Time");
         this.Message = GameObject.Find("Message");
         
@@ -62,8 +66,10 @@ public class DirectorCapture2 : MonoBehaviour
         _Battery -= 0.001f;
         if(_Battery < 0)
         {
+            Time.timeScale = 0;
             this.Message.GetComponent<Text>().text = "HTVのバッテリが尽きてしまった...\nバッテリ残量に気をつけよう。";
             Failure.SetActive(true);
+            sound_failure();
         }
 
         _slider.value = _Battery;
@@ -79,7 +85,7 @@ public class DirectorCapture2 : MonoBehaviour
     public void reload_scene()
     {
  
-        SceneManager.LoadScene("GameCapture2");
+        SceneManager.LoadScene("GameCapture");
 
     }
 
@@ -97,6 +103,17 @@ public class DirectorCapture2 : MonoBehaviour
         //val_sim_speed = 1.0f;
         //Time.timeScale = val_sim_speed;
         //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
+    }
+
+
+
+    // function
+
+
+    void sound_failure()
+    {
+            GameObject.Find("SoundFailure").GetComponent<AudioSource>().Play();
+        
     }
 
 }

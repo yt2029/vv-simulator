@@ -28,6 +28,8 @@ public class Cameracollider : MonoBehaviour
   public static float battery, iss, technical, capture;//各スコア
     public static float total_score_c_r;
 
+    int sound_flag_cap2;
+
   //float _Battery = 0;
 
     void Start()
@@ -35,6 +37,7 @@ public class Cameracollider : MonoBehaviour
 
     Result.SetActive(false);
     pause = 0;
+        sound_flag_cap2 = 0;
 
     miss = Collisioncanadarm.get_miss_buf();
 
@@ -107,9 +110,11 @@ public class Cameracollider : MonoBehaviour
         total_score_c_r = capture + Director.result_score;
 
         capture_score.text = string.Format("{0:0.0} points", total_score_c_r);
+        sound_success();
 
-    yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
     SceneManager.LoadScene("TitleScene");
+    
     //Result.text = "Clear!\nHTVキャプチャに成功！";
     //ChangeScene();
     //SceneManager.LoadScene("GameClear");
@@ -144,5 +149,13 @@ public class Cameracollider : MonoBehaviour
     return pause;
 
   }
+
+
+
+    void sound_success()
+    {
+            GameObject.Find("SoundSuccess").GetComponent<AudioSource>().Play();
+        
+    }
 
 }
