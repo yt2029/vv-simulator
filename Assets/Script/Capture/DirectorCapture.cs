@@ -13,6 +13,7 @@ public class DirectorCapture : MonoBehaviour
     Slider _slider;//Batteryゲージの操作
 
     public static float _Battery = 1;
+    //public static int fail_count = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -77,4 +78,6 @@ public class DirectorCapture : MonoBehaviour
         SceneManager.LoadScene("GameCapture");
 
     }
+
+    
 }

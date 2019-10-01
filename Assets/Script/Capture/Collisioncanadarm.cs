@@ -11,6 +11,13 @@ public class Collisioncanadarm : MonoBehaviour
 
   public UnityEngine.UI.Text Result;
 
+  public static float miss_buf = 0f;//アームをHTVに当てた回数を保存。
+
+  void Start()
+  {
+    miss_buf = 0f;
+  }
+
   // 当たった時に呼ばれる関数
   void OnCollisionEnter(Collision collision)
   {
@@ -26,8 +33,21 @@ public class Collisioncanadarm : MonoBehaviour
       //StartCoroutine("Time");
 
     }
+
+    if(objectName == "HTV")
+    {
+      Result.text = ("HTVに当てちゃダメだぞ！");
+      miss_buf += 1;
+    }
   
   
+  }
+
+  public static float get_miss_buf()
+  {
+
+      return miss_buf;
+
   }
   /*void OnCollisionExit(Collision collision)
   {

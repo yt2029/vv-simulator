@@ -10,9 +10,14 @@ public class DirectorCapture2 : MonoBehaviour
     GameObject sim_timer;
     public static float timer, timer_after_scale;
 
+<<<<<<< HEAD:Assets/Script/Capture/DirectorCapture2.cs
     Slider _slider;//Batteryゲージの操作
 
      float _Battery = 0;
+=======
+    public static int getpause;
+    public static float _Battery = 0;
+>>>>>>> c09b648902d46418cf961db4ba821e4245fea352:Assets/Script/Capture/DirectorCapture2.cs
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +34,7 @@ public class DirectorCapture2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         
         // Time Controller
@@ -46,6 +51,11 @@ public class DirectorCapture2 : MonoBehaviour
         string niceTime = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
         this.sim_timer.GetComponent<Text>().text = "" + niceTime;
 
+        getpause = Cameracollider.Pause();
+        if(getpause == 1){
+            Time.timeScale = 0;
+        }
+
         _Battery -= 0.001f;
         if(_Battery < 0)
         {
@@ -56,8 +66,6 @@ public class DirectorCapture2 : MonoBehaviour
 
 
     }
-
-
 
     public void title_scene()
     {
@@ -70,4 +78,21 @@ public class DirectorCapture2 : MonoBehaviour
         SceneManager.LoadScene("GameCapture2");
 
     }
+
+    public static float scoreBattery()
+    {
+        return _Battery;
+
+    }
+
+    public void ranking_scene()
+    {
+
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("ShowRankCapture");
+        //val_sim_speed = 1.0f;
+        //Time.timeScale = val_sim_speed;
+        //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
+    }
+
 }
