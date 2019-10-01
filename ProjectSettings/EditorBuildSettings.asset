@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Config.unity
     guid: c289596eab6ba4380a6c2f10fa5a7bc9
+  - enabled: 1
+    path: Assets/ShowRankCapture.unity
+    guid: 5e528ae83ccc94b678d6f3de41d9fb89
   m_configObjects: {}

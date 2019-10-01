@@ -7,29 +7,36 @@ using UnityEngine.SceneManagement;
 public class DirectorCapture2 : MonoBehaviour
 {
     Text timeText;
-    GameObject sim_timer;
-    public static float timer, timer_after_scale;
-
     Slider _slider;//Batteryゲージの操作
 
-     float _Battery = 0;
+    GameObject sim_timer;
+    GameObject Message;
+
+    public GameObject Failure;
+    public static float timer, timer_after_scale;
+
+    public static int getpause;
+    public static float _Battery = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         this.sim_timer = GameObject.Find("Sim_Time");
+        this.Message = GameObject.Find("Message");
+        
         timer = 0;
         //TimedeltaCommon = 0;
         timer_after_scale = 0;
 
-       
+      　Failure.SetActive(false);
+
         _slider = GameObject.Find("Frame/BatteryFrame/BatterySlider").GetComponent<Slider>();//sliderの取得
         _Battery = DirectorCapture.getBattery();
 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         
         // Time Controller
@@ -46,18 +53,22 @@ public class DirectorCapture2 : MonoBehaviour
         string niceTime = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
         this.sim_timer.GetComponent<Text>().text = "" + niceTime;
 
+        getpause = Cameracollider.Pause();
+        if(getpause == 1){
+            Time.timeScale = 0;
+        }
+
         _Battery -= 0.001f;
         if(_Battery < 0)
         {
-            _Battery = 1;
+            this.Message.GetComponent<Text>().text = "HTVのバッテリが尽きてしまった...\nバッテリ残量に気をつけよう。";
+            Failure.SetActive(true);
         }
 
         _slider.value = _Battery;
 
 
     }
-
-
 
     public void title_scene()
     {
@@ -70,4 +81,21 @@ public class DirectorCapture2 : MonoBehaviour
         SceneManager.LoadScene("GameCapture2");
 
     }
+
+    public static float scoreBattery()
+    {
+        return _Battery;
+
+    }
+
+    public void ranking_scene()
+    {
+
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("ShowRankCapture");
+        //val_sim_speed = 1.0f;
+        //Time.timeScale = val_sim_speed;
+        //FadeManager.Instance.LoadScene("TitleScene", 0.3f);
+    }
+
 }

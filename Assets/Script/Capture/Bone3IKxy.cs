@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Bone4IKx : MonoBehaviour
+public class Bone3IKxy : MonoBehaviour
 {
 
     double thetaBone2 = 0;//bone002で与えられる関節角。
@@ -36,6 +36,8 @@ public class Bone4IKx : MonoBehaviour
     double PIfloat = 3.1415;
     double PIdeg = 0;
 
+    public static float arm_move_time_buf = 0f;//アーム操作時間の計算。
+
     void Start(){
         PIdeg = 180 / PIfloat;//rad->deg変換用係数。
         y = y - 0.25;
@@ -56,8 +58,8 @@ public class Bone4IKx : MonoBehaviour
         theta2 = Math.Atan2((y-L1*theta2sin), (x-L1*theta2cos));
         theta2 = theta2 * PIdeg;
         theta2 = theta2 - theta1;
-        thetaans = theta2buf - theta2;//Quaternionの角度(変位)。
-        thetaans = -thetaans;
+        thetaans = theta1buf - theta1;//Quaternionの角度(変位)。
+        //thetaans = -thetaans;
         //Debug.Log(y);
         //ここからQuaternionによる回転。
         Vector3 axis1 = Vector3.right;
@@ -65,6 +67,8 @@ public class Bone4IKx : MonoBehaviour
         this.transform.rotation = this.transform.rotation * q1;
         theta1buf = theta1;//次のQuaternionに入れるためのBuf。
         theta2buf = theta2;
+
+        arm_move_time_buf = 0;
 
     }
 
@@ -91,8 +95,8 @@ public class Bone4IKx : MonoBehaviour
                 theta2 = Math.Atan2((y-L1*theta2sin), (x-L1*theta2cos));
                 theta2 = theta2 * PIdeg;
                 theta2 = theta2 - theta1;
-                thetaans = theta2buf - theta2;//Quaternionの角度(変位)。
-                thetaans = -thetaans;
+                thetaans = theta1buf - theta1;//Quaternionの角度(変位)。
+                //thetaans = -thetaans;
                 //Debug.Log(y);
                 //ここからQuaternionによる回転。
                 Vector3 axis1 = Vector3.right;
@@ -100,6 +104,8 @@ public class Bone4IKx : MonoBehaviour
                 this.transform.rotation = this.transform.rotation * q1;
                 theta1buf = theta1;//次のQuaternionに入れるためのBuf。
                 theta2buf = theta2;
+
+                arm_move_time_buf += 1;
             }
         }
         if(Input.GetKey(KeyCode.DownArrow) && Input.GetKey("left shift")){
@@ -122,15 +128,17 @@ public class Bone4IKx : MonoBehaviour
                 theta2 = Math.Atan2((y-L1*theta2sin), (x-L1*theta2cos));
                 theta2 = theta2 * PIdeg;
                 theta2 = theta2 - theta1;
-                thetaans = theta2buf - theta2;//Quaternionの角度(変位)。
-                thetaans = -thetaans;
+                thetaans = theta1buf - theta1;//Quaternionの角度(変位)。
+                //thetaans = -thetaans;
                 //Debug.Log(y);
                 //ここからQuaternionによる回転。
                 Vector3 axis1 = Vector3.right;
                 Quaternion q1 = Quaternion.AngleAxis((float)thetaans, axis1);//求めたtheta1分回転。
                 this.transform.rotation = this.transform.rotation * q1;
                 theta1buf = theta1;//次のQuaternionに入れるためのBuf。  
-                theta2buf = theta2;    
+                theta2buf = theta2;
+
+                arm_move_time_buf += 1;    
             }
         }
         if(Input.GetKey(KeyCode.LeftArrow)){//エンドエフェクタISS進行方向へ。
@@ -153,8 +161,8 @@ public class Bone4IKx : MonoBehaviour
                 theta2 = Math.Atan2((y-L1*theta2sin), (x-L1*theta2cos));
                 theta2 = theta2 * PIdeg;
                 theta2 = theta2 - theta1;
-                thetaans = theta2buf - theta2;//Quaternionの角度(変位)。
-                thetaans = -thetaans;
+                thetaans = theta1buf - theta1;//Quaternionの角度(変位)。
+                //thetaans = -thetaans;
                 //Debug.Log("bone004 : " + x);
                 //ここからQuaternionによる回転。
                 Vector3 axis1 = Vector3.right;
@@ -162,6 +170,8 @@ public class Bone4IKx : MonoBehaviour
                 this.transform.rotation = this.transform.rotation * q1;
                 theta1buf = theta1;//次のQuaternionに入れるためのBuf。  
                 theta2buf = theta2;    
+
+                arm_move_time_buf += 1;
             }
         }
         if(Input.GetKey(KeyCode.RightArrow)){//エンドエフェクタISS後退方向へ。
@@ -184,8 +194,8 @@ public class Bone4IKx : MonoBehaviour
                 theta2 = Math.Atan2((y-L1*theta2sin), (x-L1*theta2cos));
                 theta2 = theta2 * PIdeg;
                 theta2 = theta2 - theta1;
-                thetaans = theta2buf - theta2;//Quaternionの角度(変位)。
-                thetaans = -thetaans;
+                thetaans = theta1buf - theta1;//Quaternionの角度(変位)。
+                //thetaans = -thetaans;
                 //Debug.Log("bone004 : " + x);
                 //ここからQuaternionによる回転。
                 Vector3 axis1 = Vector3.right;
@@ -193,6 +203,10 @@ public class Bone4IKx : MonoBehaviour
                 this.transform.rotation = this.transform.rotation * q1;
                 theta1buf = theta1;//次のQuaternionに入れるためのBuf。  
                 theta2buf = theta2;    
+                //Debug.Log(theta1buf);
+                //Debug.Log(theta2buf);
+
+                arm_move_time_buf += 1;
             }
         }
 
@@ -202,8 +216,11 @@ public class Bone4IKx : MonoBehaviour
                 //Bone2の角度。
                 ///////////////////////////////////////////
                 thetaBone2 += 0.1;
+                Debug.Log(thetaBone2);
                 thetaBone2 = thetaBone2 * (Math.PI / 180);
-                //y = L1 * System.Math.Cos((180-theta1buf)* (Math.PI / 180)) + L2 * System.Math.Cos(Math.Abs(-theta2buf+360-theta1buf)* (Math.PI / 180));
+
+                //y = L1 * System.Math.Sin((180-theta1buf)* (Math.PI / 180)) + L2 * System.Math.Cos(Math.Abs(-theta2buf+360-theta1buf)* (Math.PI / 180));
+
                 y_bias = (y + y_offset) / System.Math.Cos(thetaBone2);
                 //y -= y_offset;
                 yx = (y_bias*100)/(x*100);
@@ -227,8 +244,8 @@ public class Bone4IKx : MonoBehaviour
                 theta2 = Math.Atan2((y_bias-L1*theta2sin), (x-L1*theta2cos));
                 theta2 = theta2 * PIdeg;
                 theta2 = theta2 - theta1;
-                thetaans = theta2buf - theta2;//Quaternionの角度(変位)。
-                thetaans = -thetaans;
+                thetaans = theta1buf - theta1;//Quaternionの角度(変位)。
+                //thetaans = -thetaans;
                 //Debug.Log(y);
                 ///////////////////////////////////////////
                 //ここからQuaternionによる回転。
@@ -241,7 +258,9 @@ public class Bone4IKx : MonoBehaviour
                 
                 //y -= y_offset;
                 thetaBone2 = thetaBone2 * (180 / Math.PI);
-                thetaBone2buf = thetaBone2;
+                //thetaBone2buf = thetaBone2;
+
+                arm_move_time_buf += 1;
             }
         }
 
@@ -276,8 +295,8 @@ public class Bone4IKx : MonoBehaviour
                 theta2 = Math.Atan2((y_bias-L1*theta2sin), (x-L1*theta2cos));
                 theta2 = theta2 * PIdeg;
                 theta2 = theta2 - theta1;
-                thetaans = theta2buf - theta2;//Quaternionの角度(変位)。
-                thetaans = -thetaans;
+                thetaans = theta1buf - theta1;//Quaternionの角度(変位)。
+                //thetaans = -thetaans;
                 //Debug.Log(y);
                 ///////////////////////////////////////////
                 //ここからQuaternionによる回転。
@@ -290,8 +309,15 @@ public class Bone4IKx : MonoBehaviour
 
                 //y -= y_offset;
                 thetaBone2 = thetaBone2 * (180 / Math.PI);
+
+                arm_move_time_buf += 1;
             }
         }
     
+    }
+
+    public static float get_arm_move_time_buf()
+    {
+        return arm_move_time_buf;
     }
 }
