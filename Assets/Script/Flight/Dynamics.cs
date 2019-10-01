@@ -37,13 +37,7 @@ public class Dynamics : MonoBehaviour
     Vector3 vv_coord_force;
     public static float total_delta_V;
 
-<<<<<<< HEAD:project/Assets/Script/Flight/Dynamics.cs
-    //float val_dv_const = 0.005f;  // iPhone
-    float val_dv_const = 0.03f;  // WebGL
-    //float val_dv_const = 0.03f;  // debug
-=======
     float val_dv_const = 0.03f * GameMaster.c_dv; 
->>>>>>> flight-phase:Assets/Script/Flight/Dynamics.cs
 
 
 

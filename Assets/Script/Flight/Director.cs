@@ -22,11 +22,7 @@ public class Director : MonoBehaviour
     GameObject game_status_result_duration, game_status_result_dv, game_status_result_relative_v, game_status_result_score;
     GameObject game_status_vv_propellant_val, game_status_vv_propellant_gage, game_status_vv_propellant_gage_caution, game_status_vv_propellant_gage_warning;
     GameObject plane_movie_capture, video_capture;
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-    GameObject guide_right, guide_left, guide_down;
-=======
     GameObject guide_right, guide_left, guide_down, guide_up;
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
 
     public static float result_dv, result_duration, result_relative_v, result_score;
 
@@ -60,13 +56,9 @@ public class Director : MonoBehaviour
     public float cam_speed = 1000f;
     private int flag_pressed;
     public float cam_time_offset;
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-    float capture_duration = 5 * 60;
-=======
     float capture_duration_rbar = 5 * 60;
     float capture_duration_docking = 0;
     float hold_duration_HP2 = 2.5f * 60;
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
     float hold_duration = 0 * 60;
     float vv_propellant_max = 12000;
     float vv_propellant_now, vv_propellant_deviation;
@@ -132,16 +124,10 @@ public class Director : MonoBehaviour
         this.guide_right = GameObject.Find("GuideRight");
         this.guide_left = GameObject.Find("GuideLeft");
         this.guide_down = GameObject.Find("GuideDown");
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-
-        time_medium();
-        Time.timeScale = 0.5f;
-=======
         this.guide_up = GameObject.Find("GuideUp");
 
         time_medium();
         Time.timeScale = 0.3f;
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
         timer = 0;
         TimedeltaCommon = 0;
         timer_after_scale = 0;
@@ -229,11 +215,8 @@ public class Director : MonoBehaviour
             cam_initial_rotate_val = 0f;
             cam_initial_rotate_val_temp = 0f;
             vv_propellant_deviation = 0f;
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-=======
             flag_go_for_docking = 0;
             flag_success = 0;
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
         }
 
 
@@ -309,15 +292,12 @@ public class Director : MonoBehaviour
             flag_success = 0;
         }
 
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-=======
         //////////////////////////////////////////////////////
         // ステーションに対する機体の初期位置
         //////////////////////////////////////////////////////
         ///
         if (GameMaster.game_scene == 1)
         {
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
             Dynamics.vv_pos_hill_x0 = -905.61f + Random.Range(-0.1f, +0.1f);
             Dynamics.vv_pos_hill_y0 = -227.73f + Random.Range(-0.1f, +0.1f);
             Dynamics.vv_pos_hill_z0 = 0f;
@@ -325,15 +305,6 @@ public class Director : MonoBehaviour
             Dynamics.vv_vel_hill_x0 = 1.148f + Random.Range(-0.01f, +0.01f);      // [meter/sec]
             Dynamics.vv_vel_hill_y0 = 0.955f + Random.Range(-0.01f, +0.01f);
             Dynamics.vv_vel_hill_z0 = 0f;
-
-            //Dynamics.vv_pos_hill_x0 = -743.41f + Random.Range(-0.1f, +0.1f);
-            //Dynamics.vv_pos_hill_y0 = -115.74f + Random.Range(-0.1f, +0.1f);
-            //Dynamics.vv_pos_hill_z0 = 0f;
-
-            //Dynamics.vv_vel_hill_x0 = 0.913f + Random.Range(-0.01f, +0.01f);      // [meter/sec]
-            //Dynamics.vv_vel_hill_y0 = 0.594f + Random.Range(-0.01f, +0.01f);
-            //Dynamics.vv_vel_hill_z0 = 0f;
-
 
             Dynamics.vv_pos_hill_xd = Dynamics.vv_pos_hill_x0;
             Dynamics.vv_pos_hill_yd = Dynamics.vv_pos_hill_y0;
@@ -431,10 +402,7 @@ public class Director : MonoBehaviour
         if (GameMaster.game_scene == 1)
         {
             Time.timeScale = 0.3f;
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-=======
             Dynamics.attitude_cmd_pitch = 0f;
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
             // ゲーム中は結果画面を非表示設定
             this.game_status_result.SetActive(false);
             this.game_status_failure.SetActive(false);
@@ -521,47 +489,6 @@ public class Director : MonoBehaviour
             {
                 game_submode = 55;
             }
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-            //if (flag_10m_HP == 1 && flag_30m_HP == 0)
-            //{
-            //    game_submode = 6;
-            //}
-            if (flag_collision == 1)
-            {
-                game_submode = 7;
-            }
-            if (Mathf.Abs(Dynamics.vv_pos_hill_yd) > 1000 || Mathf.Abs(Dynamics.vv_pos_hill_xd) > 1000)
-            {
-                game_submode = 8;
-            }
-            if (timer_after_scale > 60 * 60 * 12)
-            {
-                game_submode = 9;
-            }
-            if (flag_KOS == 1 && flag_250m_HP == 0)
-            {
-                game_submode = 10;
-            }
-            if (flag_no_propellant == 1)
-            {
-                game_submode = 11;
-            }
-            if (Mathf.Abs(Dynamics.vv_pos_hill_xd - 28f) * (float)(Mathf.Tan(16f / 180f * Mathf.PI)) < (Mathf.Abs(Dynamics.vv_pos_hill_yd - 6.5f)))
-            {
-                if (game_submode != 11)
-                {
-                    if (game_submode != 99)
-                    {
-                        last_game_submode = game_submode;
-                        vv_propellant_deviation += 4f;
-                        GameObject.Find("corridor").GetComponent<AudioSource>().Play();
-                    }
-
-                    game_submode = 99;
-                }
-            }
-=======
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
 
 
             // ゲームモードごとのメッセージ生成
@@ -665,84 +592,11 @@ public class Director : MonoBehaviour
                 sound_success();
                 sound_flag = 0;
             }
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-            else if (game_submode == 6)
-            {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \n安全な経路で飛行しよう。";
-                this.game_status_failure.SetActive(true);
-                this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 0.01f;
-                sound_failure();
-                sound_flag = 0;
-            }
-            else if (game_submode == 7)
-            {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \n宇宙ステーションに衝突しました。";
-                this.game_status_failure.SetActive(true);
-                this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 0.01f;
-                sound_failure();
-                sound_flag = 0;
-            }
-            else if (game_submode == 8)
-            {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗]\nステーションから離れてしまった。";
-                this.game_status_failure.SetActive(true);
-                this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 0.01f;
-                sound_failure();
-                sound_flag = 0;
-            }
-            else if (game_submode == 9)
-            {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \n時間を使いすぎました。";
-                this.game_status_failure.SetActive(true);
-                this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 0.01f;
-                sound_failure();
-                sound_flag = 0;
-            }
-            else if (game_submode == 10)
-            {
-                this.info_message.GetComponent<Text>().text = "[注意] \n宇宙ステーションに接近しています。";
-            }
-            else if (game_submode == 11)
-            {
-                this.info_message.GetComponent<Text>().text = "[ミッション失敗] \n燃料切れです。";
-                this.game_status_failure.SetActive(true);
-                this.game_status_capture_timer.SetActive(false);
-                Time.timeScale = 0.01f;
-                sound_failure();
-                sound_flag = 0;
-            }
-            else if (game_submode == 99)
-            {
-                this.info_message.GetComponent<Text>().text = "[安全機能作動] \nアプローチ・コリドー逸脱を検知。\n自動で軌道を修正します。";
-                //this.game_status_failure.SetActive(true);
-                //this.game_status_capture_timer.SetActive(false);
-
-
-                Dynamics.vv_vel_hill_y0 = 0;
-                Dynamics.vv_vel_hill_x0 = 0;
-
-                Dynamics.vv_pos_hill_y0 -= Mathf.Sign(Dynamics.vv_pos_hill_yd) * 0.05f;
-                Dynamics.vv_vel_hill_y0 -= Mathf.Sign(Dynamics.vv_pos_hill_yd) * 0.05f;
-
-                game_submode = last_game_submode;
-                //sound_failure();
-                //sound_flag = 0;
-            }
-
-
-            guide_notice();
-
-=======
 
             // 通知
             notification_rbar_guide();
             notification_rbar_failure();
 
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
         }
 
         if (GameMaster.game_scene == 2)
@@ -760,18 +614,9 @@ public class Director : MonoBehaviour
             this.game_status_failure.SetActive(false);
             this.plane_movie_capture.SetActive(false);
 
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-            this.info_val_vx_slider.GetComponent<Slider>().value = Dynamics.vv_vel_hill_xd * 1.3f + 0.5f;
-            this.info_val_vy_slider.GetComponent<Slider>().value = -Dynamics.vv_vel_hill_yd * 1.3f + 0.5f;
-
-
-            // 推薬計算
-            vv_propellant_now = (vv_propellant_max - vv_propellant_coefficient * Dynamics.total_delta_V - vv_propellant_coefficient * vv_propellant_deviation) / vv_propellant_max;
-=======
             // LOS姿勢角制御
             Dynamics.attitude_cmd_pitch = -Mathf.Atan2(Dynamics.vv_pos_hill_xd + 2.4f, Dynamics.vv_pos_hill_yd - 12.24f) * Mathf.Rad2Deg;
 
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
 
             // ゲームサブモードの遷移
             if (game_submode == 0 && Mathf.Abs(Dynamics.vv_pos_hill_yd) < 1000)
@@ -780,119 +625,10 @@ public class Director : MonoBehaviour
                 this.game_status_capture_timer.SetActive(false);
                 this.game_status_hold_timer.SetActive(false);
             }
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-
-            this.game_status_vv_propellant_val.GetComponent<Text>().text = string.Format("{0:0.0} %", vv_propellant_now * 100);
-            if (vv_propellant_now >= 0.5)
-            {
-                this.game_status_vv_propellant_gage.GetComponent<Image>().fillAmount = vv_propellant_now * 0.9f;
-            }
-            else if (vv_propellant_now < 0.5)
-            {
-                this.game_status_vv_propellant_gage.SetActive(false);
-            }
-            if (vv_propellant_now >= 0.25)
-            {
-                this.game_status_vv_propellant_gage_warning.GetComponent<Image>().fillAmount = vv_propellant_now * 0.9f;
-            }
-            else if (vv_propellant_now < 0.25)
-            {
-                this.game_status_vv_propellant_gage_warning.SetActive(false);
-            }
-            this.game_status_vv_propellant_gage_caution.GetComponent<Image>().fillAmount = vv_propellant_now * 0.9f;
-
-        }
-
-        //this.info_val_attitude.GetComponent<Text>().text = string.Format("{0:0.0} degree", Dynamics.attitude_cmd_yaw);
-
-
-        if (cam_mode == 1 || cam_mode == 2)
-        {
-            GameObject.Find("Station").transform.localScale = new Vector3(1, 1, 1) * val_scale_station_1 * prox_model_scale;
-            GameObject.Find("Vehicle").transform.localScale = new Vector3(1, 1, 1) * val_scale_vehicle_1 * prox_model_scale;
-        }
-
-
-        //////////////////////////////////////////////////////
-        // game_scene == 1:R-Barモードの場合のCamera View
-        //////////////////////////////////////////////////////
-        ///
-        if (GameMaster.game_scene == 1)
-        {
-
-
-            //Station
-            LineRenderer renderer_orbit_station = GameObject.Find("Station").GetComponent<LineRenderer>();
-            LineRenderer renderer_orbit_station_vertical = GameObject.Find("10mHP").GetComponent<LineRenderer>();
-            if (Director.cam_mode == 1)
-            {
-                renderer_orbit_station.SetWidth(100f, 100f); // 線の幅
-                renderer_orbit_station_vertical.SetWidth(100f, 100f); // 線の幅
-            }
-            else if (Director.cam_mode == 2)
-            {
-                renderer_orbit_station.SetWidth(300f, 300f); // 線の幅
-                renderer_orbit_station_vertical.SetWidth(300f, 300f); // 線の幅
-            }
-            //Vector3 plot_point_line_orbit_station;
-            //renderer_orbit_station.SetVertexCount(2); // 頂点の数
-            //plot_point_line_orbit_station = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-2500, 0, 0) * Director.prox_model_scale;
-            //renderer_orbit_station.SetPosition(0, plot_point_line_orbit_station);
-            //plot_point_line_orbit_station = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(2500, 0, 0) * Director.prox_model_scale;
-            //renderer_orbit_station.SetPosition(1, plot_point_line_orbit_station);
-
-            Vector3 plot_point_line_orbit_station_vertical;
-            renderer_orbit_station_vertical.SetVertexCount(2); // 頂点の数
-            plot_point_line_orbit_station_vertical = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 0) * Director.prox_model_scale;
-            renderer_orbit_station_vertical.SetPosition(0, plot_point_line_orbit_station_vertical);
-            plot_point_line_orbit_station_vertical = Dynamics.iss_coord_pos + GameObject.Find("Station").transform.rotation * new Vector3(-8, 0, 1000) * Director.prox_model_scale;
-            renderer_orbit_station_vertical.SetPosition(1, plot_point_line_orbit_station_vertical);
-
-            if (cam_mode == 1) // VV中心のビュー
-            {
-
-                //はじめにカメラをまわす/カメラをとおざけうる
-                if (cam_initial_rotate == 0)
-                {
-                    cam_initial_rotate_val_temp += 1f;
-                    if (cam_initial_rotate_val_temp > 75)
-                    {
-                        cam_initial_rotate_val += 1f;
-                    }
-                }
-                if (cam_initial_rotate_val > 90)
-                {
-                    cam_initial_rotate = 1;
-                }
-
-                GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(5 - (90 - cam_initial_rotate_val), 120 + ((Dynamics.vv_pos_hill_xd) - 150f) / 11, 0) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
-                Vector3 cam_pos_offset_2 = new Vector3(-45000 / 100, 50000 / 100, -1 * (cam_time_offset - (90 - cam_initial_rotate_val) * 150f) * prox_model_scale / 80 * ((Mathf.Abs(Dynamics.vv_pos_hill_xd) + 30) / 250));
-                GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset_2;
-
-                ////はじめにカメラをまわす
-                //if (cam_initial_rotate == 0)
-                //{
-                //    cam_initial_rotate_val += 1f;
-                //}
-                //if (cam_initial_rotate_val > 90)
-                //{
-                //    cam_initial_rotate = 1;
-                //}
-
-                //GameObject.Find("Main Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(-60 +( 90 - cam_initial_rotate_val), 45, 25) * Quaternion.Euler(0, 0, 0) * Quaternion.Euler(delta_newAngle);
-                //Vector3 cam_pos_offset = new Vector3(-45000 / 100, 50000 / 100, -1 * cam_time_offset * prox_model_scale / 800);
-                //GameObject.Find("Main Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset;
-
-                // Sub Cameraの視点
-                GameObject.Find("Sub Camera").transform.rotation = GameObject.Find("Station").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, 90, -90) * Quaternion.Euler(55, 155, 15);
-                Vector3 cam_pos_offset_sub = new Vector3(-500 + -500, -1000 - 500, -1 * cam_time_offset * prox_model_scale / 1000 + 100f);
-                GameObject.Find("Sub Camera").transform.position = GameObject.Find("Station").transform.position + GameObject.Find("Sub Camera").transform.rotation * cam_pos_offset_sub;
-=======
             if (game_submode == 1 )
             {
                 game_submode = 12;
                 this.info_message.GetComponent<Text>().text = "宇宙ステーションに向かって、飛行を進めよう。";
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
             }
             if (flag_500m_HP == 1 && flag_500m_HP_stay == 1)
             {
@@ -1767,11 +1503,7 @@ public class Director : MonoBehaviour
 
 
 
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-    void guide_notice()
-=======
     void notification_rbar_guide()
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
     {
         if (Mathf.Abs(Dynamics.vv_pos_hill_xd - 28f) * (float)(Mathf.Tan(3.8f / 180f * Mathf.PI)) < (Mathf.Abs(Dynamics.vv_pos_hill_yd - 10f)) && Dynamics.vv_pos_hill_xd >-500f)
         {
@@ -1802,20 +1534,12 @@ public class Director : MonoBehaviour
             this.info_message.GetComponent<Text>().text = "[速度警告]\nステーションに衝突しないために減速してください。";
             this.guide_down.SetActive(true);
         }
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-        else if (Dynamics.vv_vel_hill_xd > 0.15f && Dynamics.vv_pos_hill_xd > -30f)
-=======
         else if (Dynamics.vv_vel_hill_xd > 0.015f && Dynamics.vv_pos_hill_xd > -30f)
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
         {
             this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。ただちに減速してください。";
             this.guide_down.SetActive(true);
         }
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-        else if (Dynamics.vv_vel_hill_xd > 0.09f && Dynamics.vv_pos_hill_xd > -15f)
-=======
         else if (Dynamics.vv_vel_hill_xd > 0.01f && Dynamics.vv_pos_hill_xd > -20f)
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
         {
             this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。キャプチャーに備えて減速してください。";
             this.guide_down.SetActive(true);
@@ -1824,10 +1548,6 @@ public class Director : MonoBehaviour
         {
             this.guide_down.SetActive(false);
         }
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-
-
-=======
         
         if (Mathf.Abs(Dynamics.vv_pos_hill_xd - 28f) * (float)(Mathf.Tan(16f / 180f * Mathf.PI)) < (Mathf.Abs(Dynamics.vv_pos_hill_yd - 6.5f)))
         {
@@ -1856,7 +1576,6 @@ public class Director : MonoBehaviour
             game_submode = last_game_submode;
         }
         
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
         if (Dynamics.vv_vel_hill_xd > 0.5f && Dynamics.vv_pos_hill_xd > -450f && Dynamics.vv_pos_hill_xd < -250f)
         {
             this.info_message.GetComponent<Text>().text = "[速度警告]\nステーションに衝突しないために減速してください。";
@@ -1872,11 +1591,7 @@ public class Director : MonoBehaviour
             this.info_message.GetComponent<Text>().text = "[速度警告]\n速度超過。ただちに減速してください。";
             this.guide_down.SetActive(true);
         }
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-        else if (Dynamics.vv_pos_hill_xd > -6f)
-=======
         else if (Dynamics.vv_pos_hill_xd > -7f)
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
         {
             this.info_message.GetComponent<Text>().text = "[位置警告]\n下降してください。衝突します！";
             this.guide_down.SetActive(true);
@@ -1885,9 +1600,6 @@ public class Director : MonoBehaviour
         {
             this.guide_down.SetActive(false);
         }
-<<<<<<< HEAD:project/Assets/Script/Flight/Director.cs
-
-=======
     }
 
 
@@ -2068,7 +1780,6 @@ public class Director : MonoBehaviour
         sound_failure();
         sound_flag = 0;
         }
->>>>>>> flight-phase:Assets/Script/Flight/Director.cs
 
     }
 

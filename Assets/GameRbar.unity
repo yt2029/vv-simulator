@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.042742714, g: 0.0393644, b: 0.0452514, a: 1}
+  m_IndirectSpecularColor: {r: 0.04051993, g: 0.03764951, b: 0.04301987, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5425,8 +5425,6 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &483323551
 CanvasRenderer:
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-=======
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5588,175 +5586,10 @@ Transform:
 --- !u!95 &489835038
 Animator:
   serializedVersion: 3
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-  m_GameObject: {fileID: 483323545}
-  m_CullTransparentMesh: 0
---- !u!1001 &483540887
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 489835037}
-    m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_Name
-      value: ring (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -2002691574282013467, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 7160ff6e4e74748129cb630ff9504ddb, type: 2}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 12000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 12000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 17000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 02e8262ab07c84d6ba11183a005461cc, type: 3}
---- !u!1 &489835036
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 489835037}
-  - component: {fileID: 489835038}
-  m_Layer: 0
-  m_Name: 100mHP-set
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &489835037
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489835036}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -80000.01, y: 0, z: 1000000}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 843223409}
-  - {fileID: 2010925323}
-  m_Father: {fileID: 1462601855}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &489835038
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-=======
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_GameObject: {fileID: 489835036}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
@@ -7038,80 +6871,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 623122719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.6313726, b: 0.9176471, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c18d498f968f814183bcd31c8c90cd5, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &605578872
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605578869}
-  m_CullTransparentMesh: 0
---- !u!1 &623122719
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 623122720}
-  - component: {fileID: 623122722}
-  - component: {fileID: 623122721}
-  m_Layer: 0
-  m_Name: RawImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &623122720
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 623122719}
-  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.9501, y: 0.42497, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1008094215}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 586, y: 0}
-  m_SizeDelta: {x: 58.9, y: 160.1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &623122721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 623122719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -7182,121 +6941,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 635028990}
   m_Enabled: 1
   m_EditorHideFlags: 0
-=======
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
   m_Color: {r: 0, g: 0.6039216, b: 0.8431373, a: 1}
-=======
-  m_Color: {r: 0.5801887, g: 0.777184, b: 1, a: 0.73333335}
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD:project/Assets/GameRbar.unity
   m_Texture: {fileID: 0}
-=======
-  m_Texture: {fileID: 2800000, guid: dd5ab83baa480ea44b966d7ca90d09bc, type: 3}
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_UVRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-<<<<<<< HEAD:project/Assets/GameRbar.unity
 --- !u!222 &635028993
-=======
---- !u!222 &623122722
->>>>>>> flight-phase:Assets/GameRbar.unity
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
   m_GameObject: {fileID: 635028990}
-=======
-  m_GameObject: {fileID: 623122719}
->>>>>>> flight-phase:Assets/GameRbar.unity
-  m_CullTransparentMesh: 0
---- !u!1 &643161788
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 643161789}
-  - component: {fileID: 643161791}
-  - component: {fileID: 643161790}
-  m_Layer: 0
-  m_Name: RawImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &643161789
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643161788}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 584256021}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 32, y: 353}
-  m_SizeDelta: {x: 58.9, y: 160.1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &643161790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643161788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9411765, g: 0.23529412, b: 0.23529412, a: 0.6784314}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-  m_Texture: {fileID: 2800000, guid: 43e9e9534dbced44d8adc26fb27a07c2, type: 3}
-=======
-  m_Texture: {fileID: 0}
->>>>>>> flight-phase:Assets/GameRbar.unity
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &643161791
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 643161788}
   m_CullTransparentMesh: 0
 --- !u!1 &643161788
 GameObject:
@@ -16700,80 +16367,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-  m_Texture: {fileID: 2800000, guid: 84487d73ca4b791498332d8f6858417f, type: 3}
-=======
-  m_Texture: {fileID: 2800000, guid: fe6e0fd0ac93828439541c5caafa41b5, type: 3}
->>>>>>> flight-phase:Assets/GameRbar.unity
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1039822338
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039822335}
-  m_CullTransparentMesh: 0
---- !u!1 &1039822335
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1039822336}
-  - component: {fileID: 1039822338}
-  - component: {fileID: 1039822337}
-  m_Layer: 5
-  m_Name: RawImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1039822336
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039822335}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.17876425, y: 0.31253, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1292385780}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1039822337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039822335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.6117647, b: 0.8862746, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_Texture: {fileID: 2800000, guid: fe6e0fd0ac93828439541c5caafa41b5, type: 3}
   m_UVRect:
     serializedVersion: 2
@@ -17431,10 +17024,7 @@ Transform:
   - {fileID: 1173697354}
   - {fileID: 1780549908}
   - {fileID: 513088536}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-=======
   - {fileID: 958541950}
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_Father: {fileID: 65827713}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19840,7 +19430,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ARC
-<<<<<<< HEAD:project/Assets/GameRbar.unity
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 495c9626153e743bfb6e6998ffd1a2df,
         type: 3}
@@ -19858,10 +19447,6 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6288298438045532215, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-      objectReference: {fileID: 0}
-    - target: {fileID: -927199367670048503, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
@@ -19871,29 +19456,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: -5376512112829669190, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 2728887422710021661, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: 6461022508955821754, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 6288298438045532215, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: -27861706164026096, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: -1792359065718832711, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
@@ -19903,16 +19476,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: -5421459564944357301, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 6461022508955821754, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: 6207297071990507742, guid: 495c9626153e743bfb6e6998ffd1a2df,
         type: 3}
       propertyPath: m_Layer
@@ -19944,287 +19512,117 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6362932443754512310, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: -27861706164026096, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: -353408092378191384, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 8484996567087983235, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: 1949314949019534655, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: -5421459564944357301, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: -7246567094105541050, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 6207297071990507742, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
     - target: {fileID: 5328262033635660306, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: -138250057612815050, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: -486374461443245744, guid: 495c9626153e743bfb6e6998ffd1a2df,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: -632218059973352937, guid: 495c9626153e743bfb6e6998ffd1a2df,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: 2453595421507261212, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 2840335570507168791, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: 1662542068331390596, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 6636320408843200936, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: 6225585310244220969, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 6362932443754512310, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6146890406567283841, guid: 495c9626153e743bfb6e6998ffd1a2df,
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: 3937630585366040136, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 1949314949019534655, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -8281908381620330715, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: -7246567094105541050, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -5511668686715006128, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
-    - target: {fileID: 5328262033635660306, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
-        type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: 6838028242905439075, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: -2609617426613371085, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -8838879535001637354, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: -2481196012917491529, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 3447035083435137563, guid: 495c9626153e743bfb6e6998ffd1a2df,
+    - target: {fileID: 2453595421507261212, guid: 495c9626153e743bfb6e6998ffd1a2df,
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: 1739430960076205366, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: 1662542068331390596, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4654142988642065638, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: 6225585310244220969, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -7136222827378231930, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: 6146890406567283841, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 4317678431714411840, guid: 495c9626153e743bfb6e6998ffd1a2df,
+    - target: {fileID: 3937630585366040136, guid: 495c9626153e743bfb6e6998ffd1a2df,
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: 5462364628975748625, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: -8281908381620330715, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: -5511668686715006128, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: 6838028242905439075, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: -8838879535001637354, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: 3447035083435137563, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: 1739430960076205366, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_RootOrder
-      value: 4
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: -4654142988642065638, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: -7136222827378231930, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: 4317678431714411840, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-=======
     - target: {fileID: 5462364628975748625, guid: 495c9626153e743bfb6e6998ffd1a2df,
->>>>>>> flight-phase:Assets/GameRbar.unity
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
         type: 3}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
-        type: 3}
-=======
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -20290,7 +19688,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 495c9626153e743bfb6e6998ffd1a2df,
         type: 3}
->>>>>>> flight-phase:Assets/GameRbar.unity
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
@@ -21617,8 +21014,6 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 150 point
 --- !u!222 &1493830694
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-=======
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21884,280 +21279,11 @@ MonoBehaviour:
     width: 1
     height: 1
 --- !u!222 &1507722297
->>>>>>> flight-phase:Assets/GameRbar.unity
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-  m_GameObject: {fileID: 1493830691}
-  m_CullTransparentMesh: 0
---- !u!4 &1496554351 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4022685598443072, guid: d8cd7fe4c8a3ee34b91c9071ec65ee85,
-    type: 3}
-  m_PrefabInstance: {fileID: 667345448}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &1502073302
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 366365172}
-    m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_Name
-      value: ring
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -4216859302048453862, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -2002691574282013467, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 09524cdcac55d41a48d5a1c21dbd0927, type: 2}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 20000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 20000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 35000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8630043040360522139, guid: 02e8262ab07c84d6ba11183a005461cc,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 02e8262ab07c84d6ba11183a005461cc, type: 3}
---- !u!1 &1504045787
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1504045788}
-  - component: {fileID: 1504045790}
-  - component: {fileID: 1504045789}
-  m_Layer: 0
-  m_Name: RawImage (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1504045788
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504045787}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 214847111}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -289, y: 144}
-  m_SizeDelta: {x: 58.9, y: 160.1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1504045789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504045787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9411765, g: 0.23529412, b: 0.23529412, a: 0.6784314}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 43e9e9534dbced44d8adc26fb27a07c2, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1504045790
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1504045787}
-  m_CullTransparentMesh: 0
---- !u!1 &1507722294
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1507722295}
-  - component: {fileID: 1507722297}
-  - component: {fileID: 1507722296}
-  m_Layer: 0
-  m_Name: RawImage (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1507722295
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507722294}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 214847111}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -205, y: 144}
-  m_SizeDelta: {x: 58.9, y: 160.1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1507722296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1507722294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9411765, g: 0.23529412, b: 0.23529412, a: 0.6784314}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 43e9e9534dbced44d8adc26fb27a07c2, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1507722297
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-=======
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_GameObject: {fileID: 1507722294}
   m_CullTransparentMesh: 0
 --- !u!1 &1513703481
@@ -22755,10 +21881,7 @@ Transform:
   - {fileID: 1004845856}
   - {fileID: 1247479549}
   - {fileID: 1292385780}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-=======
   - {fileID: 1457592807}
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_Father: {fileID: 65827713}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25667,92 +24790,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-  m_Texture: {fileID: 2800000, guid: 43e9e9534dbced44d8adc26fb27a07c2, type: 3}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &1887428529
-=======
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1883060959
->>>>>>> flight-phase:Assets/GameRbar.unity
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:project/Assets/GameRbar.unity
-=======
-  m_GameObject: {fileID: 1883060956}
-  m_CullTransparentMesh: 0
---- !u!1 &1887428526
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1887428527}
-  - component: {fileID: 1887428529}
-  - component: {fileID: 1887428528}
-  m_Layer: 0
-  m_Name: RawImage (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1887428527
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887428526}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1600319569}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 482, y: 144}
-  m_SizeDelta: {x: 58.9, y: 160.1}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1887428528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887428526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0.6784314}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
   m_Texture: {fileID: 2800000, guid: 43e9e9534dbced44d8adc26fb27a07c2, type: 3}
   m_UVRect:
     serializedVersion: 2
@@ -25766,7 +24803,6 @@ CanvasRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
->>>>>>> flight-phase:Assets/GameRbar.unity
   m_GameObject: {fileID: 1887428526}
   m_CullTransparentMesh: 0
 --- !u!1 &1897924617
