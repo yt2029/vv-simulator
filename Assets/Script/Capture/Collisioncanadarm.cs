@@ -24,7 +24,7 @@ public class Collisioncanadarm : MonoBehaviour
      
     string objectName = collision.collider.gameObject.name;      
     
-    if(objectName == "FRGF v4")
+    if(objectName == "Target_pin")
     {
       FadeManager.Instance.LoadScene("GameCapture2", 0.5f);
 
@@ -34,7 +34,7 @@ public class Collisioncanadarm : MonoBehaviour
 
     }
 
-    if(objectName == "HTV")
+    if(objectName == "HTV_LowFi_FRGF")
     {
       Result.text = ("HTVに当てちゃダメだぞ！");
       miss_buf += 1;

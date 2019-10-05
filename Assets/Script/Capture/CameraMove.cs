@@ -7,46 +7,61 @@ public class CameraMove : MonoBehaviour
 
     public float speed = 0.001f;
     public static float arm_move_time = 0f;
+    public static float miss_buf = 0;
+
+    int collision_flag = 0;
+
+    public UnityEngine.UI.Text Result;
 
     // Start is called before the first frame update
     void Start()
     {
 
         arm_move_time = Bone3IKxy.get_arm_move_time_buf();
-        
+        collision_flag = 0;
+
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (((Input.GetKey(KeyCode.UpArrow))&& Input.GetKey("left shift"))||((Input.GetAxis("Vertical")>0.1)&& Input.GetButton("Shift")))//前進
+
+        collision_flag = Cameracollider.collision_flag;
+
+        if (collision_flag == 0 && ((Input.GetAxis("Vertical") > 0.1) && Input.GetButton("Shift")))//前進
         {
-            transform.position += transform.forward * speed * Mathf.Abs(Input.GetAxis("Vertical"));
+            transform.position += transform.forward * speed * Mathf.Abs(Input.GetAxis("Vertical")) * GameMaster.c_arm_speed;
             arm_move_time += 1;
         }
-        if (((Input.GetKey(KeyCode.DownArrow))&& Input.GetKey("left shift"))||((Input.GetAxis("Vertical")<-0.1)&& Input.GetButton("Shift")))//後退
+        if (((Input.GetAxis("Vertical") < -0.1) && Input.GetButton("Shift"))
+            || (collision_flag == 2 && ((Input.GetAxis("Vertical") < -0.1) && Input.GetButton("Shift"))))//後退
         {
-            transform.position -= transform.forward * speed * Mathf.Abs(Input.GetAxis("Vertical"));
+            transform.position -= transform.forward * speed * Mathf.Abs(Input.GetAxis("Vertical") * GameMaster.c_arm_speed);
             arm_move_time += 1;
         }
-        if ((Input.GetKey(KeyCode.RightArrow))||((Input.GetAxis("Horizontal")>0.1)))//右移動
+        if ((collision_flag == 0 && ((Input.GetAxis("Horizontal") > 0.1)))
+            || (collision_flag == 2 && ((Input.GetAxis("Horizontal") > 0.1))))//右移動
         {
-            transform.position += transform.right * speed * Mathf.Abs(Input.GetAxis("Horizontal"));
+            transform.position += transform.right * speed * Mathf.Abs(Input.GetAxis("Horizontal") * GameMaster.c_arm_speed);
             arm_move_time += 1;
         }
-        if ((Input.GetKey(KeyCode.LeftArrow))||((Input.GetAxis("Horizontal")<-0.1)))//左移動
+        if ((collision_flag == 0 && ((Input.GetAxis("Horizontal") < -0.1)))
+            ||(collision_flag == 2 && ((Input.GetAxis("Horizontal") < -0.1))))//左移動
         {
-            transform.position -= transform.right * speed * Mathf.Abs(Input.GetAxis("Horizontal"));
+            transform.position -= transform.right * speed * Mathf.Abs(Input.GetAxis("Horizontal") * GameMaster.c_arm_speed);
             arm_move_time += 1;
         }
-        if (((Input.GetKey(KeyCode.UpArrow))&& !Input.GetKey("left shift"))||((Input.GetAxis("Vertical")>0.1)&& !Input.GetButton("Shift")))//上移動
+        if ((collision_flag == 0 && ((Input.GetAxis("Vertical") > 0.1) && !Input.GetButton("Shift")))
+            || (collision_flag == 2 && ((Input.GetAxis("Vertical") > 0.1) && !Input.GetButton("Shift"))))//上移動
         {
-            transform.position += transform.up * speed * Mathf.Abs(Input.GetAxis("Vertical"));
+            transform.position += transform.up * speed * Mathf.Abs(Input.GetAxis("Vertical") * GameMaster.c_arm_speed);
             arm_move_time += 1;
         }
-        if (((Input.GetKey(KeyCode.DownArrow)) && !Input.GetKey("left shift"))||((Input.GetAxis("Vertical")<-0.1)&& !Input.GetButton("Shift")))//左移動
+        if ((collision_flag == 0 && ((Input.GetAxis("Vertical") < -0.1) && !Input.GetButton("Shift")))
+            || (collision_flag == 2 && ((Input.GetAxis("Vertical") < -0.1) && !Input.GetButton("Shift"))))//左移動
         {
-            transform.position -= transform.up * speed * Mathf.Abs(Input.GetAxis("Vertical"));
+            transform.position -= transform.up * speed * Mathf.Abs(Input.GetAxis("Vertical") * GameMaster.c_arm_speed);
             arm_move_time += 1;
         }
     }
@@ -55,4 +70,7 @@ public class CameraMove : MonoBehaviour
         return arm_move_time;
 
     }
+
+
+
 }

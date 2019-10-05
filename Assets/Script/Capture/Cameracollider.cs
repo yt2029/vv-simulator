@@ -21,25 +21,33 @@ public class Cameracollider : MonoBehaviour
     public UnityEngine.UI.Text Result2;
   public int camera_collision = 0;
   public GameObject Result;
+    public GameObject Trigger_explain;
+    public GameObject Capture_Gage;
 
   public static int pause = 0;
   public static float miss = 0f;
+    public static int collision_flag = 0;
 
   public static float battery, iss, technical, capture;//各スコア
     public static float total_score_c_r;
 
     int sound_flag_cap2;
+    int clear_flag;
 
-  //float _Battery = 0;
+    //float _Battery = 0;
 
     void Start()
   {
 
     Result.SetActive(false);
+    Trigger_explain.SetActive(true);
+    Capture_Gage.SetActive(false);
     pause = 0;
         sound_flag_cap2 = 0;
 
     miss = Collisioncanadarm.get_miss_buf();
+
+        collision_flag = 0;
 
   }
   
@@ -49,35 +57,47 @@ public class Cameracollider : MonoBehaviour
   void OnTriggerEnter(Collider collider)
   {
      
-    string objectName = collider.GetComponent<Collider>().name;      
+    string objectName = collider.GetComponent<Collider>().name;
+
+    Debug.Log(objectName);
+
     
-    if(objectName == "Body5")
-    {
 
-      Result2.text = ("キャプチャします。");
-      //Debug.Log("keep the position!"); // ログを表示する          
-      StartCoroutine("Clear");
-      
+        if (objectName == "Target_pin")
+        {
 
-    }
+            collision_flag = 2;
+            Result2.text = ("キャプチャします。");
+            //Debug.Log("keep the position!"); // ログを表示する          
+            StartCoroutine("Clear");
 
-    if(objectName == "HTV")
-    {
-      Result2.text = ("HTVに当てちゃダメだぞ！");
-      miss += 1;
-    }
+
+        }
+
+        else
+        {
+            collision_flag = 1;
+            Result2.text = ("HTVに当てちゃダメだぞ！一度後退しよう。");
+            miss += 1;
+        }
+
+        
   
   
   }
   void OnTriggerExit(Collider collider)
   {
      
-    string objectName = collider.GetComponent<Collider>().name;      
+    string objectName = collider.GetComponent<Collider>().name;
+
+    collision_flag = 0;      
     
-    if(objectName == "Body5")
+    if(objectName == "Target_pin" && clear_flag != 1)
     {
+      
 
       Result2.text = ("もう１度アームを操作し、\nターゲットを円に収めてください。");
+      Capture_Gage.SetActive(false);
       //Debug.Log("keep the position!"); // ログを表示する          
       StopCoroutine("Clear");
 
@@ -89,14 +109,23 @@ public class Cameracollider : MonoBehaviour
   IEnumerator Clear()
   {
 
-    yield return new WaitForSeconds(2);
-    
-    Result.SetActive(true);
-    pause = 1;
+        Capture_Gage.SetActive(true);
+
+        yield return new WaitForSeconds(2);
+
+        clear_flag = 1;
+        Result2.text = ("キャプチャ成功！");
+
+        collision_flag = 0;
+
+        Result.SetActive(true);
+        Trigger_explain.SetActive(false);
+        Capture_Gage.SetActive(false);
+        pause = 1;
     battery = DirectorCapture2.scoreBattery() * 1850;
     iss = CameraMove.get_arm_move_time();
 
-    technical = 1 - ( miss * 0.1f );
+    technical = 1 - ( (miss + CameraMove.miss_buf) * 0.1f );
     capture = (battery+(3000 - iss)/10)*technical;
     battery_score.text = string.Format("{0:0.0} Ah", battery);
     iss_score.text = string.Format("{0:0.0} sec", iss);

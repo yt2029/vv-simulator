@@ -12,7 +12,7 @@ public class GameMaster : MonoBehaviour
 
     public static int game_scene;
 
-    static public float c_time, c_dv;
+    static public float c_time, c_dv, c_arm_speed;
     static public int flag_orbital_line;
 
     // Start is called before the first frame update
@@ -23,7 +23,8 @@ public class GameMaster : MonoBehaviour
 
         c_time = PlayerPrefs.GetFloat("C_TIME", 1f);
         c_dv = PlayerPrefs.GetFloat("C_DV", 1f);
-        flag_orbital_line = PlayerPrefs.GetInt("FLAG_ORBITAL_LINE", 0);
+        c_arm_speed = PlayerPrefs.GetFloat("C_ARM_SPEED",1f);
+        flag_orbital_line = PlayerPrefs.GetInt("FLAG_ORBITAL_LINE", 1);
     }
 
     // Update is called once per frame

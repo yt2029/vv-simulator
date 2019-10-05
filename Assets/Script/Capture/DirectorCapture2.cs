@@ -63,7 +63,7 @@ public class DirectorCapture2 : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        _Battery -= 0.001f;
+        _Battery -= 0.0001f;
         if(_Battery < 0)
         {
             Time.timeScale = 0;

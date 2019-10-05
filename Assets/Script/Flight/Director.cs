@@ -56,7 +56,7 @@ public class Director : MonoBehaviour
     public float cam_speed = 1000f;
     private int flag_pressed;
     public float cam_time_offset;
-    float capture_duration_rbar = 5 * 60;
+    float capture_duration_rbar = 4 * 60;
     float capture_duration_docking = 0;
     float hold_duration_HP2 = 2.5f * 60;
     float hold_duration = 0 * 60;
@@ -789,27 +789,30 @@ public class Director : MonoBehaviour
                     sound_failure();
                     sound_flag = 0;
                 }
-
-                if (Dynamics.vv_vel_hill_yd >= -0.015f)
-                { 
-                this.plane_movie_capture.SetActive(true);
-                this.video_capture.GetComponent<UnityEngine.Video.VideoPlayer>().Play();
-                this.game_status_result_dv.GetComponent<Text>().text = string.Format("{0:0.0} m/sec", result_dv);
-                this.game_status_result_duration.GetComponent<Text>().text = string.Format("{0:0.0} mins", result_duration);
-                this.game_status_result_relative_v.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", result_relative_v);
-                this.game_status_result_score.GetComponent<Text>().text = string.Format("{0:0.0} points", result_score);
-
-                this.info_message.GetComponent<Text>().text = "[ミッション成功] \n宇宙ステーションにドッキング完了！";
-                Time.timeScale = 0.00f;
-                this.game_status_capture_timer.SetActive(false);
-                this.game_status_result.SetActive(true);
-                sound_success();
-                flag_success = 1;
-                sound_flag = 0;
-                }
-                else if(Dynamics.vv_vel_hill_yd < -0.015f)
+                else if(flag_go_for_docking == 1)
                 {
-                    flag_collision = 1;
+
+                    if (Dynamics.vv_vel_hill_yd >= -0.015f)
+                    {
+                        this.plane_movie_capture.SetActive(true);
+                        this.video_capture.GetComponent<UnityEngine.Video.VideoPlayer>().Play();
+                        this.game_status_result_dv.GetComponent<Text>().text = string.Format("{0:0.0} m/sec", result_dv);
+                        this.game_status_result_duration.GetComponent<Text>().text = string.Format("{0:0.0} mins", result_duration);
+                        this.game_status_result_relative_v.GetComponent<Text>().text = string.Format("{0:0.000} m/sec", result_relative_v);
+                        this.game_status_result_score.GetComponent<Text>().text = string.Format("{0:0.0} points", result_score);
+
+                        this.info_message.GetComponent<Text>().text = "[ミッション成功] \n宇宙ステーションにドッキング完了！";
+                        Time.timeScale = 0.00f;
+                        this.game_status_capture_timer.SetActive(false);
+                        this.game_status_result.SetActive(true);
+                        sound_success();
+                        flag_success = 1;
+                        sound_flag = 0;
+                    }
+                    else if (Dynamics.vv_vel_hill_yd < -0.015f)
+                    {
+                        flag_collision = 1;
+                    }
                 }
             }
 
@@ -1178,7 +1181,7 @@ public class Director : MonoBehaviour
 
 				// Sub Cameraの視点(from VV)
 				GameObject.Find("Sub Camera").transform.rotation = GameObject.Find("Vehicle").transform.rotation * Quaternion.Euler(0, 0, -Dynamics.attitude_now) * Quaternion.Euler(180, -90, 90) * Quaternion.Euler(0,0 , 0);
-				Vector3 cam_pos_offset_sub = new Vector3(500, 0, 0);
+				Vector3 cam_pos_offset_sub = new Vector3(600, 0, 0);
 				GameObject.Find("Sub Camera").transform.position = GameObject.Find("Vehicle").transform.position + GameObject.Find("Main Camera").transform.rotation * cam_pos_offset_sub;
 			}
 

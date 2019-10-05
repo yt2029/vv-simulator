@@ -14,9 +14,12 @@ public class Bone4IKx : MonoBehaviour
     //double theta4 = 0;
     double x = 0;//エンドエフェクタ相対座標初期値:x
     double y = 0.56795;//エンドエフェクタ相対座標初期値:y
+    double z = 0;
+    double _z = 0;
     double y_0 = 0;//縦並進用のy軸初期値。
     double y_offset = 0.00759;//縦並進用のy軸オフセット。   
     double y_bias = 0;//縦並進用のy軸バイアス。
+    double y_shadow = 0;
     //double z = 0;//エンドエフェクタ相対座標初期値:z
     double L1 = 0.28398;//bone003のサイズ。
     double L2 = 0.28397;//bone004のサイズ。
@@ -33,12 +36,16 @@ public class Bone4IKx : MonoBehaviour
     //double theta4sin = 0;
     //double theta4cos = 0;
 
+    double theta_offset = 0;
+
     double PIfloat = 3.1415;
     double PIdeg = 0;
 
     void Start(){
         PIdeg = 180 / PIfloat;//rad->deg変換用係数。
-        y = y - 0.35;
+        y = 0.56795 - 0.25;
+        y_bias = 0.31;
+        x = 0.1;
         yx = (y*100)/(x*100);
         //Debug.Log (GameObject.Find("bone.003").transform.position);
         //ここからtheta1逆運動の計算。
@@ -71,9 +78,26 @@ public class Bone4IKx : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Debug.Log(x);
+        /*
         if((Input.GetKey(KeyCode.UpArrow) && Input.GetKey("left shift"))||((Input.GetAxis("Vertical")>0.1)&& Input.GetButton("Shift"))){
             if(y >= 0.0030){//発散防止のIF。
-                y = y - 0.0015f;
+
+                y_shadow = (y + y_offset) * Math.Cos(Bone2IKy.thetaBone2_z);
+                Debug.Log(y_shadow);
+
+                z = Math.Sqrt((y + y_offset) * (y + y_offset) - y_shadow * y_shadow);
+                _z = Math.Sqrt((y + y_offset - 0.001) * (y + y_offset - 0.001) - y_shadow * y_shadow);
+
+                //delta_theta = Math.Atan2(x, _z) - Math.Atan2(x, z);
+                //delta_theta = delta_theta * PIdeg;
+
+                theta_offset = Math.Abs(Math.Atan2(y_shadow, _z)) * PIdeg;
+                y = _z / (Math.Cos(theta_offset));
+                y -= y_offset;
+
+                //y = y - 0.0015f;
                 yx = (y*100)/(x*100);
                 //Debug.Log (GameObject.Find("bone.003").transform.position);
                 //ここからtheta1逆運動の計算。
@@ -104,7 +128,17 @@ public class Bone4IKx : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.DownArrow) && Input.GetKey("left shift")||((Input.GetAxis("Vertical")<-0.1)&& Input.GetButton("Shift"))){
             if(x*x+y*y <= 0.56495*0.56495){//発散防止のIF。
-                y = y + 0.0015f;
+
+                z = Math.Sqrt((y + y_offset) * (y + y_offset) - x * x);
+                _z = Math.Sqrt((y + y_offset + 0.001) * (y + y_offset + 0.001) - x * x);
+
+                //delta_theta = Math.Atan2(x, _z) - Math.Atan2(x, z);
+                //delta_theta = delta_theta * PIdeg;
+
+                theta_offset = (Math.Atan2(-x, _z)) * PIdeg;
+                y = _z / (Math.Cos(theta_offset));
+                y -= y_offset;
+
                 yx = (y*100)/(x*100);
                 //Debug.Log (GameObject.Find("bone.003").transform.position);
                 //ここからtheta1逆運動の計算。
@@ -133,9 +167,10 @@ public class Bone4IKx : MonoBehaviour
                 theta2buf = theta2;    
             }
         }
-        if(Input.GetKey(KeyCode.LeftArrow)||((Input.GetAxis("Vertical")<-0.1)&& !Input.GetButton("Shift"))){//エンドエフェクタISS進行方向へ。
+        */
+        if (Input.GetKey(KeyCode.LeftArrow)||((Input.GetAxis("Horizontal")<-0.1)&& !Input.GetButton("Shift"))){//エンドエフェクタISS進行方向へ。
             if(x*x+y*y <= 0.56495*0.56495){//発散防止のIF。
-                x = x + 0.0015f;//アーム操作速度。
+                x = x + 0.0005f;//アーム操作速度。
                 yx = (y*100)/(x*100);
                 //Debug.Log (GameObject.Find("bone.003").transform.position);
                 //ここからtheta1逆運動の計算。
@@ -164,9 +199,9 @@ public class Bone4IKx : MonoBehaviour
                 theta2buf = theta2;    
             }
         }
-        if(Input.GetKey(KeyCode.RightArrow)||((Input.GetAxis("Vertical")>0.1)&& !Input.GetButton("Shift"))){//エンドエフェクタISS後退方向へ。
+        if(Input.GetKey(KeyCode.RightArrow)||((Input.GetAxis("Horizontal")>0.1)&& !Input.GetButton("Shift"))){//エンドエフェクタISS後退方向へ。
             if(x*x+y*y <= 0.56495*0.56495){//発散防止のIF。
-                x = x - 0.0015f;//アーム操作速度。
+                x = x - 0.0005f;//アーム操作速度。
                 yx = (y*100)/(x*100);
                 //Debug.Log (GameObject.Find("bone.003").transform.position);
                 //ここからtheta1逆運動の計算。
@@ -196,12 +231,12 @@ public class Bone4IKx : MonoBehaviour
             }
         }
 
-        if((Input.GetKey(KeyCode.UpArrow)&& !Input.GetKey("left shift"))||((Input.GetAxis("Horizontal")>0.1))){//エンドエフェクタISS進行方向へ。
+        if((Input.GetKey(KeyCode.UpArrow)&& !Input.GetKey("left shift"))||((Input.GetAxis("Vertical")<-0.1) && !Input.GetButton("Shift"))){//エンドエフェクタISS進行方向へ。
             if(x*x+y_bias*y_bias <= 0.56495*0.56495){//発散防止のIF。
                 ///////////////////////////////////////////
                 //Bone2の角度。
                 ///////////////////////////////////////////
-                thetaBone2 += 0.1;
+                thetaBone2 += 0.05;
                 thetaBone2 = thetaBone2 * (Math.PI / 180);
                 //y = L1 * System.Math.Cos((180-theta1buf)* (Math.PI / 180)) + L2 * System.Math.Cos(Math.Abs(-theta2buf+360-theta1buf)* (Math.PI / 180));
                 y_bias =( (y + y_offset) / System.Math.Cos(thetaBone2))-y_offset;
@@ -238,19 +273,22 @@ public class Bone4IKx : MonoBehaviour
                 this.transform.rotation = this.transform.rotation * q1;
                 theta1buf = theta1;//次のQuaternionに入れるためのBuf。  
                 theta2buf = theta2;
-                
-                //y -= y_offset;
+
+
+                //後処理。
                 thetaBone2 = thetaBone2 * (180 / Math.PI);
+
                 thetaBone2buf = thetaBone2;
+
             }
         }
 
-        if((Input.GetKey(KeyCode.DownArrow)&& !Input.GetKey("left shift"))||((Input.GetAxis("Horizontal")<-0.1))){//エンドエフェクタISS後退方向へ。
+        if((Input.GetKey(KeyCode.DownArrow)&& !Input.GetKey("left shift"))||((Input.GetAxis("Vertical")>0.1) && !Input.GetButton("Shift"))){//エンドエフェクタISS後退方向へ。
             if(x*x+y_bias*y_bias <= 0.56495*0.56495){//発散防止のIF。
                 ///////////////////////////////////////////
                 //Bone2の角度。
                 ///////////////////////////////////////////
-                thetaBone2 -= 0.1;
+                thetaBone2 -= 0.05;
                 thetaBone2 = thetaBone2 * (Math.PI / 180);
                 //y = L1 * System.Math.Cos((180-theta1buf)* (Math.PI / 180)) + L2 * System.Math.Cos(Math.Abs(-theta2buf+360-theta1buf)* (Math.PI / 180));
                 y_bias = ((y + y_offset) / System.Math.Cos(thetaBone2))-y_offset;
@@ -288,8 +326,9 @@ public class Bone4IKx : MonoBehaviour
                 theta1buf = theta1;//次のQuaternionに入れるためのBuf。  
                 theta2buf = theta2;
 
-                //y -= y_offset;
+                //後処理。
                 thetaBone2 = thetaBone2 * (180 / Math.PI);
+
             }
         }
     
